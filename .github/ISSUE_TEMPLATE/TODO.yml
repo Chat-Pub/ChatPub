@@ -1,0 +1,51 @@
+name: TODO List
+description: Add TODO list
+title: "[TODO]: "
+labels: ["todo"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        New issue!
+  - type: textarea
+    id: what-plan
+    attributes:
+      label: What is your suggestion? What we should do?
+      value: "Write here."
+    validations:
+      required: true
+  - type: dropdown
+    id: development-section
+    attributes:
+      label: Development Section
+      description: What is the most related part of work?
+      options:
+        - (There is no correct option)
+        - Data Analysis
+        - Data Engineering
+        - Data Mining
+        - Machine Learning Engineering
+        - Machine Learning Reseach
+        - System Engineering
+        - (Web) Back-end Development
+        - (Web) Front-end Development
+        - Documentation/Presentation
+    validations:
+      required: true
+  - type: dropdown
+    id: assignees
+    attributes:
+      label: Assignees
+      multiple: true
+      options:
+        - zinosii
+        - Kangsan419
+        - sbY99
+        - JunChangM
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant References
+      description: Please fill out any references.
+
+
