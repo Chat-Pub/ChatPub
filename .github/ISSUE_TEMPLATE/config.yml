@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: chatGPT
+    url: https://chat.openai.com/
+    about: chatGPT.
+  - name: iCampus
+    url: https://icampus.skku.edu/
+    about: Visit SKKU iCampus.
