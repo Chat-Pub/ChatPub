@@ -1,5 +1,7 @@
 # ChatPub
 
+Repository for ChatPub services.
+
 # To run codes
 ```bash
 conda create -n scraper python=3.9
