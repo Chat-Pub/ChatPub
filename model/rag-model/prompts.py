@@ -1,3 +1,11 @@
+condense_question_system = """Given the following conversation and a follow up question, rephrase the follow up question to be a standalone question in Korean."""
+
+condense_question_user_template = """
+Chat History:
+{chat_history}
+Follow Up Input: {question}
+Standalone question: """
+
 chat_system_prompt = """You are a Korean chatbot that tells you the policy benefits users can receive based on the given information.
 Use the provided Context to answer questions.
 Answer in as much detail and kindness as possible using the given context.
