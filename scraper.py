@@ -48,7 +48,7 @@ from pprint import pprint
 parser = argparse.ArgumentParser()
 
 def get_id():
-    ids = set()
+    ids = list()
     err_count=0
     url = 'https://www.youthcenter.go.kr/youngPlcyUnif/youngPlcyUnifList.do?'
     url += 'pageIndex=1'
@@ -70,7 +70,8 @@ def get_id():
                 soup = BeautifulSoup(res.text, 'html.parser')
                 for index, contents in enumerate(soup.find_all(class_='tit-wrap')):
                     try:
-                        ids.add((contents.text.replace('\n','').strip(),contents.a.get('id')[8:]))
+                        #'title','R-number'
+                        ids.append((contents.text.replace('\n','').strip(),contents.a.get('id')[8:]))
                     except:
                         continue
                 url = 'https://www.youthcenter.go.kr/youngPlcyUnif/youngPlcyUnifList.do?'
@@ -87,10 +88,10 @@ def get_id():
             continue
 
     ret_list=[]
-    ids=list(ids)
     for index, contents in enumerate(ids):
         contents=list(contents)
         url = "https://www.youthcenter.go.kr/youngPlcyUnif/youngPlcyUnifDtl.do?pageIndex=1&bizId="
+        #add R-number
         url += contents[1]
         contents.append(index)
         contents.append(url)
@@ -225,7 +226,7 @@ if __name__ == '__main__':
     result_list = list()
 
     for index, contents in enumerate(tqdm(YPlist)):
-        #print(index,contents)
+        print(index,contents)
         parsed_data = doc_parser(contents)
         result_list.append({
             'YP': index,
@@ -233,5 +234,5 @@ if __name__ == '__main__':
             'R-number': contents[1],
             'contents': parsed_data,
         })
-
+        ipdb.set_trace()
 
