@@ -34,6 +34,7 @@ import warnings
 import math
 import re
 import json
+import mysql.connector
 
 from bs4 import BeautifulSoup
 from collections import Counter, defaultdict
@@ -45,10 +46,13 @@ from webdriver_manager.chrome import ChromeDriverManager
 from tqdm import tqdm, trange
 from pprint import pprint
 
+TABLEINFO = ['YP_all_overview', 'YP_summary']
+
+
 parser = argparse.ArgumentParser()
 
 def get_id():
-    ids = list()
+    ids = set()
     err_count=0
     url = 'https://www.youthcenter.go.kr/youngPlcyUnif/youngPlcyUnifList.do?'
     url += 'pageIndex=1'
@@ -71,7 +75,7 @@ def get_id():
                 for index, contents in enumerate(soup.find_all(class_='tit-wrap')):
                     try:
                         #'title','R-number'
-                        ids.append((contents.text.replace('\n','').strip(),contents.a.get('id')[8:]))
+                        ids.add((contents.text.replace('\n','').strip(),contents.a.get('id')[8:]))
                     except:
                         continue
                 url = 'https://www.youthcenter.go.kr/youngPlcyUnif/youngPlcyUnifList.do?'
@@ -87,6 +91,7 @@ def get_id():
             time.sleep(1)
             continue
 
+    ids=list(ids)
     ret_list=[]
     for index, contents in enumerate(ids):
         contents=list(contents)
@@ -114,13 +119,17 @@ def doc_parser(contents):
     '''
     The codes below are process of extracting data field
     data will be stored in return_dict
+
+    replace " to ' handle sql insertion error
     '''
 
     #main title
     main_title = Tag_list.find("h2").text
-    
+    main_title = main_title.replace("\"","'")
+
     #short description
     short_description = Tag_list.find(class_="doc_desc").text
+    short_description = short_description.replace("\"","'")
 
     #SUMMARY dictionary
     summary_dict = defaultdict()
@@ -217,8 +226,44 @@ def doc_parser(contents):
 
     return return_dict
 
+def insert_YP_all_overview(conn, result_list):
+    cursor = conn.cursor()
+    for index, contents in enumerate(tqdm(result_list)):
+        YP = str(contents['YP'])
+        title = contents['title']
+        R_number = contents['R-number']
+        url = contents['contents']['url']
+        main_title = contents['contents']['main_title']
+        short_description = contents['contents']['short_description']
+        values_format = tuple([YP, title, R_number, url, main_title, short_description])
+
+        sql = "INSERT INTO " + "YP_all_overview " + "VALUES " + \
+        "(\"{}\")".format("\", \"".join(values_format))
+
+        cursor.execute(sql)
+        
+    conn.commit()
+
+def insert_table(result_list):
+    try:
+        conn = mysql.connector.connect(
+            user='root',
+            password='1234',
+            host='localhost',
+            port=3306,
+            database='ChatPub',
+        )
+    except mysql.connector.Error as e:
+        print(f"Error connecting to MariaDB Platform: {e}")
+        return
+    
+    insert_YP_all_overview(conn, result_list)
+
+
 if __name__ == '__main__':
+    start_time = time.time()
     print("Start crawling...")
+
     YPlist = get_id()
 
     print(f"The number of data : {len(YPlist)}")
@@ -226,7 +271,7 @@ if __name__ == '__main__':
     result_list = list()
 
     for index, contents in enumerate(tqdm(YPlist)):
-        print(index,contents)
+        #print(index,contents)
         parsed_data = doc_parser(contents)
         result_list.append({
             'YP': index,
@@ -234,5 +279,9 @@ if __name__ == '__main__':
             'R-number': contents[1],
             'contents': parsed_data,
         })
-        ipdb.set_trace()
 
+
+    print("Start insertion...")
+    insert_table(result_list)
+
+    print(f"Process was finished. It takes {time.time()-start_time} sec.")
