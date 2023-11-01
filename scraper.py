@@ -70,6 +70,8 @@ def get_id(conn):
                 print("result-num error : cannot find result-num")
                 break
             pages = math.ceil(total_num/12)
+
+            #get r_number by changing url
             for page_idx in range(2,2+pages):
                 headers = Headers(headers=True).generate()
                 res = requests.get(url, headers=headers)
@@ -101,6 +103,8 @@ def get_id(conn):
 
     #new policies
     data_to_be_added = ids - data_in_db
+    
+    print(f"There are new {len(data_to_be_added)} policies.")
 
     #final dataset, origin dataset(could be updated) + new dataset(should be added)
     data_final = sorted(list(data_in_db)) + sorted(list(data_to_be_added))
@@ -164,6 +168,7 @@ def doc_parser(contents):
                 if v != '':
                     newvalue += '\n'
             value = newvalue.strip('\n')
+        value = value.replace("\"","'")
         summary_dict[key] = value
     
     #QUALIFICATION dictionary
@@ -185,6 +190,7 @@ def doc_parser(contents):
                 if v != '':
                     newvalue += '\n'
             value = newvalue.strip('\n')
+        value = value.replace("\"","'")
         qualification_dict[key] = value
 
     #METHODS dictionary
@@ -206,6 +212,7 @@ def doc_parser(contents):
                 if v != '':
                     newvalue += '\n'
             value = newvalue.strip('\n')
+        value = value.replace("\"","'")
         methods_dict[key] = value
 
     #ETC dictionary
@@ -227,6 +234,7 @@ def doc_parser(contents):
                 if v != '':
                     newvalue += '\n'
             value = newvalue.strip('\n')
+        value = value.replace("\"","'")
         etc_dict[key] = value
 
     #store into return_dictionary
@@ -240,29 +248,54 @@ def doc_parser(contents):
 
     return return_dict
 
-def insert_YP_all_overview(conn, result_list):
+def insert_yp_all_overview(conn, result_list):
     cursor = conn.cursor()
-    scheme_format = ['YP', 'title', 'r_number', 'url', 'main_title', 'short_description']
+    scheme_format = ['yp', 'title', 'r_number', 'url', 'main_title', 'short_description']
     for index, contents in enumerate(tqdm(result_list)):
-        YP = str(contents['YP'])
+        yp = str(contents['yp'])
         title = contents['title']
         r_number = contents['r_number']
         url = contents['contents']['url']
         main_title = contents['contents']['main_title']
         short_description = contents['contents']['short_description']
-        values_format = tuple([YP, title, r_number, url, main_title, short_description])
+        values_format = tuple([yp, title, r_number, url, main_title, short_description])
 
-        sql = "INSERT INTO " + "YP_all_overview " + "VALUES " + \
+        sql = "INSERT INTO " + "yp_all_overview " + "VALUES " + \
         "(\"{}\")".format("\", \"".join(values_format)) + \
         " ON DUPLICATE KEY UPDATE " + \
         ", ".join([f'{scheme} = "{value}"' for scheme, value in zip(scheme_format, values_format) if scheme != 'YP'])
-        ipdb.set_trace()
+        
         cursor.execute(sql)
         
     conn.commit()
+    return
+
+def insert_yp_summary(conn, result_list):
+    cursor = conn.cursor()
+    scheme_format = ['yp', 'policy_area', 'support_content', 'operation_period', 'application_period', 'supprot_scale', 'remarks']
+    for index, contents in enumerate(tqdm(result_list)):
+        yp = str(contents['yp'])
+        policy_area = contents['contents']['summary']['정책 분야']
+        support_content = contents['contents']['summary']['지원 내용']
+        operation_period = contents['contents']['summary']['사업 운영 기간']
+        application_period = contents['contents']['summary']['사업 신청 기간']
+        supprot_scale = contents['contents']['summary']['지원 규모(명)']
+        remarks = contents['contents']['summary']['비고']
+        values_format = tuple([yp, policy_area, support_content, operation_period, application_period, supprot_scale, remarks])
+
+        sql = "INSERT INTO " + "yp_summary " + "VALUES " + \
+        "(\"{}\")".format("\", \"".join(values_format)) + \
+        " ON DUPLICATE KEY UPDATE " + \
+        ", ".join([f'{scheme} = "{value}"' for scheme, value in zip(scheme_format, values_format) if scheme != 'YP'])
+        
+        cursor.execute(sql)
+        
+    conn.commit()
+    return
 
 def insert_table(conn, result_list):
-    insert_YP_all_overview(conn, result_list)
+    insert_yp_all_overview(conn, result_list)
+    insert_yp_summary(conn, result_list)
 
 
 if __name__ == '__main__':
@@ -291,18 +324,17 @@ if __name__ == '__main__':
     result_list = list()
 
     for index, contents in enumerate(tqdm(YPlist)):
-        if index==2:
+        if index==20:
             break
         parsed_data = doc_parser(contents)
         result_list.append({
-            'YP': index,
+            'yp': index,
             'title': contents[0],
             'r_number': contents[1],
             'contents': parsed_data,
         })
 
-
     print("Start insertion...")
-    insert_table(result_list)
+    insert_table(conn, result_list)
 
     print(f"Process was finished. It takes {time.time()-start_time} sec.")
