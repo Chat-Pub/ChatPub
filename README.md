@@ -11,3 +11,5 @@ conda activate scraper
 pip install -r requirements.txt
 python scraper.py
 ```
+There is DDL for database.<br>
+The create_DDL.ipynb file is for creating database tables.
