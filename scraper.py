@@ -48,11 +48,13 @@ from pprint import pprint
 
 TABLEINFO = ['YP_all_overview', 'YP_summary']
 
-
 parser = argparse.ArgumentParser()
 
-def get_id():
+def get_id(conn):
+
+    #ids will count all data in web.
     ids = set()
+
     err_count=0
     url = 'https://www.youthcenter.go.kr/youngPlcyUnif/youngPlcyUnifList.do?'
     url += 'pageIndex=1'
@@ -74,7 +76,7 @@ def get_id():
                 soup = BeautifulSoup(res.text, 'html.parser')
                 for index, contents in enumerate(soup.find_all(class_='tit-wrap')):
                     try:
-                        #'title','R-number'
+                        #'title','r_number'
                         ids.add((contents.text.replace('\n','').strip(),contents.a.get('id')[8:]))
                     except:
                         continue
@@ -91,9 +93,20 @@ def get_id():
             time.sleep(1)
             continue
 
-    ids=list(ids)
+    #fetch data from database
+    cursor = conn.cursor()
+    sql = "SELECT title, r_number FROM yp_all_overview"
+    cursor.execute(sql)
+    data_in_db = set(cursor.fetchall())
+
+    #new policies
+    data_to_be_added = ids - data_in_db
+
+    #final dataset, origin dataset(could be updated) + new dataset(should be added)
+    data_final = sorted(list(data_in_db)) + sorted(list(data_to_be_added))
+    
     ret_list=[]
-    for index, contents in enumerate(ids):
+    for index, contents in enumerate(data_final):
         contents=list(contents)
         url = "https://www.youthcenter.go.kr/youngPlcyUnif/youngPlcyUnifDtl.do?pageIndex=1&bizId="
         #add R-number
@@ -101,6 +114,7 @@ def get_id():
         contents.append(index)
         contents.append(url)
         ret_list.append(contents)
+
     return ret_list
 
 def doc_parser(contents):
@@ -228,23 +242,35 @@ def doc_parser(contents):
 
 def insert_YP_all_overview(conn, result_list):
     cursor = conn.cursor()
+    scheme_format = ['YP', 'title', 'r_number', 'url', 'main_title', 'short_description']
     for index, contents in enumerate(tqdm(result_list)):
         YP = str(contents['YP'])
         title = contents['title']
-        R_number = contents['R-number']
+        r_number = contents['r_number']
         url = contents['contents']['url']
         main_title = contents['contents']['main_title']
         short_description = contents['contents']['short_description']
-        values_format = tuple([YP, title, R_number, url, main_title, short_description])
+        values_format = tuple([YP, title, r_number, url, main_title, short_description])
 
         sql = "INSERT INTO " + "YP_all_overview " + "VALUES " + \
-        "(\"{}\")".format("\", \"".join(values_format))
-
+        "(\"{}\")".format("\", \"".join(values_format)) + \
+        " ON DUPLICATE KEY UPDATE " + \
+        ", ".join([f'{scheme} = "{value}"' for scheme, value in zip(scheme_format, values_format) if scheme != 'YP'])
+        ipdb.set_trace()
         cursor.execute(sql)
         
     conn.commit()
 
-def insert_table(result_list):
+def insert_table(conn, result_list):
+    insert_YP_all_overview(conn, result_list)
+
+
+if __name__ == '__main__':
+    start_time = time.time()
+    print("This code is web crawler of ChatPub Service. Final updated date is 20231101.\n")
+    print("Start crawling...")
+
+    #connect with database
     try:
         conn = mysql.connector.connect(
             user='root',
@@ -255,28 +281,23 @@ def insert_table(result_list):
         )
     except mysql.connector.Error as e:
         print(f"Error connecting to MariaDB Platform: {e}")
-        return
+        exit(0)
     
-    insert_YP_all_overview(conn, result_list)
+    #title, r_number, yp, url
+    YPlist = get_id(conn)
 
-
-if __name__ == '__main__':
-    start_time = time.time()
-    print("Start crawling...")
-
-    YPlist = get_id()
-
-    print(f"The number of data : {len(YPlist)}")
+    print(f"The number of total data : {len(YPlist)}")
 
     result_list = list()
 
     for index, contents in enumerate(tqdm(YPlist)):
-        #print(index,contents)
+        if index==2:
+            break
         parsed_data = doc_parser(contents)
         result_list.append({
             'YP': index,
             'title': contents[0],
-            'R-number': contents[1],
+            'r_number': contents[1],
             'contents': parsed_data,
         })
 

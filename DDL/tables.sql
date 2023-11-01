@@ -1,21 +1,21 @@
-CREATE TABLE `YP_all_overview` (
-  `YP` varchar(15) NOT NULL COMMENT 'YP ID',
+CREATE TABLE `yp_all_overview` (
+  `yp` varchar(15) NOT NULL COMMENT 'YP ID',
   `title` varchar(255) DEFAULT NULL,
-  `R-number` varchar(15) DEFAULT NULL,
+  `r_number` varchar(15) DEFAULT NULL,
   `url` varchar(255) DEFAULT NULL,
   `main_title` varchar(255) DEFAULT NULL,
-  `short_description` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`YP`)
+  `short_description` text DEFAULT NULL,
+  PRIMARY KEY (`yp`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-CREATE TABLE `YP_summary` (
-  `YP` varchar(15) NOT NULL COMMENT 'YP ID',
+CREATE TABLE `yp_summary` (
+  `yp` varchar(15) NOT NULL COMMENT 'YP ID',
   `policy_area` varchar(15) DEFAULT NULL,
-  `support_content` varchar(255) DEFAULT NULL,
-  `operation_period` varchar(255) DEFAULT NULL,
-  `application_period` varchar(255) DEFAULT NULL,
-  `supprot_scale` varchar(255) DEFAULT NULL,
-  `remarks` varchar(255) DEFAULT NULL, 
-  PRIMARY KEY (`YP`)
+  `support_content` text DEFAULT NULL,
+  `operation_period` text DEFAULT NULL,
+  `application_period` text DEFAULT NULL,
+  `supprot_scale` text DEFAULT NULL,
+  `remarks` text DEFAULT NULL, 
+  PRIMARY KEY (`yp`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
