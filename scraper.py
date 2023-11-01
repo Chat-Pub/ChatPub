@@ -293,9 +293,81 @@ def insert_yp_summary(conn, result_list):
     conn.commit()
     return
 
+def insert_yp_qualification(conn, result_list):
+    cursor = conn.cursor()
+    scheme_format = ['yp', 'age', 'residence_income', 'education', 'major', 'employment_status', 'specialization', 'additional_info', 'eligibility']
+    for index, contents in enumerate(tqdm(result_list)):
+        yp = str(contents['yp'])
+        age = contents['contents']['qualification']['연령']
+        residence_income = contents['contents']['qualification']['거주지 및 소득']
+        education = contents['contents']['qualification']['학력']
+        major = contents['contents']['qualification']['전공']
+        employment_status = contents['contents']['qualification']['취업 상태']
+        specialization = contents['contents']['qualification']['특화 분야']
+        additional_info = contents['contents']['qualification']['추가 단서 사항']
+        eligibility = contents['contents']['qualification']['참여 제한 대상']
+        values_format = tuple([yp, age, residence_income, education, major, employment_status, specialization, additional_info, eligibility])
+
+        sql = "INSERT INTO " + "yp_qualification " + "VALUES " + \
+        "(\"{}\")".format("\", \"".join(values_format)) + \
+        " ON DUPLICATE KEY UPDATE " + \
+        ", ".join([f'{scheme} = "{value}"' for scheme, value in zip(scheme_format, values_format) if scheme != 'YP'])
+        
+        cursor.execute(sql)
+        
+    conn.commit()
+    return
+
+def insert_yp_methods(conn, result_list):
+    cursor = conn.cursor()
+    scheme_format = ['yp', 'application_procedure', 'evaluation_announcement', 'application_website', 'required_documents']
+    for index, contents in enumerate(tqdm(result_list)):
+        yp = str(contents['yp'])
+        application_procedure = contents['contents']['methods']['신청 절차']
+        evaluation_announcement = contents['contents']['methods']['심사 및 발표']
+        application_website = contents['contents']['methods']['신청 사이트']
+        required_documents = contents['contents']['methods']['제출 서류']
+        values_format = tuple([yp, application_procedure, evaluation_announcement, application_website, required_documents])
+
+        sql = "INSERT INTO " + "yp_methods " + "VALUES " + \
+        "(\"{}\")".format("\", \"".join(values_format)) + \
+        " ON DUPLICATE KEY UPDATE " + \
+        ", ".join([f'{scheme} = "{value}"' for scheme, value in zip(scheme_format, values_format) if scheme != 'YP'])
+        
+        cursor.execute(sql)
+        
+    conn.commit()
+    return
+
+def insert_yp_etc(conn, result_list):
+    cursor = conn.cursor()
+    scheme_format = ['yp', 'other_info', 'host_organization', 'operating_organization', 'reference_1', 'reference_2', 'attachments']
+    for index, contents in enumerate(tqdm(result_list)):
+        yp = str(contents['yp'])
+        other_info = contents['contents']['etc']['기타 유익 정보']
+        host_organization = contents['contents']['etc']['주관 기관']
+        operating_organization = contents['contents']['etc']['운영 기관']
+        reference_1 = contents['contents']['etc']['사업관련 참고 사이트 1']
+        reference_2 = contents['contents']['etc']['사업관련 참고 사이트 2']
+        attachments = contents['contents']['etc']['첨부파일']
+        values_format = tuple([yp, other_info, host_organization, operating_organization, reference_1, reference_2, attachments])
+
+        sql = "INSERT INTO " + "yp_etc " + "VALUES " + \
+        "(\"{}\")".format("\", \"".join(values_format)) + \
+        " ON DUPLICATE KEY UPDATE " + \
+        ", ".join([f'{scheme} = "{value}"' for scheme, value in zip(scheme_format, values_format) if scheme != 'YP'])
+        
+        cursor.execute(sql)
+        
+    conn.commit()
+    return
+
 def insert_table(conn, result_list):
     insert_yp_all_overview(conn, result_list)
     insert_yp_summary(conn, result_list)
+    insert_yp_qualification(conn, result_list)
+    insert_yp_methods(conn, result_list)
+    insert_yp_etc(conn, result_list)
 
 
 if __name__ == '__main__':
@@ -324,8 +396,6 @@ if __name__ == '__main__':
     result_list = list()
 
     for index, contents in enumerate(tqdm(YPlist)):
-        if index==20:
-            break
         parsed_data = doc_parser(contents)
         result_list.append({
             'yp': index,
@@ -334,7 +404,8 @@ if __name__ == '__main__':
             'contents': parsed_data,
         })
 
-    print("Start insertion...")
+    print("\nStart insertion...")
     insert_table(conn, result_list)
 
+    conn.close()
     print(f"Process was finished. It takes {time.time()-start_time} sec.")
