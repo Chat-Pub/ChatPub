@@ -1,3 +1,4 @@
+
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 
@@ -14,8 +15,8 @@ router = APIRouter(
 
 # 라우터에 Pydantic 적용하기
 # response_model=list[question_schema.Question]의 의미는 question_list 함수의 리턴값은 Question 스키마로 구성된 리스트임을 의미한다.
-# @router.get("/list", response_model=list[question_schema.Question])
-def question_list(db :Session = Depends(get_db)):
+@router.get("/list", response_model=list[question_schema.Question])
+def question_list(db: Session = Depends(get_db)):
     # # db = SessionLocal()
     # # _question_list = db.query(Questoion).order_by(Question.create_date.desc()).all()
     # # # db.close() 함수는 사용한 세션을 컨넥션 풀에 반환하는 함수이다. (세션을 종료하는 것으로 착각하지 말자.)
