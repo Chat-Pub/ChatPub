@@ -6,7 +6,7 @@ Repository for ChatPub services.
 
 How to run scraper.py?
 ```bash
-conda create -n scraper python=3.9
+conda create -n scraper python=3.10
 conda activate scraper
 pip install -r requirements.txt
 python scraper.py
