@@ -1,6 +1,7 @@
 
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
+from starlette import status
 
 from database import get_db
 from domain.question import question_schema, question_crud
@@ -15,8 +16,10 @@ router = APIRouter(
 
 # 라우터에 Pydantic 적용하기
 # response_model=list[question_schema.Question]의 의미는 question_list 함수의 리턴값은 Question 스키마로 구성된 리스트임을 의미한다.
-@router.get("/list", response_model=list[question_schema.Question])
-def question_list(db: Session = Depends(get_db)):
+#@router.get("/list", response_model=list[question_schema.Question])
+@router.get("/list", response_model=question_schema.QuestionList)
+def question_list(db: Session = Depends(get_db),
+                  page: int =0, size: int = 10):
     # # db = SessionLocal()
     # # _question_list = db.query(Questoion).order_by(Question.create_date.desc()).all()
     # # # db.close() 함수는 사용한 세션을 컨넥션 풀에 반환하는 함수이다. (세션을 종료하는 것으로 착각하지 말자.)
@@ -27,6 +30,23 @@ def question_list(db: Session = Depends(get_db)):
     # # db.close()
     # with get_db() as db: 대신에 함수에 변수로서 넣을 수도 있다.
     
-    _question_list = question_crud.get_question_list(db)
+    # _question_list = question_crud.get_question_list(db)
 
-    return _question_list
+    # return _question_list
+    total, _question_list = question_crud.get_question_list(
+        db,skip=page*size, limit=size)
+    return {
+        'total' : total,
+        'question_list': _question_list
+    }
+
+
+@router.get("/detail/{question_id}", response_model=question_schema.Question)
+def question_detail(question_id: int, db: Session = Depends(get_db)):
+    question = question_crud.get_question(db,question_id=question_id)
+    return question
+
+@router.post("/create", status_code=status.HTTP_204_NO_CONTENT)
+def question_create(_question_create: question_schema.QuestionCreate,
+                    db: Session = Depends(get_db)):
+    question_crud.create_question(db=db,question_create=_question_create)

@@ -21,3 +21,11 @@ class Answer(Base):
     question = relationship("Question", backref="answers")
     # relationship으로 question 속성을 생성하면 
     # 답변 객체(예: answer)에서 연결된 질문의 제목을 answer.question.subject처럼 참조할 수 있다.
+
+class User(Base):
+    __tablename__ = "user"
+
+    id = Column(Integer, primary_key=True)
+    username = Column(String, unique=True, nullable=False)
+    password = Column(String, nullable=False)
+    email = Column(String, unique=True, nullable=False)
