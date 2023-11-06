@@ -18,3 +18,11 @@ class UserCreate(BaseModel):
         if 'password1' in values and v != values['password1']:
             raise ValueError('비밀번호가 일치하지 않습니다')
         return v
+
+
+# 로그인 API의 입력 스키마는 fastapi의 security 패키지에 있는 OAuth2PasswordRequestForm 클래스를 사용하므로 따로 만들 필요가 없다. 
+# 출력항목에 해당하는 스키마만 다음과 같이 작성하면 된다.
+class Token(BaseModel):
+    access_token: str
+    token_type: str
+    username: str
