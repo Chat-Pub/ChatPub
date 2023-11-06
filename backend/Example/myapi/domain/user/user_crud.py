@@ -10,7 +10,7 @@ def create_user(db: Session, user_create: UserCreate):
     db_user = User(username=user_create.username,
                    password=pwd_context.hash(user_create.password1),
                    email=user_create.email)
-    db.user(db_user)
+    db.add(db_user) 
     db.commit()
 
 def get_existing_user(db: Session, user_create: UserCreate):
