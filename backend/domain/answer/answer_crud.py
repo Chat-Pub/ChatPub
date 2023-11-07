@@ -20,7 +20,6 @@ def get_answer(db:Session, answer_id: int):
 
 def update_answer(db:Session, db_answer: Answer, answer_update: AnswerUpdate):
     db_answer.content = answer_update.content
-    db_answer.modify_date = datetime.now()
     db.add(db_answer)
     db.commit()
 
@@ -28,6 +27,3 @@ def delete_answer(db:Session, db_answer: Answer):
     db.delete(db_answer)
     db.commit()
 
-def vote_answer(db:Session, db_answer: Answer, db_user: User):
-    db_answer.voter.append(db_user)
-    db.commit()

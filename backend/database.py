@@ -2,8 +2,14 @@ from sqlalchemy import *
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
-DB_URL = 'mysql+pymysql://{root}:{1234}@{localhost}:{3306}/{test}'
-# DB_URL = 'mysql+pymysql://{USERNAME}:{PASSWORD}@{HOST}:{PORT}/{DBNAME}'
+from pathlib import Path
+from dotenv import load_dotenv
+import os
+
+env_path = Path('.', '.env')
+load_dotenv(dotenv_path=env_path)
+
+DB_URL = 'mysql+pymysql://{}:{}@{}:{}/{}'.format(os.environ.get('USERNAME'),os.environ.get('PASSWORD'),os.environ.get('HOST'),os.environ.get('PORT'),os.environ.get('DBNAME'))
 engine = create_engine(
     DB_URL, connect_args={"check_same_thread": False}
 )

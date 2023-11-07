@@ -13,8 +13,6 @@ class Question(BaseModel):
     create_date: datetime.datetime
     answers: list[Answer] = []
     user: User | None
-    modify_date: datetime.datetime | None = None
-    voter: list[User] = []
 
     # orm_mode 항목을 True로 설정하면 Question 모델의 항목들이 자동으로 Question 스키마로 매핑된다.
     class Config:
@@ -42,7 +40,4 @@ class QuestionUpdate(QuestionCreate):
     question_id: int
 
 class QuestionDelete(BaseModel):
-    question_id: int
-
-class QuestionVote(BaseModel):
     question_id: int

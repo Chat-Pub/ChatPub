@@ -18,7 +18,7 @@ from domain.user.user_crud import pwd_context
 # SECRET_KEY - 암호화시 사용하는 64자리의 랜덤한 문자열이다. => SECRET_KEY를 생성 : openssl rand -hex 32
 # ALGORITHM - 토큰 생성시 사용하는 알고리즘을 의미하며 여기서는 HS256을 사용한다.
 ACCESS_TOKEN_EXPIRE_MINUTES = 60 * 24
-SECRET_KEY = "ebadceae5c96b2bfb261170111a4ed6f726d791b30e345caa26df687ecab9326"
+SECRET_KEY = "28f2ed7da28d587ccba3c38d335530d77aaff6dc2f1eb9b9ebaad2647b9ce93c"
 ALGORITHM = "HS256"
 # Auth2PasswordBearer(tokenUrl="/api/user/login")에서 사용한 tokenUrl은 로그인 API의 URL
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/api/user/login")

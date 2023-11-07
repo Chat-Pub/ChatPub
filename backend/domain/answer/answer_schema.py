@@ -20,8 +20,6 @@ class Answer(BaseModel):
     create_date: datetime.datetime
     user: User | None
     question_id: int
-    modify_date: datetime.datetime | None=None
-    voter: list[User] = []
     class config:
         # 조회한 모델의 속성을 스키마에 매핑하기 위해 orm_mode를 True로 설정했다.
         orm_mode = True
@@ -32,5 +30,3 @@ class AnswerUpdate(AnswerCreate):
 class AnswerDelete(BaseModel):
     answer_id: int
 
-class AnswerVote(BaseModel):
-    answer_id: int
