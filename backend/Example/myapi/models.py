@@ -5,12 +5,21 @@ from database import Base
 
 # SQLAlchemy에서 ManyToMany 관계를 적용하는 방법
 # ManyToMany 관계를 적용하기 위해서는 sqlalchemy의 Table을 사용하여 N:N 관계를 의미하는 테이블을 먼저 생성해야 한다.
-question_voter  = Table(
+question_voter = Table(
     'question_voter',
     Base.metadata,
     Column('user_id', Integer, ForeignKey('user.id'), primary_key=True),
     Column('question_id', Integer, ForeignKey('question.id'), primary_key=True)
 )
+
+answer_voter = Table(
+    'answer_voter',
+    Base.metadata,
+    Column('user_id', Integer, ForeignKey('user.id'), primary_key=True),
+    Column('answer_id', Integer, ForeignKey('answer.id'), primary_key=True)
+)
+
+
 
 class Question(Base):
     __tablename__ = "question"
@@ -28,15 +37,8 @@ class Question(Base):
     # secondary 값으로 위에서 생성한 question_voter 테이블 객체를 지정해 주었다는 점이다. 
     # 이렇게 하면 Question 모델을 통해 추천인을 저장하면 
     # 실제 데이터는 question_voter 테이블에 저장되고 저장된 추천인 정보는 Question 모델의 voter 속성을 통해 참조할수 있게 된다.
-    voter = relationship('User', secondary=question_voter, backref='question_voter')
+    voter = relationship('User', secondary=question_voter, backref='question_voters')
 
-
-answer_voter = Table(
-    'answer_voter',
-    Base.metadata,
-    Column('user_id', Integer, ForeignKey('user.id'), primary_key=True),
-    Column('answer_id', Integer, ForeignKey('answer.id'), primary_key=True)
-)
 
 class Answer(Base):
     __tablename__ = "answer"
