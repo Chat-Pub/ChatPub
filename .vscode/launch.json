@@ -1,0 +1,19 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Python: Current File",
+            "type": "python",
+            "request": "launch",
+            "program": "model/sentence_transformers/train.py", // 어떤 python 파일을 실행할 것인지
+            "args": [
+                "--model_name","skt/kobert-base-v1",
+                "--max_length","256",
+                "--train_batch_size","3",
+                "--learning_rate","1e-5",
+                "--epoch","3"
+            ], 
+            "console": "integratedTerminal"
+        }
+    ]
+}
