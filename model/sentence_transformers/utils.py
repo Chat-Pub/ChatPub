@@ -1,9 +1,15 @@
 from torch.nn.utils.rnn import pad_sequence
 from transformers import AutoTokenizer
-import numpy as np
 import torch
+import numpy as np
+import evaluate
+
 
 PAD_VALUE = 0
+
+def compute_acc(predictions, target_labels):
+    return (np.array(predictions) == np.array(target_labels)).mean()
+
 
 class Dataset(object):
     def __init__(self, tokenizer, max_length, dataset):
@@ -80,3 +86,18 @@ def mean_pool(token_embeds, attention_mask):
             in_mask.sum(1), min=1e-9
         )
         return pool
+
+def metrics(predictions, target_labels, average):
+    f1_metric = evaluate.load("f1")
+    precision_metric = evaluate.load("precision")
+    recall_metric = evaluate.load("recall")
+
+    acc = compute_acc(predictions, target_labels)
+    precision = precision_metric.compute(
+        predictions=predictions, references=target_labels, average=average)['precision']
+    recall = recall_metric.compute(
+        predictions=predictions, references=target_labels, average=average)['recall']
+    f1 = f1_metric.compute(
+        predictions=predictions, references=target_labels, average=average)['f1']
+
+    return acc, precision, recall, f1

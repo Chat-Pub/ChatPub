@@ -7,11 +7,14 @@
             "request": "launch",
             "program": "model/sentence_transformers/train.py", // 어떤 python 파일을 실행할 것인지
             "args": [
-                "--model_name","skt/kobert-base-v1",
-                "--max_length","256",
-                "--train_batch_size","3",
-                "--learning_rate","1e-5",
-                "--epoch","3"
+                "--model_name","BM-K/KoSimCSE-roberta",
+                "--max_length","128",
+                "--train_batch_size","128",
+                "--eval_batch_size","128",
+                "--learning_rate","2e-5",
+                "--epoch","5",
+                "--train_data","model/sentence_transformers/data/kor_squad/train.json",
+                "--valid_data","model/sentence_transformers/data/kor_squad/valid.json"
             ], 
             "console": "integratedTerminal"
         }
