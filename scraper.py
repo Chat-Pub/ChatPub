@@ -486,10 +486,14 @@ def data_generation(result_list):
 
         #print(train_data
         with open(f'data{index}.json', 'w', encoding='utf-8') as file:
-            json.dump(train_data, file, ensure_ascii=False)
+            json.dump(train_data, file, ensure_ascii=False, indent=4)
 
-        shutil.move(f'data{index}.json', "./model/train_dataset")
-        
+        try:
+            shutil.move(f'data{index}.json', "./model/train_dataset")
+        except:
+            shutil.copy2(f'data{index}.json', f"./model/train_dataset/data{index}.json")
+            os.remove(f'data{index}.json')
+
     ipdb.set_trace()
 
 
