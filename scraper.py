@@ -35,6 +35,9 @@ import math
 import re
 import json
 import mysql.connector
+import openai
+import yaml
+import shutil
 
 from bs4 import BeautifulSoup
 from collections import Counter, defaultdict
@@ -369,10 +372,130 @@ def insert_table(conn, result_list):
     insert_yp_methods(conn, result_list)
     insert_yp_etc(conn, result_list)
 
+def data_generation(result_list):
+    with open('./env.yml') as f:
+        env = yaml.load(f, Loader=yaml.FullLoader)
+
+    #input your api
+    openai.api_key = env['api_key']
+
+    system_prompt = """You are an expert in question generation.
+    Your task is, when you receive information about Korea's youth policy, 
+    generate questions that can deduce the answer from the policy information.
+
+    Policy information will be provided in the form of scheme : data
+    Make sure to use at least two scheme.
+
+
+    Example : 
+
+    예시 1:
+    정책 정보:
+    제목: 고양청년 창업 재정지원 프로그램
+    지원내용: 참신한 아이디어와 사업성을 가진 고양시 청년들의 창업 성공 가능성을 높이기 위한 실효성 있는 시책 추진
+    신청 절차: 경기신용보증재단 고양지점 방문상담
+    경기신용보증재단 고양지점 - 1577-5900
+    (고양시 일산서구 중앙로 1442, 5층)
+    심사 및 발표: 개별 안내
+    신청 사이트: https://www.goyang.go.kr/www/www03/www03_8/www03_8_14/www03_8_14_tab2.jsp
+    제출 서류: 신분증 및 사업자 등록증
+    연령: 만 18세 ~ 39세
+    거주지 및 소득: 고양시에 사업자 등록 및 매출이 발생한 청년 창업자(실제 매출이 발생하는지 실사 진행 후 대출 실행)
+    학력: 제한없음
+    전공: 제한없음
+    취업 상태: 제한없음
+    특화 분야: 제한없음
+    추가 단서 사항: 개인 신용도에 따라 최대 보증금액 및 이율 상이
+    참여 제한 대상: 타지역 또는 창업후 5년 이상
+
+    Example for output :
+    Q : 고양시에서 창업하는 30세인데 지원받을 만한 정책 프로그램 있어?
+    """
+
+    user_prompt = """
+    Make one question using the policy information given below
+    정책 정보: {passage}
+    """
+    
+    def generate_question(passage):
+        messages =[
+            {'role':'system', 'content':system_prompt},
+            {'role':'user', 'content':user_prompt.format(passage=passage)}
+        ]
+        response = openai.ChatCompletion.create(
+            model="gpt-3.5-turbo",
+            messages=messages,
+            temperature=0,
+            max_tokens=1000,
+            top_p=1.0,
+            frequency_penalty=0,
+            presence_penalty=0
+        )
+
+        return response['choices'][0]['message']['content']
+
+    train_dataset=[]
+    for index, contents_yp in enumerate(tqdm(result_list)):
+        #MAIN TASK : Generate Questions
+        
+        train_data=[]
+
+        #TASK1 : Generate Question with 'short_description'
+        content = f"지원내용: {contents_yp['contents']['short_description']}\n"
+
+        generated_question = generate_question(content)
+        # print()
+        # print(generated_question)
+        train_data.append({'question':generated_question,'passage':content})
+
+        #TASK2 : Generate Question with 'title', 'methods'
+        content = f"제목: {contents_yp['contents']['main_title']}\n"
+        methods = contents_yp['contents']['methods']
+        for key, value in methods.items():
+            if value != '-' and value != None:
+                content += f'{key}: {value}\n'
+
+        generated_question = generate_question(content)
+        # print()
+        # print(generated_question)
+        train_data.append({'question':generated_question,'passage':content})
+
+        #TASK3 : Generate Question with 'title', 'qualification'
+        content = f"제목: {contents_yp['contents']['main_title']}\n"
+        qualification = contents_yp['contents']['qualification']
+        for key, value in qualification.items():
+            if value != '-' and value != None:
+                content += f'{key}: {value}\n'
+
+        generated_question = generate_question(content)
+        # print()
+        # print(generated_question)
+        train_data.append({'question':generated_question,'passage':content})
+
+        #TASK4 : Generate Question with 'title', 'summary'
+        content = f"제목: {contents_yp['contents']['main_title']}\n"
+        summary = contents_yp['contents']['summary']
+        for key, value in summary.items():
+            if value != '-' and value != None:
+                content += f'{key}: {value}\n'
+
+        generated_question = generate_question(content)
+        # print()
+        # print(generated_question)
+        train_data.append({'question':generated_question,'passage':content})
+
+        #print(train_data
+        with open(f'data{index}.json', 'w', encoding='utf-8') as file:
+            json.dump(train_data, file, ensure_ascii=False)
+
+        shutil.move(f'data{index}.json', "./model/train_dataset")
+        
+    ipdb.set_trace()
+
 
 if __name__ == '__main__':
     start_time = time.time()
-    print("This code is web crawler of ChatPub Service. Final updated date is 20231101.\n")
+    print("This code is web crawler of ChatPub Service. Final updated date is 20231113.\n")
     print("Start crawling...")
 
     #connect with database
@@ -403,9 +526,17 @@ if __name__ == '__main__':
             'r_number': contents[1],
             'contents': parsed_data,
         })
+        if index==10:
+            break
+
+
+    print("\nStart data generation...")
+    data_generation(result_list)
 
     print("\nStart insertion...")
     insert_table(conn, result_list)
 
     conn.close()
+
+
     print(f"Process was finished. It takes {time.time()-start_time} sec.")
