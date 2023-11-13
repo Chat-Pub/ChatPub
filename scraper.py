@@ -434,8 +434,9 @@ def data_generation(result_list):
 
         return response['choices'][0]['message']['content']
 
-    train_dataset=[]
     for index, contents_yp in enumerate(tqdm(result_list)):
+        if index<19:
+            continue
         #MAIN TASK : Generate Questions
         
         train_data=[]
@@ -488,14 +489,13 @@ def data_generation(result_list):
         with open(f'data{index}.json', 'w', encoding='utf-8') as file:
             json.dump(train_data, file, ensure_ascii=False, indent=4)
 
+        time.sleep(1)
         try:
             shutil.move(f'data{index}.json', "./model/train_dataset")
         except:
             shutil.copy2(f'data{index}.json', f"./model/train_dataset/data{index}.json")
             os.remove(f'data{index}.json')
-
-    ipdb.set_trace()
-
+        time.sleep(1)
 
 if __name__ == '__main__':
     start_time = time.time()
@@ -530,15 +530,12 @@ if __name__ == '__main__':
             'r_number': contents[1],
             'contents': parsed_data,
         })
-        if index==10:
-            break
-
-
-    print("\nStart data generation...")
-    data_generation(result_list)
 
     print("\nStart insertion...")
     insert_table(conn, result_list)
+
+    print("\nStart data generation...")
+    data_generation(result_list)
 
     conn.close()
 
