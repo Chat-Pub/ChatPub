@@ -381,35 +381,49 @@ def data_generation(result_list):
 
     system_prompt = """You are an expert in question generation.
     Your task is, when you receive information about Korea's youth policy, 
-    generate questions that can deduce the answer from the policy information.
-
-    Policy information will be provided in the form of scheme : data
-    Make sure to use at least two scheme.
-
+    generate question that can deduce the answer from the policy information.
 
     Example : 
 
     예시 1:
-    정책 정보:
-    제목: 고양청년 창업 재정지원 프로그램
-    지원내용: 참신한 아이디어와 사업성을 가진 고양시 청년들의 창업 성공 가능성을 높이기 위한 실효성 있는 시책 추진
-    신청 절차: 경기신용보증재단 고양지점 방문상담
-    경기신용보증재단 고양지점 - 1577-5900
-    (고양시 일산서구 중앙로 1442, 5층)
-    심사 및 발표: 개별 안내
-    신청 사이트: https://www.goyang.go.kr/www/www03/www03_8/www03_8_14/www03_8_14_tab2.jsp
-    제출 서류: 신분증 및 사업자 등록증
-    연령: 만 18세 ~ 39세
-    거주지 및 소득: 고양시에 사업자 등록 및 매출이 발생한 청년 창업자(실제 매출이 발생하는지 실사 진행 후 대출 실행)
-    학력: 제한없음
-    전공: 제한없음
-    취업 상태: 제한없음
-    특화 분야: 제한없음
-    추가 단서 사항: 개인 신용도에 따라 최대 보증금액 및 이율 상이
-    참여 제한 대상: 타지역 또는 창업후 5년 이상
-
+    "지원내용: 미취업 청년 고른 취업기회 제공과 역량강화 비용 지원\n"
     Example for output :
-    Q : 고양시에서 창업하는 30세인데 지원받을 만한 정책 프로그램 있어?
+    Q : 내가 취업을 못한 상태인데 지원받을 정책이 있을까?
+
+    예시 2:
+    "지원내용: 미취업 청년 고른 취업기회 제공과 역량강화 비용 지원\n"
+    Example for output :
+    Q : 현재 미취업상태 청년들에게 해당되는 혜택이 있는지 알려주세요.
+
+    예시 3: 
+    "제목: 미취업청년 어학자격시험 응시료 지원사업\n신청 절차: 신청일 당시 도내 주민등록지에 신청\n"
+    Example for output :
+    Q : 어떤 절차를 거쳐야 어학자격시험 응시료를 지원 받을수 있을까?
+
+    예시 4: 
+    "제목: 미취업청년 어학자격시험 응시료 지원사업\n신청 절차: 신청일 당시 도내 주민등록지에 신청\n"
+    Example for output :
+    Q : 어학자격시험 응시료를 지원받는 방법에 대해 알려주라.
+
+    예시 5:
+    "제목: 미취업청년 어학자격시험 응시료 지원사업\n연령: 만 19세 ~ 34세\n거주지 및 소득: 도내 거주 미취업 청년(만19~34세)\n- (연령기준일) 1988. 1. 2. ~ 2004. 1. 1.(2023년 1월 1일 기준 만34세~19세)\n※ 지원 연령의 경우는 시군 조례에 따라 연령을 달리 정하고 있음\n- (요건) 응시일 기준 미취업, 지원년도 1. 1.부터 신청일까지 경기도 거주\n학력: 제한없음\n전공: 제한없음\n취업 상태: 미취업자\n특화 분야: 제한없음\n참여 제한 대상: (참여시군) 30개 시군\n※ 성남시(자체추진)\n※ 23년 1차(5월) 신청은 사업 신청일 전 예산확보 된 시군부터 개시\n"
+    Example for output :
+    Q : 나 30살인데 어학시험 응시료 지원 정책 받을수 있어?
+
+    예시 6:
+    "제목: 미취업청년 어학자격시험 응시료 지원사업\n연령: 만 19세 ~ 34세\n거주지 및 소득: 도내 거주 미취업 청년(만19~34세)\n- (연령기준일) 1988. 1. 2. ~ 2004. 1. 1.(2023년 1월 1일 기준 만34세~19세)\n※ 지원 연령의 경우는 시군 조례에 따라 연령을 달리 정하고 있음\n- (요건) 응시일 기준 미취업, 지원년도 1. 1.부터 신청일까지 경기도 거주\n학력: 제한없음\n전공: 제한없음\n취업 상태: 미취업자\n특화 분야: 제한없음\n참여 제한 대상: (참여시군) 30개 시군\n※ 성남시(자체추진)\n※ 23년 1차(5월) 신청은 사업 신청일 전 예산확보 된 시군부터 개시\n"
+    Example for output :
+    Q : 취업을 못하고 성남시 사는데 어학시험 지원 받을수 있을까?
+
+    예시 7:
+    "제목: 미취업청년 어학자격시험 응시료 지원사업\n연령: 만 19세 ~ 34세\n거주지 및 소득: 도내 거주 미취업 청년(만19~34세)\n- (연령기준일) 1988. 1. 2. ~ 2004. 1. 1.(2023년 1월 1일 기준 만34세~19세)\n※ 지원 연령의 경우는 시군 조례에 따라 연령을 달리 정하고 있음\n- (요건) 응시일 기준 미취업, 지원년도 1. 1.부터 신청일까지 경기도 거주\n학력: 제한없음\n전공: 제한없음\n취업 상태: 미취업자\n특화 분야: 제한없음\n참여 제한 대상: (참여시군) 30개 시군\n※ 성남시(자체추진)\n※ 23년 1차(5월) 신청은 사업 신청일 전 예산확보 된 시군부터 개시\n"
+    Example for output :
+    Q : 야 나 취업해야되는데 정책 괜찮은거 있어?
+
+    예시 8:
+    "제목: 미취업청년 어학자격시험 응시료 지원사업\n연령: 만 19세 ~ 34세\n거주지 및 소득: 도내 거주 미취업 청년(만19~34세)\n- (연령기준일) 1988. 1. 2. ~ 2004. 1. 1.(2023년 1월 1일 기준 만34세~19세)\n※ 지원 연령의 경우는 시군 조례에 따라 연령을 달리 정하고 있음\n- (요건) 응시일 기준 미취업, 지원년도 1. 1.부터 신청일까지 경기도 거주\n학력: 제한없음\n전공: 제한없음\n취업 상태: 미취업자\n특화 분야: 제한없음\n참여 제한 대상: (참여시군) 30개 시군\n※ 성남시(자체추진)\n※ 23년 1차(5월) 신청은 사업 신청일 전 예산확보 된 시군부터 개시\n"
+    Example for output :
+    Q : 제게 좋은 정책을 추천해주세요.
     """
 
     user_prompt = """
@@ -426,7 +440,7 @@ def data_generation(result_list):
             model="gpt-3.5-turbo",
             messages=messages,
             temperature=0,
-            max_tokens=1000,
+            max_tokens=100,
             top_p=1.0,
             frequency_penalty=0,
             presence_penalty=0
@@ -435,67 +449,63 @@ def data_generation(result_list):
         return response['choices'][0]['message']['content']
 
     for index, contents_yp in enumerate(tqdm(result_list)):
-        if index<19:
+        if os.path.isfile(f'./model/train_dataset/data{index}.json'):
             continue
-        #MAIN TASK : Generate Questions
-        
-        train_data=[]
-
-        #TASK1 : Generate Question with 'short_description'
-        content = f"지원내용: {contents_yp['contents']['short_description']}\n"
-
-        generated_question = generate_question(content)
-        # print()
-        # print(generated_question)
-        train_data.append({'question':generated_question,'passage':content})
-
-        #TASK2 : Generate Question with 'title', 'methods'
-        content = f"제목: {contents_yp['contents']['main_title']}\n"
-        methods = contents_yp['contents']['methods']
-        for key, value in methods.items():
-            if value != '-' and value != None:
-                content += f'{key}: {value}\n'
-
-        generated_question = generate_question(content)
-        # print()
-        # print(generated_question)
-        train_data.append({'question':generated_question,'passage':content})
-
-        #TASK3 : Generate Question with 'title', 'qualification'
-        content = f"제목: {contents_yp['contents']['main_title']}\n"
-        qualification = contents_yp['contents']['qualification']
-        for key, value in qualification.items():
-            if value != '-' and value != None:
-                content += f'{key}: {value}\n'
-
-        generated_question = generate_question(content)
-        # print()
-        # print(generated_question)
-        train_data.append({'question':generated_question,'passage':content})
-
-        #TASK4 : Generate Question with 'title', 'summary'
-        content = f"제목: {contents_yp['contents']['main_title']}\n"
-        summary = contents_yp['contents']['summary']
-        for key, value in summary.items():
-            if value != '-' and value != None:
-                content += f'{key}: {value}\n'
-
-        generated_question = generate_question(content)
-        # print()
-        # print(generated_question)
-        train_data.append({'question':generated_question,'passage':content})
-
-        #print(train_data
-        with open(f'data{index}.json', 'w', encoding='utf-8') as file:
-            json.dump(train_data, file, ensure_ascii=False, indent=4)
-
-        time.sleep(1)
         try:
-            shutil.move(f'data{index}.json', "./model/train_dataset")
+            #MAIN TASK : Generate Questions
+            
+            train_data=[]
+
+            #TASK1 : Generate Question with 'short_description'
+            content = f"지원내용: {contents_yp['contents']['short_description']}\n"
+
+            generated_question = generate_question(content)
+            train_data.append({'question':generated_question,'passage':content})
+
+            #TASK2 : Generate Question with 'title', 'methods'
+            content = f"제목: {contents_yp['contents']['main_title']}\n"
+            methods = contents_yp['contents']['methods']
+            for key, value in methods.items():
+                if key != '신청 사이트' and value != '-' and value != None:
+                    content += f'{key}: {value}\n'
+
+            generated_question = generate_question(content)
+            train_data.append({'question':generated_question,'passage':content})
+
+            #TASK3 : Generate Question with 'title', 'qualification'
+            content = f"제목: {contents_yp['contents']['main_title']}\n"
+            qualification = contents_yp['contents']['qualification']
+            for key, value in qualification.items():
+                if value != '-' and value != None:
+                    content += f'{key}: {value}\n'
+
+            generated_question = generate_question(content)
+            train_data.append({'question':generated_question,'passage':content})
+
+            #TASK4 : Generate Question with 'title', 'summary'
+            content = f"제목: {contents_yp['contents']['main_title']}\n"
+            summary = contents_yp['contents']['summary']
+            for key, value in summary.items():
+                if value != '-' and value != None:
+                    content += f'{key}: {value}\n'
+
+            generated_question = generate_question(content)
+            train_data.append({'question':generated_question,'passage':content})
+
+            with open(f'data{index}.json', 'w', encoding='utf-8') as file:
+                json.dump(train_data, file, ensure_ascii=False, indent=4)
+
+            time.sleep(2)
+            try:
+                shutil.move(f'data{index}.json', "./model/train_dataset")
+            except:
+                shutil.copy2(f'data{index}.json', f"./model/train_dataset/data{index}.json")
+                time.sleep(2)
+                os.remove(f'data{index}.json')
+            time.sleep(2)
         except:
-            shutil.copy2(f'data{index}.json', f"./model/train_dataset/data{index}.json")
-            os.remove(f'data{index}.json')
-        time.sleep(1)
+            print(index)
+            continue
 
 if __name__ == '__main__':
     start_time = time.time()
