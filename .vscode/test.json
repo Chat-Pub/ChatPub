@@ -1,0 +1,19 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Python: Current File",
+            "type": "python",
+            "request": "launch",
+            "program": "model/sentence_transformers/test.py",
+            "args": [
+                "--model_name","klue/roberta-base",
+                "--model_path","",
+                "--max_length","128",
+                "--eval_batch_size","128",
+                "--test_data","model/sentence_transformers/data/kor_nli/test.json"
+            ], 
+            "console": "integratedTerminal"
+        }
+    ]
+}

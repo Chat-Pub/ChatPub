@@ -3,7 +3,9 @@ from transformers import AutoTokenizer
 import torch
 import numpy as np
 import evaluate
-
+import random
+import math
+from sentence_transformers import InputExample
 
 PAD_VALUE = 0
 
@@ -34,8 +36,17 @@ class Dataset(object):
         self.anchor_ids = tokenized_questions['input_ids']
         self.positive_ids = tokenized_passages['input_ids']
 
+        self.samples = []
+        for anc_id, pos_id in zip(self.anchor_ids, self.positive_ids):
+            self.samples.append(InputExample(
+                texts=[anc_id, pos_id]
+            ))
+
     def __len__(self):
-        return len(self.anchor_ids)
+        return len(self.samples)
+    
+    def get_list(self):
+        return self.samples
 
     def __getitem__(self, index):
         return self.anchor_ids[index], self.positive_ids[index]
@@ -86,6 +97,52 @@ def mean_pool(token_embeds, attention_mask):
             in_mask.sum(1), min=1e-9
         )
         return pool
+
+class NoDuplicatesDataLoader:
+    def __init__(self, train_examples, batch_size, collate_fn, tokenizer):
+        """
+        A special data loader to be used with MultipleNegativesRankingLoss.
+        The data loader ensures that there are no duplicate sentences within the same batch
+        """
+        self.batch_size = batch_size
+        self.data_pointer = 0
+        self.collate_fn = collate_fn
+        self.train_examples = train_examples
+        self.tokenizer = tokenizer
+        random.shuffle(self.train_examples)
+
+    def __iter__(self):
+        for _ in range(self.__len__()):
+            batch = []
+            texts_in_batch = set()
+
+            while len(batch) < self.batch_size:
+                example = self.train_examples[self.data_pointer]
+
+                valid_example = True
+                question = example.texts[0]
+                passage = example.texts[1]
+                passage_str = self.tokenizer.decode(passage).strip()
+
+                # examine the duplicated passages in the batch
+                if passage_str in texts_in_batch:
+                    valid_example = False
+                    break
+
+                if valid_example:
+                    batch.append((question, passage))
+                    texts_in_batch.add(passage_str)
+                    
+                self.data_pointer += 1
+                if self.data_pointer >= len(self.train_examples):
+                    self.data_pointer = 0
+                    random.shuffle(self.train_examples)
+
+            yield self.collate_fn(batch) if self.collate_fn is not None else batch
+
+    def __len__(self):
+        return math.floor(len(self.train_examples) / self.batch_size)
+    
 
 def metrics(predictions, target_labels, average):
     f1_metric = evaluate.load("f1")

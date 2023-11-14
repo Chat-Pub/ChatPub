@@ -5,16 +5,13 @@
             "name": "Python: Current File",
             "type": "python",
             "request": "launch",
-            "program": "model/sentence_transformers/train.py", // 어떤 python 파일을 실행할 것인지
+            "program": "model/sentence_transformers/test.py",
             "args": [
-                "--model_name","BM-K/KoSimCSE-roberta",
+                "--model_name","klue/roberta-base",
+                "--model_path","model/sentence_transformers/model_params/roberta-base_2e-05.pth",
                 "--max_length","128",
-                "--train_batch_size","128",
                 "--eval_batch_size","128",
-                "--learning_rate","2e-5",
-                "--epoch","5",
-                "--train_data","model/sentence_transformers/data/kor_squad/train.json",
-                "--valid_data","model/sentence_transformers/data/kor_squad/valid.json"
+                "--test_data","model/sentence_transformers/data/kor_nli/test.json"
             ], 
             "console": "integratedTerminal"
         }

@@ -2,6 +2,7 @@ import os
 import json
 import argparse
 from collections import defaultdict
+from sentence_transformers import datasets
 
 import torch
 import numpy as np
@@ -11,7 +12,7 @@ import random
 from transformers import get_linear_schedule_with_warmup
 
 from model_class import SentenceTransformers
-from utils import collate_fn,  Dataset, get_tokenizer, mean_pool, metrics
+from utils import collate_fn,  Dataset, get_tokenizer, mean_pool, metrics, NoDuplicatesDataLoader
 
 
 # Argument parser
@@ -58,23 +59,22 @@ def main():
             tokenizer, args.max_length, train_dataset)
     valid_dataset = Dataset(
             tokenizer, args.max_length, valid_dataset)
-    train_loader = torch.utils.data.DataLoader(
-            train_dataset,
+    
+    train_sample = train_dataset.get_list()
+    valid_sample = valid_dataset.get_list()
+
+    train_loader = NoDuplicatesDataLoader(
+            train_sample,
             batch_size=args.train_batch_size,
             collate_fn=collate_fn,
-            shuffle=True,
-            num_workers=4,
-            drop_last=True
+            tokenizer=tokenizer
         )
-    valid_loader = torch.utils.data.DataLoader(
-            valid_dataset,
+    valid_loader = NoDuplicatesDataLoader(
+            valid_sample,
             batch_size=args.eval_batch_size,
             collate_fn=collate_fn,
-            shuffle=True,
-            num_workers=4,
-            drop_last=True
+            tokenizer=tokenizer
         )
-
     model = SentenceTransformers(args.model_name)
 
     cos_sim = torch.nn.CosineSimilarity()
