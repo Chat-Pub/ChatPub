@@ -38,7 +38,7 @@ def folder_content_create(_folder_content_create: content_schema.FolderContentCr
                     current_user: User = Depends(get_current_user)):
     content_crud.create_folder_content(db=db,folder_content_create=_folder_content_create)
 
-@router.put("/update/{folder_content_id}",status_code=status.HTTP_204_NO_CONTENT)
+@router.put("/update",status_code=status.HTTP_204_NO_CONTENT)
 def folder_content_update(_folder_content_update: content_schema.FolderContentUpdate,
                     db: Session = Depends(get_db),
                     current_user: User = Depends(get_current_user)):
@@ -49,7 +49,7 @@ def folder_content_update(_folder_content_update: content_schema.FolderContentUp
     
     content_crud.update_folder_content(db=db, db_folder_content=db_folder_content, folder_content_update=_folder_content_update)
 
-@router.delete("/delete/{folder_content_id}", status_code=status.HTTP_204_NO_CONTENT)
+@router.delete("/delete", status_code=status.HTTP_204_NO_CONTENT)
 def folder_content_delete(_folder_content_delete: content_schema.FolderContentDelete,
                     db: Session = Depends(get_db),
                     current_user: User = Depends(get_current_user)):
