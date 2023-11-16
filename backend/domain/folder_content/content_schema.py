@@ -26,6 +26,7 @@ class FolderContentCreate(BaseModel):
         return v
 
 class FolderContentList(BaseModel):
+    total: int
     folder_content_list: list[FolderContent] = []
 
 class FolderContentUpdate(FolderContentCreate):
