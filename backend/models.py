@@ -52,13 +52,13 @@ class Folder(Base):
     user_id = Column(Integer, ForeignKey("user.id"), nullable=False)
     user = relationship("User", backref="user_folders")
     
-class Content(Base):
-    __tablename__ = "content"
+class FolderContent(Base):
+    __tablename__ = "folder_content"
 
     id = Column(Integer, primary_key=True)
     create_date = Column(DateTime, nullable=False)
     question = Column(String(1024), nullable=False)
-    answer = Column(String(1024), nullable=False)
+    answer = Column(String(1024), nullable=True)
     folder_id = Column(Integer, ForeignKey("folder.id"), nullable=False)
     folder = relationship("Folder", backref="folder_contents")
 
