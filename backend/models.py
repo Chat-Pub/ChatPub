@@ -8,7 +8,6 @@ class Question(Base):
     __tablename__ = "question"
 
     id=Column(Integer, primary_key=True)
-    subject=Column(String(255), nullable=False)
     content = Column(String(1024), nullable=False)
     create_date = Column(DateTime, nullable=False)
     user_id = Column(Integer, ForeignKey("user.id"), nullable=True)
@@ -20,11 +19,8 @@ class Answer(Base):
 
     id=Column(Integer, primary_key=True)
     content = Column(String(1024), nullable=False)
-    create_date = Column(DateTime, nullable=False)
     question_id = Column(Integer, ForeignKey("question.id"))
     question = relationship("Question", backref="answers")
-    user_id = Column(Integer, ForeignKey("user.id"), nullable=True)
-    user = relationship("User", backref="answer_users")
 
 
 class User(Base):
@@ -39,10 +35,11 @@ class UserInfo(Base):
     __tablename__ = "userinfo"
 
     id = Column(Integer, primary_key=True)
-    age = Column(Integer, nullable=False)
+    birth = Column(Integer, nullable=False)
     gender = Column(String(255), nullable=False)
     job = Column(String(255), nullable=False)
     region = Column(String(255), nullable=False)
+    money = Column(Integer, nullable=False)
     user_id = Column(Integer, ForeignKey("user.id"), nullable=False)
     user = relationship("User", backref="user_infos")
 
@@ -50,7 +47,8 @@ class Folder(Base):
     __tablename__ = "folder"
 
     id = Column(Integer, primary_key=True)
-    foldername = Column(String(255), nullable=False)
+    folder_name = Column(String(1024), nullable=False)
+    create_date = Column(DateTime, nullable=False)
     user_id = Column(Integer, ForeignKey("user.id"), nullable=False)
     user = relationship("User", backref="user_folders")
     

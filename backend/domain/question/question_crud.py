@@ -16,8 +16,7 @@ def get_question(db: Session, question_id: int):
     return question
 
 def create_question(db: Session, question_create: QuestionCreate, user: User):
-    db_question = Question(subject=question_create.subject,
-                           content=question_create.content,
+    db_question = Question(content=question_create.content,
                            create_date=datetime.now(),
                            user=user)
     db.add(db_question)
@@ -32,8 +31,7 @@ def get_question_list(db: Session, skip: int = 0, limit: int = 10, keyword: str 
         question_list = question_list \
             .outerjoin(User) \
             .outerjoin(sub_query, and_(sub_query.c.question_id == Question.id)) \
-            .filter(Question.subject.ilike(search) |        # 질문제목
-                    Question.content.ilike(search) |        # 질문내용
+            .filter(Question.content.ilike(search) |        # 질문내용
                     User.username.ilike(search) |           # 질문작성자
                     sub_query.c.content.ilike(search) |     # 답변내용
                     sub_query.c.username.ilike(search)      # 답변작성자
@@ -45,7 +43,6 @@ def get_question_list(db: Session, skip: int = 0, limit: int = 10, keyword: str 
 
 def update_question(db: Session, db_question : Question,
                     question_update: QuestionUpdate):
-    db_question.subject = question_update.subject
     db_question.content = question_update.content
     db.add(db_question)
     db.commit()

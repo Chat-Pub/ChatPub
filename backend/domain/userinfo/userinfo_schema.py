@@ -4,26 +4,28 @@ from domain.user.user_schema import User
 
 class UserInfo(BaseModel):
     id : int
-    age : int
+    birth : int
     gender : str
     job : str
     region : str
-    user: User | None
-
+    money : int
+    user: User
     class Config:
         orm_mode = True
 
 class UserInfoCreate(BaseModel):
-    age : int
+    birth : int
     gender : str
     job : str
     region : str
+    money : int
 
 class UserInfoUpdate(BaseModel):
-    age : int
+    birth : int
     gender : str
     job : str
     region : str
+    money : int
 
 class UserInfoDelete(BaseModel):
     user_id : int
