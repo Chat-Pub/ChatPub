@@ -8,22 +8,26 @@ from sqlalchemy.orm import Session
 
 
 
+
 def get_folder_content_list(db : Session, folder_id: int):
     folder_content_list = db.query(FolderContent)\
         .filter(FolderContent.folder_id == folder_id)\
-        .order_by(FolderContent.create_date.desc())\
-        .all()
-    return folder_content_list
+        .order_by(FolderContent.create_date.desc())
+        
+    total = folder_content_list.distinct().count()
+    folder_content_list = folder_content_list.all()
+    return total, folder_content_list
 
 def get_folder_content(db: Session, folder_content_id: int):
     folder_content = db.query(FolderContent).get(folder_content_id)
     return folder_content
 
-def create_folder_content(db: Session, folder_content_create: FolderContentCreate, folder: Folder):
+def create_folder_content(db: Session, folder_content_create: FolderContentCreate):
+    folder = db.query(Folder).get(folder_content_create.folder_id)
     db_folder_content = FolderContent(question=folder_content_create.question,
-                                      answer=folder_content_create.answer,
-                           create_date=datetime.now(),
-                           folder=folder)
+                                    answer=folder_content_create.answer,
+                                    create_date=datetime.now(),
+                                    folder=folder)
     db.add(db_folder_content)
     db.commit()
 

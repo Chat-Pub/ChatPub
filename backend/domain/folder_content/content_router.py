@@ -15,12 +15,15 @@ router = APIRouter(
 
 
 @router.get("/list", response_model=content_schema.FolderContentList)
-def folder_content_list(db: Session = Depends(get_db),
+def folder_content_list(folder_id: int, db: Session = Depends(get_db),
                         current_user: User = Depends(get_current_user)):
         
-        _folder_content_list = content_crud.get_folder_content_list(db)
+        total, _folder_content_list = content_crud.get_folder_content_list(db,folder_id)
     
-        return _folder_content_list
+        return {
+        'total' : total,
+        'folder_content_list': _folder_content_list
+    }
                         
 
 @router.get("/detail/{folder_content_id}", response_model=content_schema.FolderContent)
@@ -33,8 +36,7 @@ def folder_content_detail(folder_content_id: int, db: Session = Depends(get_db),
 def folder_content_create(_folder_content_create: content_schema.FolderContentCreate,
                     db: Session = Depends(get_db),
                     current_user: User = Depends(get_current_user)):
-    content_crud.create_folder_content(db=db,folder_content_create=_folder_content_create,
-                                  user=current_user)
+    content_crud.create_folder_content(db=db,folder_content_create=_folder_content_create)
 
 @router.put("/update/{folder_content_id}",status_code=status.HTTP_204_NO_CONTENT)
 def folder_content_update(_folder_content_update: content_schema.FolderContentUpdate,
@@ -44,10 +46,6 @@ def folder_content_update(_folder_content_update: content_schema.FolderContentUp
     if not db_folder_content:
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST,
                             detail="데이터를 찾을 수 없습니다.")
-    
-    if current_user.id != db_folder_content.user.id:
-        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST,
-                            detail="수정 권한이 없습니다.")
     
     content_crud.update_folder_content(db=db, db_folder_content=db_folder_content, folder_content_update=_folder_content_update)
 
@@ -59,10 +57,6 @@ def folder_content_delete(_folder_content_delete: content_schema.FolderContentDe
     if not db_folder_content:
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST,
                             detail="데이터를 찾을 수 없습니다.")
-    
-    if current_user.id != db_folder_content.user.id:
-        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST,
-                            detail="삭제 권한이 없습니다.")
     
     content_crud.delete_folder_content(db=db, db_folder_content=db_folder_content)
                     

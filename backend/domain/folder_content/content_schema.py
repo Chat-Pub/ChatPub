@@ -16,6 +16,7 @@ class FolderContent(BaseModel):
         orm_mode = True
 
 class FolderContentCreate(BaseModel):
+    folder_id: int
     question: str
     answer: str | None
     @validator('question')
@@ -25,7 +26,7 @@ class FolderContentCreate(BaseModel):
         return v
 
 class FolderContentList(BaseModel):
-    question_list: list[FolderContent] = []
+    folder_content_list: list[FolderContent] = []
 
 class FolderContentUpdate(FolderContentCreate):
     folder_content_id: int
