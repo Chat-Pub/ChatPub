@@ -15,7 +15,8 @@ router = APIRouter(
 
 
 @router.get("/list", response_model=content_schema.FolderContentList)
-def folder_content_list(db: Session = Depends(get_db)):
+def folder_content_list(db: Session = Depends(get_db),
+                        current_user: User = Depends(get_current_user)):
         
         _folder_content_list = content_crud.get_folder_content_list(db)
     
@@ -23,7 +24,8 @@ def folder_content_list(db: Session = Depends(get_db)):
                         
 
 @router.get("/detail/{folder_content_id}", response_model=content_schema.FolderContent)
-def folder_content_detail(folder_content_id: int, db: Session = Depends(get_db)):
+def folder_content_detail(folder_content_id: int, db: Session = Depends(get_db),
+                          current_user: User = Depends(get_current_user)):
     folder_content = content_crud.get_folder_content(db,folder_content_id=folder_content_id)
     return folder_content
 

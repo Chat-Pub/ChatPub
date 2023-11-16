@@ -5,11 +5,16 @@ from domain.folder.folder_schema import FolderCreate, FolderUpdate, FolderDelete
 from models import User, Folder
 from sqlalchemy.orm import Session
 
-def get_folder_list(db : Session):
-    folder_list = db.query(Folder)\
-        .order_by(Folder.create_date.desc())\
-        .all()
-    return folder_list
+
+def get_folder_list(db: Session, user_id: int):
+    folder_list = db.query(Folder)
+    folder_list = folder_list.filter(Folder.user_id == user_id)
+    
+  
+    total = folder_list.distinct().count()
+    folder_list = folder_list.order_by(Folder.create_date.desc()).all()
+
+    return total, folder_list
 
 def get_folder(db: Session, folder_id: int):
     folder = db.query(Folder).get(folder_id)

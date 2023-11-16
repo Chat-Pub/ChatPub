@@ -14,16 +14,21 @@ router = APIRouter(
 )
 
 @router.get("/list", response_model=folder_schema.FolderList)
-def folder_list(db: Session = Depends(get_db)):
+def folder_list(db: Session = Depends(get_db),
+                current_user: User = Depends(get_current_user)):
     
-    _folder_list = folder_crud.get_folder_list(db)
+    total, _folder_list = folder_crud.get_folder_list(db,current_user.id)
 
-    return _folder_list
+    return {
+        'total' : total,
+        'folder_list': _folder_list
+    }
 
 
 
 @router.get("/detail/{folder_id}", response_model=folder_schema.Folder)
-def folder_detail(folder_id: int, db: Session = Depends(get_db)):
+def folder_detail(folder_id: int, db: Session = Depends(get_db),
+                  current_user: User = Depends(get_current_user)):
     folder = folder_crud.get_folder(db,folder_id=folder_id)
     return folder
 
@@ -34,7 +39,7 @@ def folder_create(_folder_create: folder_schema.FolderCreate,
     folder_crud.create_folder(db=db,folder_create=_folder_create,
                                   user=current_user)
 
-@router.put("/update/{question_id}",status_code=status.HTTP_204_NO_CONTENT)
+@router.put("/update/{folder_id}",status_code=status.HTTP_204_NO_CONTENT)
 def folder_update(_folder_update: folder_schema.FolderUpdate,
                     db: Session = Depends(get_db),
                     current_user: User = Depends(get_current_user)):
@@ -43,13 +48,13 @@ def folder_update(_folder_update: folder_schema.FolderUpdate,
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST,
                             detail="데이터를 찾을 수 없습니다.")
     
-    if current_user.id != db_folder.user.id:
+    if current_user.id != db_folder.user_id:
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST,
                             detail="수정 권한이 없습니다.")
     
     folder_crud.update_folder(db=db, db_folder=db_folder, folder_update=_folder_update)
 
-@router.delete("/delete/{question_id}", status_code=status.HTTP_204_NO_CONTENT)
+@router.delete("/delete/{folder_id}", status_code=status.HTTP_204_NO_CONTENT)
 def folder_delete(_folder_delete: folder_schema.FolderDelete,
                     db: Session = Depends(get_db),
                     current_user: User = Depends(get_current_user)):
@@ -58,7 +63,7 @@ def folder_delete(_folder_delete: folder_schema.FolderDelete,
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST,
                             detail="데이터를 찾을 수 없습니다.")
     
-    if current_user.id != db_folder.user.id:
+    if current_user.id != db_folder.user_id:
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST,
                             detail="삭제 권한이 없습니다.")
     

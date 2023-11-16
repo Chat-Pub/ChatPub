@@ -17,15 +17,15 @@ class Folder(BaseModel):
 class FolderCreate(BaseModel):
     folder_name: str
 
-    @validator('content')
+    @validator('folder_name')
     def not_empty(cls,v):
         if not v or not v.strip():
             raise ValueError('빈 값은 허용되지 않습니다.')
         return v
 
 class FolderList(BaseModel):
-    total: int = 0
-    Folder_list: list[Folder] = []
+    total: int
+    folder_list: list[Folder] = []
 
 
 class FolderUpdate(FolderCreate):

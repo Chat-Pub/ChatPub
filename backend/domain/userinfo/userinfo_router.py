@@ -13,6 +13,12 @@ router = APIRouter(
     prefix="/api/userinfo",
 )
 
+@router.get("/detail/{user_id}", response_model=userinfo_schema.UserInfo)
+def user_info_get( user_id: int, db: Session = Depends(get_db),
+                  current_user: User = Depends(get_current_user)):
+    _user_info = userinfo_crud.get_user_info(db,user_id)
+    return _user_info
+
 @router.post("/create", status_code=status.HTTP_204_NO_CONTENT)
 def user_info_create(_user_info_create: userinfo_schema.UserInfoCreate,
                     db: Session = Depends(get_db),
