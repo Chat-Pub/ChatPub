@@ -51,3 +51,48 @@ CREATE TABLE `yp_etc` (
   `attachments` text DEFAULT NULL,
   PRIMARY KEY (`yp`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE `user` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `username` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `email` (`email`),
+  UNIQUE KEY `username` (`username`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+CREATE TABLE `userinfo` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `birth` varchar(16) NOT NULL,
+  `gender` varchar(255) NOT NULL,
+  `job` varchar(255) NOT NULL,
+  `region` varchar(255) NOT NULL,
+  `money` varchar(255) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `user_id` (`user_id`),
+  CONSTRAINT `userinfo_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+CREATE TABLE `folder` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `folder_name` varchar(1024) NOT NULL,
+  `create_date` datetime NOT NULL,
+  `user_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `user_id` (`user_id`),
+  CONSTRAINT `folder_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+CREATE TABLE `folder_content` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `create_date` datetime NOT NULL,
+  `question` text NOT NULL,
+  `answer` text DEFAULT NULL,
+  `references` text DEFAULT NULL,
+  `folder_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `folder_id` (`folder_id`),
+  CONSTRAINT `folder_content_ibfk_1` FOREIGN KEY (`folder_id`) REFERENCES `folder` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
