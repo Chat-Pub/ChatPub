@@ -32,10 +32,13 @@ def folder_content_detail(folder_content_id: int, db: Session = Depends(get_db),
     folder_content = content_crud.get_folder_content(db,folder_content_id=folder_content_id)
     return folder_content
 
-@router.post("/create", status_code=status.HTTP_204_NO_CONTENT)
+@router.post("/create", response_class=content_schema.FolderContent, status_code=status.HTTP_201_CREATED)
 def folder_content_create(_folder_content_create: content_schema.FolderContentCreate,
                     db: Session = Depends(get_db),
                     current_user: User = Depends(get_current_user)):
+    # 모델 클래스 생성 후 answer 받아오기
+    # 승빈님 코드
+    # 필요한 데이터를 받아서 모델 클래스를 생성하고 데이터베이스에 저장한다.
     content_crud.create_folder_content(db=db,folder_content_create=_folder_content_create)
 
 @router.put("/update",status_code=status.HTTP_204_NO_CONTENT)
@@ -60,3 +63,6 @@ def folder_content_delete(_folder_content_delete: content_schema.FolderContentDe
     
     content_crud.delete_folder_content(db=db, db_folder_content=db_folder_content)
                     
+
+
+

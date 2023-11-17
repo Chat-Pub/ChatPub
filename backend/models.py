@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, DateTime, ForeignKey
+from sqlalchemy import Column, Integer, String, DateTime, ForeignKey, Text
 from sqlalchemy.orm import relationship
 
 from database import Base
@@ -38,8 +38,9 @@ class FolderContent(Base):
 
     id = Column(Integer, primary_key=True)
     create_date = Column(DateTime, nullable=False)
-    question = Column(String(1024), nullable=False)
-    answer = Column(String(1024), nullable=True)
+    question = Column(Text, nullable=False)
+    answer = Column(Text, nullable=True)
+    references = Column(Text, nullable=True)
     folder_id = Column(Integer, ForeignKey("folder.id"), nullable=False)
     folder = relationship("Folder", backref="folder_contents")
 

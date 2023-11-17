@@ -9,6 +9,7 @@ class FolderContent(BaseModel):
     create_date: datetime.datetime
     question: str
     answer: str | None
+    references: str | None
     folder_id: int
     folder: Folder
 
@@ -19,6 +20,7 @@ class FolderContentCreate(BaseModel):
     folder_id: int
     question: str
     answer: str | None
+    references: str | None
     @validator('question')
     def not_empty(cls,v):
         if not v or not v.strip():

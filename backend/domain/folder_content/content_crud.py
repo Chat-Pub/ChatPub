@@ -27,6 +27,7 @@ def create_folder_content(db: Session, folder_content_create: FolderContentCreat
     # 모델 클래스 생성 후 answer 받아오기 
     db_folder_content = FolderContent(question=folder_content_create.question,
                                     answer=folder_content_create.answer,
+                                    references=folder_content_create.references,
                                     create_date=datetime.now(),
                                     folder=folder)
     db.add(db_folder_content)
@@ -36,6 +37,7 @@ def update_folder_content(db: Session, db_folder_content : FolderContent,
                     folder_content_update: FolderContentUpdate):
         db_folder_content.question = folder_content_update.question
         db_folder_content.answer = folder_content_update.answer
+        db_folder_content.references = folder_content_update.references
         db.add(db_folder_content)
         db.commit()
 
