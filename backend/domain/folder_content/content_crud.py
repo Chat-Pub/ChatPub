@@ -24,6 +24,7 @@ def get_folder_content(db: Session, folder_content_id: int):
 
 def create_folder_content(db: Session, folder_content_create: FolderContentCreate):
     folder = db.query(Folder).get(folder_content_create.folder_id)
+    # 모델 클래스 생성 후 answer 받아오기 
     db_folder_content = FolderContent(question=folder_content_create.question,
                                     answer=folder_content_create.answer,
                                     create_date=datetime.now(),
