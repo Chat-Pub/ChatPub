@@ -24,14 +24,16 @@ def get_folder_content(db: Session, folder_content_id: int):
 
 def create_folder_content(db: Session, folder_content_create: FolderContentCreate):
     folder = db.query(Folder).get(folder_content_create.folder_id)
-    # 모델 클래스 생성 후 answer 받아오기 
-    db_folder_content = FolderContent(question=folder_content_create.question,
+    # 모델 클래스 생성 후 answer 받아오기  
+    db_folder_content = FolderContent(create_date=datetime.now(),
+                                    question=folder_content_create.question,
                                     answer=folder_content_create.answer,
-                                    references=folder_content_create.references,
-                                    create_date=datetime.now(),
+                                    references="".join(folder_content_create.references),
                                     folder=folder)
+    
     db.add(db_folder_content)
     db.commit()
+
 
 def update_folder_content(db: Session, db_folder_content : FolderContent,
                     folder_content_update: FolderContentUpdate):

@@ -1,13 +1,14 @@
 
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi.responses import JSONResponse
 from sqlalchemy.orm import Session
-from starlette import status
 
 from database import get_db
 from domain.folder_content import content_crud, content_schema
 from domain.user.user_router import get_current_user
+from domain.userinfo.userinfo_crud import get_user_info
 from models import User
-
+from domain.model_util import chatbot_class
 
 router = APIRouter(
     prefix="/api/folder_content",
@@ -32,14 +33,29 @@ def folder_content_detail(folder_content_id: int, db: Session = Depends(get_db),
     folder_content = content_crud.get_folder_content(db,folder_content_id=folder_content_id)
     return folder_content
 
-@router.post("/create", response_class=content_schema.FolderContent, status_code=status.HTTP_201_CREATED)
+@router.post("/create", response_class=JSONResponse, status_code=status.HTTP_201_CREATED)
 def folder_content_create(_folder_content_create: content_schema.FolderContentCreate,
                     db: Session = Depends(get_db),
                     current_user: User = Depends(get_current_user)):
+    
+    user_info = get_user_info(db=db,user_id=current_user.id)
+    if (user_info == None):
+         user_info = ""
+
     # 모델 클래스 생성 후 answer 받아오기
-    # 승빈님 코드
+    chatbot = chatbot_class.ChatBot() # 모델 클래스 생성, 모델 path 입력
+    model_answer = chatbot.forward(user_info,_folder_content_create.question)
+    
     # 필요한 데이터를 받아서 모델 클래스를 생성하고 데이터베이스에 저장한다.
+    # "answer": "챗봇이 출력하는 답", # string
+    # "references":["참조한 텍스트 1", "참조한 텍스트 2", "참조한 텍스트 3"] # 길이 가변 (0 ~ 3), 각 원소는 string
+    _folder_content_create.answer = model_answer["answer"]
+    _folder_content_create.references = model_answer["references"]
+
     content_crud.create_folder_content(db=db,folder_content_create=_folder_content_create)
+
+    return _folder_content_create
+
 
 @router.put("/update",status_code=status.HTTP_204_NO_CONTENT)
 def folder_content_update(_folder_content_update: content_schema.FolderContentUpdate,
