@@ -2,6 +2,7 @@ from transformers import AutoTokenizer
 from transformers import AutoModel
 import torch
 import openai
+import faiss
 
 condense_question_system = """Given the following conversation and a follow up question, rephrase the follow up question to be a standalone question in Korean."""
 
@@ -41,7 +42,11 @@ class SentenceTransformers(torch.nn.Module):
         self.model = AutoModel.from_pretrained(model_name)
 
     def forward(self, **inputs):
-        outputs = self.model(**inputs)
+        embed_vec= self.model(**inputs)[0]
+        outputs = mean_pool(
+            token_embeds=embed_vec,
+            attention_mask=inputs['attention_mask']
+        )
 
         return outputs
     
@@ -111,11 +116,7 @@ class ChatBot:
             'input_ids': tokenized_retrieval_input['input_ids'],
             'attention_mask': tokenized_retrieval_input['attention_mask']
         }
-        embed_vec = self.retrieval(**retrieval_input)[0]
-        query_vector = mean_pool(
-            token_embeds=embed_vec,
-            attention_mask=retrieval_input['attention_mask']
-        )
+        query_vector = self.retrieval(**retrieval_input)        
 
         # TODO: retrieve context using faiss
         

@@ -554,14 +554,18 @@ if __name__ == '__main__':
 
     #for test:
 
-    from sentence_transformers import SentenceTransformer
+    from model import chatbot_class
+    import torch
+    import faiss
+
     sentences = ["안녕하세요?", "한국어 문장 임베딩을 위한 버트 모델입니다."]
 
-    model = SentenceTransformer('jhgan/ko-sroberta-multitask')
-    embeddings = model.encode(sentences)
-    print(embeddings.shape)
+    #model = SentenceTransformer('jhgan/ko-sroberta-multitask')
+    model = chatbot_class.SentenceTransformers("klue/roberta-base")
 
-    import faiss
+    # MODEL_PATH 명시
+    #model.load_state_dict(torch.load(MODEL_PATH))
+    model.eval()
 
     # dimension
     d = 768
@@ -600,6 +604,7 @@ if __name__ == '__main__':
         vector_id = np.array([policy['yp']], dtype='int64')
         Index.add_with_ids(content_vector, vector_id)
 
+    """    
     def search(model, index, query, k):
         query_vector = model.encode([query])
         distance, index = index.search(query_vector, k)
@@ -614,6 +619,7 @@ if __name__ == '__main__':
                 print(f'{key}: {value}')
 
     #find
-    search(model, index, '문화가있는날', 1)
+    #search(model, index, '문화가있는날', 1)
+    """
 
     print(f"Process was finished. It takes {time.time()-start_time} sec.")
