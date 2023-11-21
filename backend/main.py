@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from starlette.middleware.cors import CORSMiddleware
+from fastapi.middleware.cors import CORSMiddleware
 
 from domain.user import user_router
 from domain.userinfo import userinfo_router
@@ -18,7 +18,7 @@ origins = [
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
-    allow_credentials=True,
+    allow_credentials=True, # 쿠키 포함 여부
     allow_methods=["*"],
     allow_headers=["*"],
 )
