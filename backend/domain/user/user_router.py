@@ -1,13 +1,12 @@
 from datetime import timedelta, datetime
 
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, status
 from fastapi import Depends
-from fastapi.security import OAuth2PasswordRequestForm, OAuth2PasswordBearer 
+from fastapi.security import OAuth2PasswordRequestForm, OAuth2PasswordBearer  
 # OAuth2PasswordRequestForm은 사용자가 입력한 username과 password를 받아온다.
 from jose import jwt, JWTError
 # jwt(Json Web Token)를 사용하여 액세스 토큰을 생성한다.
 from sqlalchemy.orm import Session
-from starlette import status
 
 from database import get_db
 from domain.user import user_crud, user_schema

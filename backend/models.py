@@ -1,30 +1,7 @@
-from sqlalchemy import Column, Integer, String, DateTime, ForeignKey
+from sqlalchemy import Column, Integer, String, DateTime, ForeignKey, Text
 from sqlalchemy.orm import relationship
 
 from database import Base
-
-
-class Question(Base):
-    __tablename__ = "question"
-
-    id=Column(Integer, primary_key=True)
-    subject=Column(String(255), nullable=False)
-    content = Column(String(1024), nullable=False)
-    create_date = Column(DateTime, nullable=False)
-    user_id = Column(Integer, ForeignKey("user.id"), nullable=True)
-    user = relationship("User", backref="question_users")
-
-
-class Answer(Base):
-    __tablename__ = "answer"
-
-    id=Column(Integer, primary_key=True)
-    content = Column(String(1024), nullable=False)
-    create_date = Column(DateTime, nullable=False)
-    question_id = Column(Integer, ForeignKey("question.id"))
-    question = relationship("Question", backref="answers")
-    user_id = Column(Integer, ForeignKey("user.id"), nullable=True)
-    user = relationship("User", backref="answer_users")
 
 
 class User(Base):
@@ -39,10 +16,11 @@ class UserInfo(Base):
     __tablename__ = "userinfo"
 
     id = Column(Integer, primary_key=True)
-    age = Column(Integer, nullable=False)
+    birth = Column(String(16), nullable=False)
     gender = Column(String(255), nullable=False)
     job = Column(String(255), nullable=False)
     region = Column(String(255), nullable=False)
+    money = Column(String(255), nullable=False)
     user_id = Column(Integer, ForeignKey("user.id"), nullable=False)
     user = relationship("User", backref="user_infos")
 
@@ -50,17 +28,19 @@ class Folder(Base):
     __tablename__ = "folder"
 
     id = Column(Integer, primary_key=True)
-    foldername = Column(String(255), nullable=False)
+    folder_name = Column(String(1024), nullable=False)
+    create_date = Column(DateTime, nullable=False)
     user_id = Column(Integer, ForeignKey("user.id"), nullable=False)
     user = relationship("User", backref="user_folders")
     
-class Content(Base):
-    __tablename__ = "content"
+class FolderContent(Base):
+    __tablename__ = "folder_content"
 
     id = Column(Integer, primary_key=True)
     create_date = Column(DateTime, nullable=False)
-    question = Column(String(1024), nullable=False)
-    answer = Column(String(1024), nullable=False)
+    question = Column(Text, nullable=False)
+    answer = Column(Text, nullable=True)
+    references = Column(Text, nullable=True)
     folder_id = Column(Integer, ForeignKey("folder.id"), nullable=False)
     folder = relationship("Folder", backref="folder_contents")
 

@@ -509,7 +509,7 @@ def data_generation(result_list):
 
 if __name__ == '__main__':
     start_time = time.time()
-    print("This code is web crawler of ChatPub Service. Final updated date is 20231113.\n")
+    print("This code is web crawler of ChatPub Service. Final updated date is 20231120.\n")
     print("Start crawling...")
 
     #connect with database
@@ -540,14 +540,80 @@ if __name__ == '__main__':
             'r_number': contents[1],
             'contents': parsed_data,
         })
+        if index>10:
+            break
+
 
     print("\nStart insertion...")
     insert_table(conn, result_list)
 
-    print("\nStart data generation...")
-    data_generation(result_list)
+    # print("\nStart data generation...")
+    # data_generation(result_list)
 
     conn.close()
 
+    #for test:
+
+    from sentence_transformers import SentenceTransformer
+    sentences = ["안녕하세요?", "한국어 문장 임베딩을 위한 버트 모델입니다."]
+
+    model = SentenceTransformer('jhgan/ko-sroberta-multitask')
+    embeddings = model.encode(sentences)
+    print(embeddings.shape)
+
+    import faiss
+
+    # dimension
+    d = 768
+
+    # set index
+    index = faiss.IndexFlatL2(d)
+    Index = faiss.IndexIDMap2(index)
+
+    # add the items into Index
+    import numpy as np
+
+    for policy in result_list:
+
+        content = f"요약: {policy['title']}\n"
+        content += f"url: {policy['contents']['url']}\n"
+        content += f"제목: {policy['contents']['main_title']}\n"
+        content += f"설명: {policy['contents']['short_description']}\n"
+        
+        for key in policy['contents']['summary']:
+            value = policy['contents']['summary'][key]
+            content += f'{key}: {value}\n'
+
+        for key in policy['contents']['qualification']:
+            value = policy['contents']['qualification'][key]
+            content += f'{key}: {value}\n'
+
+        for key in policy['contents']['methods']:
+            value = policy['contents']['methods'][key]
+            content += f'{key}: {value}\n'
+
+        for key in policy['contents']['etc']:
+            value = policy['contents']['etc'][key]
+            content += f'{key}: {value}\n'
+
+        content_vector = model.encode([content])
+        vector_id = np.array([policy['yp']], dtype='int64')
+        Index.add_with_ids(content_vector, vector_id)
+
+    def search(model, index, query, k):
+        query_vector = model.encode([query])
+        distance, index = index.search(query_vector, k)
+
+        # idx shape: [query 개수, k]
+        # 현재는 질문이 하나이고 k=1이므로, shape: (1, 1)
+        for i in index:
+            # 특정 query에 대해 가장 첫 번째 결과 추출
+            i = i[0]
+
+            for key, value in result_list[i].items():
+                print(f'{key}: {value}')
+
+    #find
+    search(model, index, '문화가있는날', 1)
 
     print(f"Process was finished. It takes {time.time()-start_time} sec.")
