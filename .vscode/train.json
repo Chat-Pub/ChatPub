@@ -8,9 +8,9 @@
             "program": "model/sentence_transformers/train.py", 
             "args": [
                 "--model_name","klue/roberta-base",
-                "--max_length","128",
-                "--train_batch_size","128",
-                "--eval_batch_size","128",
+                "--max_length","256",
+                "--train_batch_size","64",
+                "--eval_batch_size","64",
                 "--learning_rate","2e-5",
                 "--epoch","5",
                 "--train_data","model/sentence_transformers/data/gpt_qa/train.json",

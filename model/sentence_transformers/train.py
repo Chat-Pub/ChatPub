@@ -49,6 +49,7 @@ def main():
     tokenizer = get_tokenizer(args)
     device = torch.device('cuda') if torch.cuda.is_available() else torch.device('cpu')
     model_name = args.model_name.split('/')[-1]
+    data_name = args.train_data.split('/')[-2]
 
     with open(args.train_data, 'r') as f:
         train_dataset = json.load(f)
@@ -199,7 +200,7 @@ def main():
         if lowest_valid_loss > valid_loss:
             model_path = os.path.join(
                     'model/sentence_transformers/model_params',
-                    f'{model_name}_{args.learning_rate}.pth'
+                    f'{model_name}_{data_name}_{args.learning_rate}.pth'
                 )
             torch.save(model.state_dict(), model_path)
             

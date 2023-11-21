@@ -8,10 +8,10 @@
             "program": "model/sentence_transformers/test.py",
             "args": [
                 "--model_name","klue/roberta-base",
-                "--model_path","model/sentence_transformers/model_params/roberta-base_2e-05.pth",
-                "--max_length","128",
-                "--eval_batch_size","128",
-                "--test_data","model/sentence_transformers/data/kor_nli/test.json"
+                "--model_path","model/sentence_transformers/model_params/roberta-base_klue_nli_2e-05.pth",
+                "--max_length","256",
+                "--eval_batch_size","64",
+                "--test_data","model/sentence_transformers/data/kor_squad/test.json"
             ], 
             "console": "integratedTerminal"
         }

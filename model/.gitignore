@@ -2,3 +2,4 @@ test.ipynb
 rag-model/.env
 model_params
 sentence_transformers/data/
+output
