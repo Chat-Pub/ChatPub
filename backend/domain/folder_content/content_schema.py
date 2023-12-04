@@ -11,7 +11,6 @@ class FolderContent(BaseModel):
     answer: str | None
     references: str | None
     folder_id: int
-    folder: Folder
 
     class Config:
         orm_mode = True
@@ -20,7 +19,7 @@ class FolderContentCreate(BaseModel):
     folder_id: int
     question: str
     answer: str 
-    references: list[str] 
+    references: list[str] = []
 
     @validator('question')
     def not_empty(cls,v):
@@ -31,7 +30,7 @@ class FolderContentCreate(BaseModel):
 
 class FolderContentCreateResponse(BaseModel):
     answer: str 
-    references: list[str]
+    references: list[str] = []
 
 class FolderContentCreateRequest(BaseModel):
     folder_id: int
@@ -43,6 +42,7 @@ class FolderContentCreateRequest(BaseModel):
             raise ValueError('빈 값은 허용되지 않습니다.')
         return v
 
+
 class FolderContentList(BaseModel):
     total: int
     folder_content_list: list[FolderContent] = []
@@ -52,3 +52,7 @@ class FolderContentUpdate(FolderContentCreate):
 
 class FolderContentDelete(BaseModel):
     folder_content_id: int
+
+class FolderId(BaseModel):
+    folder_id: int
+    

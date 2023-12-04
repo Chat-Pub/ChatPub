@@ -6,17 +6,26 @@ from models import FolderContent, Folder
 from sqlalchemy.orm import Session
 
 
+def get_folder_content_memory(db : Session, folder_id: int):
+    folder_content_list = db.query(FolderContent)\
+        .filter(FolderContent.folder_id == folder_id)\
+        .order_by(FolderContent.create_date.desc())\
+        .limit(4)
 
+    folder_content_list = folder_content_list.all()
+    return folder_content_list
 
 
 def get_folder_content_list(db : Session, folder_id: int):
     folder_content_list = db.query(FolderContent)\
         .filter(FolderContent.folder_id == folder_id)\
-        .order_by(FolderContent.create_date.desc())
+        .order_by(FolderContent.create_date.asc())
         
     total = folder_content_list.distinct().count()
     folder_content_list = folder_content_list.all()
+
     return total, folder_content_list
+
 
 def get_folder_content(db: Session, folder_content_id: int):
     folder_content = db.query(FolderContent).get(folder_content_id)
