@@ -13,9 +13,9 @@ import mainchat from './assets/mainchat.png';
  import editIcon from './assets/edit.svg';
  import {useEffect, useRef,useState} from 'react';
 
- var selectedFolderId = 0;
 
-function App() {
+
+function Chat() {
   const msgEnd = useRef(null);
   
 
@@ -32,7 +32,8 @@ function App() {
   const [newChatFolderName, setNewChatFolderName] = useState('');
   const [isModalOpen2, setIsModalOpen2] = useState(false);
   const [editFolderName, setEditFolderName] = useState('');
-  
+  const [seletedFolderId, setSeletedFolderId] = useState(0);
+
   //folder id fetch
   const [folders, setFolders] = useState([]);
 
@@ -52,6 +53,77 @@ function App() {
       .catch(error => console.error('Error fetching folders:', error));
     // Fetch folder data from FastAPI backend
   }, [conditionFolder]);
+
+// auto scroll
+  useEffect(() => {
+    msgEnd.current.scrollIntoView({behavior: 'smooth'});
+  }, [messages])
+
+
+  // chatgpt message
+  const handleSend = async () => {
+    const text = input;
+    setInput('');
+    setMessages([
+      ...messages, 
+      {text, isBot : false},
+      {text: 'Loading...', isBot : true}
+    ])
+    const folderid=1;
+      try {
+      const response = await fetch('http://127.0.0.1:8000/api/folder_content/create', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+        body: JSON.stringify({
+          folder_id: folderid,
+          question: text,
+        }),
+      });
+  
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+  
+      const data = await response.json();
+  
+      // Handle the response data, update state, etc.
+      setMessages([
+        ...messages, 
+        {text, isBot : false},
+        {text: data.answer, isBot : true}
+      ])
+      
+    } catch (error) {
+      console.error('Error during API call:', error);
+      // Handle error, update state, show an error message, etc.
+    }
+  }
+
+  // scroll to bottom
+  const handleEnter = (e) => {
+    if(e.key === 'Enter'){
+      handleSend();
+    }
+   }
+
+  //qeury, auto question and answer
+  // const handleQuery = async (e) => {
+  //   const text = e.target.value;
+  //   setMessages([
+  //     ...messages, 
+  //     {text, isBot : false}
+  //   ])
+
+  //   const res = await sendMsgToOpenAI(text)
+  //   setMessages([
+  //     ...messages, 
+  //     {text: input, isBot : false},
+  //     {text: res, isBot : true}
+  //   ])
+  // }
 
   //Folder create
   const handleNewChatClick = () => {
@@ -88,7 +160,7 @@ function App() {
   //Folder Name Edit Modal
   const handleEditFolderClick = (folderName, folderId) => {
     setEditFolderName(folderName);
-    selectedFolderId = folderId;
+    setSeletedFolderId(folderId);
     setIsModalOpen2(true);
   };
 
@@ -98,7 +170,7 @@ function App() {
 
     const handleEditFolder = async () => {
     // Here you can send the newChatFolderName to your database or perform any other action
-    console.log('Folder name Edited:', editFolderName, selectedFolderId);
+    console.log('Folder name Edited:', editFolderName, seletedFolderId);
     try {
       await fetch('http://127.0.0.1:8000/api/folder/update', {
         method: 'PUT',
@@ -108,7 +180,7 @@ function App() {
         },
         body: JSON.stringify({
           folder_name: editFolderName,
-          folder_id: selectedFolderId,
+          folder_id: seletedFolderId,
         }),
       });
       setConditionFolder(conditionFolder + 1);
@@ -119,118 +191,6 @@ function App() {
       // Handle error, update state, show an error message, etc.
     }
   };
-
-// auto scroll
-  // useEffect(() => {
-  // msgEnd.current.scrollIntoView({behavior: 'smooth'});
-  // }, [messages])
-
-
-  // Call Chat GPT 
-  const handleChatRoom = async () => {
-    console.log('Folder id handle chat room:', selectedFolderId);
-    try {
-      await fetch('http://127.0.0.1:8000/api/folder_content/list',{
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          authorization: `Bearer ${localStorage.getItem('token')}`,
-        },
-        body: JSON.stringify({
-          folder_id: selectedFolderId,
-        }),
-      })
-      .then(response => response.json())
-      .then(data =>  {
-        console.log('data:', data)
-        if (data.total === 0) {
-          setMessages([
-            {
-              text: 'Hi, I am ChatPub. I am here to help you with your queries.',
-              isBot : true,
-            }
-          ]);
-          return;
-        }
-
-        const extractedMessages = data.folder_content_list.map(({ question, answer, references }) => ({ question, answer, references }));
-        console.log('extractedMessages:', extractedMessages)
-          let messagesCluster = [];
-
-        extractedMessages.forEach((message) => {
-           messagesCluster = [
-            ...messagesCluster, 
-            {text: message.question, isBot : false},
-            {text: message.answer, isBot : true},
-            {text: message.references, isBot : true}
-          ]
-        })
-        setMessages(messagesCluster)
-        
-      })
-    } catch (error) {
-        console.error('Error during API call:', error);
-    }
-    
-  }
-
-  
-
-  const handleRoomId = (folderId) => {
-    console.log('Folder id room id :', folderId);
-    selectedFolderId = folderId;
-    handleChatRoom();
-    // console.log('Folder id:', selectedFolderId); 
-    // handleChatRoom();
-  }
-  
-  // scroll to bottom
-  const handleEnter = (e) => {
-    if(e.key === 'Enter'){
-      handleSend();
-    }
-  }
-  
-  // chatgpt message
-  const handleSend = async () => {
-    const text = input;
-    setInput('');
-    setMessages([
-      ...messages, 
-      {text, isBot : false},
-      {text: 'Loading...', isBot : true}
-    ])
-      console.log('Folder id handle send:', selectedFolderId);
-      try {
-      await fetch('http://127.0.0.1:8000/api/folder_content/create', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          authorization: `Bearer ${localStorage.getItem('token')}`,
-        },
-        body: JSON.stringify({
-          folder_id: selectedFolderId,
-          question: text,
-        }),
-      })
-      .then(response => response.json())
-      .then(data =>  {
-        setMessages([
-          ...messages, 
-          {text, isBot : false},
-          {text: data.answer, isBot : true},
-          {text: data.references, isBot : true}
-        ])
-
-      });
-      
-    } catch (error) {
-      console.error('Error during API call:', error);
-      // Handle error, update state, show an error message, etc.
-    }
-  }
-  
- 
 
   return (
     <div className="App">
@@ -285,7 +245,7 @@ function App() {
                       </div>
                     </div>
                   )}
-                  <button className="folderBtn" onClick={()=>{handleRoomId(folder.id)}}>
+                  <button className="folderBtn" onClick={()=>{console.log('btn')}}>
                     <h3>{folder.folder_name}</h3>
                   </button>
                  
@@ -307,12 +267,14 @@ function App() {
       {/* main */}
       <div className="main">
         <div className='chats'>
-          {messages.map((message, i) => 
-            <div key ={i} className={message.isBot?'chat bot':"chat"}>
-              <img className='chatImg' src = {message.isBot?gptImgLogo:userIcon} alt ="" /> <p className='txt'>{message.text}</p>
-            </div>
-          )}
-          <div ref={msgEnd}/>
+          {/* <div className='chat'> */}
+            {messages.map((message, i) => 
+              <div key ={i} className={message.isBot?'chat bot':"chat"}>
+                <img className='chatImg' src = {message.isBot?gptImgLogo:userIcon} alt ="" /> <p className='txt'>{message.text}</p>
+              </div>
+            )}
+            <div ref={msgEnd}/>
+          {/* </div> */}
         </div>
 
         <div className='chatFooter'>
@@ -322,7 +284,6 @@ function App() {
           </div>
         </div>
       </div>
-      
     </div>
   );
 }
@@ -333,5 +294,5 @@ function App() {
 <button className='query'><img src ={msgIcon} alt ='Query' onClick={handleQuery} value ={'what is Programming?'}/>What is Programming?</button>
 </div>  */}
 
-export default App;
+export default Chat;
 

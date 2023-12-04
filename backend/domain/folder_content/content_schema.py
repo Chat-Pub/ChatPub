@@ -52,3 +52,6 @@ class FolderContentUpdate(FolderContentCreate):
 
 class FolderContentDelete(BaseModel):
     folder_content_id: int
+    
+class FolderId(BaseModel):
+    folder_id: int

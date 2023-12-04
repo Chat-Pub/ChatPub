@@ -4,7 +4,7 @@
 
 const OpenAI = require('openai');
 const openai = new OpenAI({
-  apiKey: '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', dangerouslyAllowBrowser: true
+  apiKey: '', dangerouslyAllowBrowser: true
 });
 
 export async function sendMsgToOpenAI(message) {

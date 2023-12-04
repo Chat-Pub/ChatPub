@@ -12,12 +12,12 @@ app = FastAPI()
 # 즉, 프론트엔드에서 FastAPI 백엔드 서버로 호출이 불가능한 상황이다.
 # 이 오류는 FastAPI에 CORS 예외 URL을 등록하여 해결할 수 있다.
 origins = [
-    "http://127.0.0.1:5173",    # 또는 "http://localhost:5173"
+    "http://127.0.0.1:3000",    # 또는 "http://localhost:5173"
 ]
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,
+    allow_origins=['*'],
     allow_credentials=True, # 쿠키 포함 여부
     allow_methods=["*"],
     allow_headers=["*"],

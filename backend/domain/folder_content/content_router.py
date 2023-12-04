@@ -15,13 +15,13 @@ router = APIRouter(
 )
 
 
-@router.get("/list", response_model=content_schema.FolderContentList)
-def folder_content_list(folder_id: int, db: Session = Depends(get_db),
+@router.post("/list", response_model=content_schema.FolderContentList)
+def folder_content_list(_folder_id: content_schema.FolderId, db: Session = Depends(get_db),
                         current_user: User = Depends(get_current_user)):
         
-        total, _folder_content_list = content_crud.get_folder_content_list(db,folder_id)
+    total, _folder_content_list = content_crud.get_folder_content_list(db,_folder_id.folder_id)
     
-        return {
+    return {
         'total' : total,
         'folder_content_list': _folder_content_list
     }
@@ -38,14 +38,7 @@ def folder_content_create(_folder_content_create_request: content_schema.FolderC
                     db: Session = Depends(get_db),
                     current_user: User = Depends(get_current_user)):
     
-    user_info = get_user_info(db=db,user_id=current_user.id)
-    if (user_info == None):
-         user_info = ""
-    else:
-        user_info_dict = user_info.__dict__
-        user_info_str = "나의 생일은 " + user_info_dict["birth"] + "이고, 성별은 " + user_info_dict["gender"] + "입니다."
-        user_info_str += "직업은 " + user_info_dict["job"] + "이고, 사는 지역은 " + user_info_dict["region"] + "이며, 연 소득은 " + user_info_dict["money"] + "입니다."
-        user_info = user_info_str
+    user_info = ""
 
     # 모델 클래스 생성 후 answer 받아오기
     chatbot = chatbot_class.ChatBot() # 모델 클래스 생성, 모델 path 입력
@@ -61,7 +54,10 @@ def folder_content_create(_folder_content_create_request: content_schema.FolderC
 
     content_crud.create_folder_content(db=db,folder_content_create=_folder_content_create)
 
-    return model_answer
+    return {
+            'answer': model_answer["answer"],
+            'references': '\n'.join(model_answer["references"])
+            }
 
 
 

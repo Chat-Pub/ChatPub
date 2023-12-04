@@ -1,11 +1,28 @@
 import React from 'react'; 
-import ReactDOM from 'react-dom';
+import ReactDOM from 'react-dom/client';   
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
+
+
+import Home from './Home'; 
+import Login from './Login';
+import CreateAccount from './Signup';
 import App from './App';
-// import Home from './Home'; // Fix the import statement
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(<App/>);
+// root.render(<App/>);
+root.render(
+    <BrowserRouter>
+        <Routes>
+            <Route path="/" element={<Home/>} />
+            <Route path="login" element={<Login/>} />
+            <Route path="signup" element={<CreateAccount/>} />
+            <Route path="App" element={<App/>} />
+            <Route path="HomePage" element={<Home/>} />
+        </Routes>
+    </BrowserRouter>
+    // <Home/>
+);
 
 
