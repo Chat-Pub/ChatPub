@@ -57,21 +57,25 @@ def folder_content_create(_folder_content_create_request: content_schema.FolderC
                         'AI':data.answer})
             print(data.question)
         
-    # # 모델 클래스 생성 후 answer 받아오기
-    # chatbot = chatbot_class.ChatBot() # 모델 클래스 생성, 모델 path 입력
-    # model_answer = chatbot.forward(user_info,_folder_content_create_request.question)
+    # 모델 클래스 생성 후 answer 받아오기
+    chatbot = chatbot_class.ChatBot() # 모델 클래스 생성, 모델 path 입력
+    model_answer = chatbot.forward(user_info,_folder_content_create_request.question)
     
-    # # 필요한 데이터를 받아서 모델 클래스를 생성하고 데이터베이스에 저장한다.
-    # # "answer": "챗봇이 출력하는 답", # string
-    # # "references":["참조한 텍스트 1", "참조한 텍스트 2", "참조한 텍스트 3"] # 길이 가변 (0 ~ 3), 각 원소는 string
-    # _folder_content_create = content_schema.FolderContentCreate(folder_id=_folder_content_create_request.folder_id
-    #                                                             ,question=_folder_content_create_request.question
-    #                                                             ,answer=model_answer["answer"]
-    #                                                             ,references=model_answer["references"])
+    # 필요한 데이터를 받아서 모델 클래스를 생성하고 데이터베이스에 저장한다.
+    # "answer": "챗봇이 출력하는 답", # string
+    # "references":["참조한 텍스트 1", "참조한 텍스트 2", "참조한 텍스트 3"] # 길이 가변 (0 ~ 3), 각 원소는 string
+    
+    _folder_content_create = content_schema.FolderContentCreate(folder_id=_folder_content_create_request.folder_id
+                                                                ,question=_folder_content_create_request.question
+                                                                ,answer=model_answer["answer"]
+                                                                ,references=model_answer["references"])
 
-    # content_crud.create_folder_content(db=db,folder_content_create=_folder_content_create)
+    content_crud.create_folder_content(db=db,folder_content_create=_folder_content_create)
 
-    return get_folder_content_memory_data
+    return {
+        'answer': model_answer["answer"],
+        'references': '\n'.join(model_answer["references"])
+    }
 
 
 

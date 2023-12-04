@@ -37,7 +37,7 @@ def create_folder_content(db: Session, folder_content_create: FolderContentCreat
     db_folder_content = FolderContent(create_date=datetime.now(),
                                     question=folder_content_create.question,
                                     answer=folder_content_create.answer,
-                                    references="".join(folder_content_create.references),
+                                    references='\n'.join(folder_content_create.references),
                                     folder=folder)
     
     db.add(db_folder_content)

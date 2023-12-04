@@ -12,7 +12,7 @@ def get_folder_list(db: Session, user_id: int):
     
   
     total = folder_list.distinct().count()
-    folder_list = folder_list.order_by(Folder.create_date.asc()).all()
+    folder_list = folder_list.order_by(Folder.create_date.desc()).all()
 
     return total, folder_list
 
