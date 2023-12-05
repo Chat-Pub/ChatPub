@@ -1,23 +1,20 @@
 import React from 'react'
 import { Router, Route, Routes, Link} from 'react-router-dom';
 
-// import HomePage from './Home.js'
-import App from './App.js';
-import Login from './Login.js';
-import Search from './Search.js';
-
-
 import mainchat from './assets/mainchat.png';
 import govmark from './assets/gov.png';
 import chatmenu from './assets/chat.svg';
 import searchmenu from './assets/search.svg';
 import homemenu from './assets/home.svg';
 import user from './assets/user.svg';
+import comet from './assets/comet.svg';
+import bolt from './assets/bolt.svg';
+import sparkles from './assets/sparkles.svg';
 
 function Home() {
   return (
     <div className="HomePage" style={{width: '100vw', height: '100vh', position: 'relative', background: 'white'}}>
-      <div className="MainFrame" style={{width: 800, height: 675, left: 379, top: 124, position: 'absolute', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center', gap: 64, display: 'inline-flex'}}>
+      <div className="MainFrame" style={{width: 800, height: 675, position: 'absolute', left: '50%', top: '50%', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center', gap: 64, display: 'inline-flex', transform: 'translate(-50%, -50%)',}}>
         <div className="ChatPubTitle" style={{height: 219, flexDirection: 'column', justifyContent: 'center', alignItems: 'center', gap: 12, display: 'flex'}}>
           <img className="Chatpub" alt="mainChat" style={{width: 120, height: 115}} src={mainchat} />
           <div className="ChatPub" style={{color: 'black', fontSize: 40, fontFamily: 'Poppins', fontWeight: 800, wordWrap: 'break-word'}}>CHAT-PUB</div>
@@ -29,14 +26,12 @@ function Home() {
               <div className="Examplemain" style={{alignSelf: 'stretch', height: 145, flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', gap: 20, display: 'flex'}}>
                 <div className="Exampleicon" style={{padding: 12, background: '#F8F8F8', borderRadius: 90, justifyContent: 'flex-start', alignItems: 'flex-start', gap: 10, display: 'inline-flex'}}>
                   <div className="Sparkles" style={{width: 24, height: 24, padding: 3, justifyContent: 'center', alignItems: 'center', display: 'flex'}}>
-                    <div className="Vector" style={{width: 18, height: 18, border: '2px #919191 solid'}}></div>
+                    <img className='sparkles' src={sparkles} alt='sparkles'></img>
                   </div>
                 </div>
                 <div className="Exampleinfo" style={{alignSelf: 'stretch', height: 77, flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', gap: 12, display: 'flex'}}>
                   <div className="Examples" style={{alignSelf: 'stretch', color: 'black', fontSize: 18, fontFamily: 'Poppins', fontWeight: '600', wordWrap: 'break-word'}}>Examples</div>
-                  <div className="WhatAreSomePoliciesThatWillBenefitMe" style={{alignSelf: 'stretch'}}>
-                    <span style={{color: '#919191', fontSize: 14, fontFamily: 'Poppins', fontWeight: '400', textDecoration: 'underline', lineHeight: 19.39, wordWrap: 'break-word'}}>What are some policies that will benefit me? </span>
-                    <span style={{color: '#919191', fontSize: 14, fontFamily: 'Inter', fontWeight: '400', textDecoration: 'underline', lineHeight: 19.39, wordWrap: 'break-word'}}>🔗</span></div>
+                  <div className="Text" style={{alignSelf: 'stretch', color: '#919191', fontSize: 14, fontFamily: 'Poppins', fontWeight: '400', textDecoration: 'underline', lineHeight: 19.39, wordWrap: 'break-word'}}> What are some policies that will benefit me?</div>
                 </div>
               </div>
             </div>
@@ -56,12 +51,12 @@ function Home() {
               <div className="Capabilitymain" style={{alignSelf: 'stretch', height: 149, flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', gap: 20, display: 'flex'}}>
                 <div className="Capabilityicon" style={{padding: 12, background: '#F8F8F8', borderRadius: 90, justifyContent: 'flex-start', alignItems: 'flex-start', gap: 10, display: 'inline-flex'}}>
                   <div className="Star" style={{width: 24, height: 24, paddingTop: 2.24, paddingBottom: 3.91, paddingLeft: 2.66, paddingRight: 2.66, justifyContent: 'center', alignItems: 'center', display: 'flex'}}>
-                    <div className="Vector" style={{width: 18.67, height: 17.86, border: '2px #919191 solid'}}></div>
+                    <img className='bolt' src={bolt} alt='bolt'></img>
                   </div>
                 </div>
                 <div className="Capabilityinfo" style={{alignSelf: 'stretch', height: 81, flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', gap: 12, display: 'flex'}}>
                   <div className="Capabilities" style={{alignSelf: 'stretch', color: 'black', fontSize: 18, fontFamily: 'Poppins', fontWeight: '600', wordWrap: 'break-word'}}>Capabilities</div>
-                  <div className="RemembersWhatUserSaidEarlierInTheConversation" style={{alignSelf: 'stretch', color: '#919191', fontSize: 14, fontFamily: 'Poppins', fontWeight: '400', wordWrap: 'break-word'}}>Remembers what user said earlier in the conversation</div>
+                  <div className="Text" style={{alignSelf: 'stretch', color: '#919191', fontSize: 14, fontFamily: 'Poppins', fontWeight: '400', wordWrap: 'break-word'}}>Remembers what user said earlier in the conversation</div>
                 </div>
               </div>
             </div>
@@ -77,12 +72,12 @@ function Home() {
               <div className="Limitationmain" style={{alignSelf: 'stretch', height: 141, flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', gap: 20, display: 'flex'}}>
                 <div className="Limitationicon" style={{padding: 12, background: '#F8F8F8', borderRadius: 90, justifyContent: 'flex-start', alignItems: 'flex-start', gap: 10, display: 'inline-flex'}}>
                   <div className="Exclamation" style={{width: 24, height: 24, paddingTop: 3, paddingBottom: 5, paddingLeft: 3.07, paddingRight: 3.07, justifyContent: 'center', alignItems: 'center', display: 'flex'}}>
-                    <div className="Vector" style={{width: 17.86, height: 16, border: '2px #919191 solid'}}></div>
+                    <img className='comet' src={comet} alt='comet'></img>
                   </div>
                 </div>
                 <div className="Limitationinfo" style={{alignSelf: 'stretch', height: 73, flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', gap: 12, display: 'flex'}}>
                   <div className="Limitations" style={{alignSelf: 'stretch', color: 'black', fontSize: 18, fontFamily: 'Poppins', fontWeight: '600', wordWrap: 'break-word'}}>Limitations</div>
-                  <div className="MayOccasionallyGenerateIncorrectInformation" style={{alignSelf: 'stretch', color: '#919191', fontSize: 14, fontFamily: 'Inter', fontWeight: '400', wordWrap: 'break-word'}}>May occasionally generate incorrect information</div>
+                  <div className="Text" style={{alignSelf: 'stretch', color: '#919191', fontSize: 14, fontFamily: 'Inter', fontWeight: '400', wordWrap: 'break-word'}}>May occasionally generate incorrect information</div>
                 </div>
               </div>
             </div>
