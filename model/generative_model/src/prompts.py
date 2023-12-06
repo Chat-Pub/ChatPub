@@ -13,7 +13,8 @@ User Question: {query}"""
 
 
 # BASELINE VERSION
-chat_system_prompt_baseline = """You are a Korean QA Chatbot."""
+chat_system_prompt_baseline = """You are a Korean QA Chatbot.
+If the answer cannot be found in the context, just say that you don't know, don't try to make up an answer."""
 
 chat_user_prompt_template_baseline = """Context:
 {context}

@@ -122,7 +122,7 @@ def main():
                     "prompted_eval_result":eval_result[1],
                })
 
-               time.sleep(40)
+               time.sleep(20)
           
      if args.is_comparison == 'true':
           with open(f'results/eval_comparison.json', 'w') as outfile:

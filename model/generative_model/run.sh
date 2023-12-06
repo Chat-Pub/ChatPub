@@ -1,1 +1,1 @@
-python src/run.py --have_baseline=true --have_prompt=true --is_comparison=true
+python src/run.py --have_baseline=true --have_prompt=true --is_comparison=false
