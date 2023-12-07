@@ -19,7 +19,7 @@ function DetailEdit() {
 
     async function handlePersonalInfo () {
       try {
-        await fetch(`${process.env.REACT_APP_SERVER}/userinfo/update`, {
+        const response = await fetch('http://127.0.0.1:8000/api/userinfo/update', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -33,7 +33,11 @@ function DetailEdit() {
             region : region,
             money : money
           }),
-        }).then((response) => response.json());
+        });
+  
+        if (!response.ok) {
+          throw new Error('Saving failed');
+        }
     }    catch (error) {
       // Handle saving failure
       console.error('Error during saving:', error.message);
@@ -42,59 +46,68 @@ function DetailEdit() {
   }
 
   return (
-    <div className="HomePage" style={{width: '100vw', height: '100vh', position: 'relative', background: 'white'}}>
-      <div className="MainFrame" style={{width: 800, height: 675, position: 'absolute', left: '50%', top: '50%', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center', gap: 64, display: 'inline-flex', transform: 'translate(-50%, -50%)',}}>
-        <div className="PersonalInfoTitle" style={{width: 200, height: 41, color: '#484848', fontSize: 32, fontFamily: 'Roboto', fontWeight: '800', wordWrap: 'break-word'}}>Personal Info</div>
+    <div className="HomePage" style={{minWidth: '1000px', minHeight: '800px', width: '100vw', height: '100vh', position: 'relative', background: 'white'}}>
+      <div className="MainFrame" style={{width: 800, height: 675, position: 'absolute', left: 'calc(50% + 33px)', top: '50%', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center', gap: 64, display: 'inline-flex', transform: 'translate(-50%, -50%)',}}>
+        <div className="PersonalInfoTitle" style={{width: 197.14, height: 41, color: '#484848', fontSize: 32, fontFamily: 'Roboto', fontWeight: '800', wordWrap: 'break-word'}}>Personal info</div>
         {/* Personal Info */}
-        <div className="PersonalInfoSettings" style={{paddingBottom: 73, paddingRight: 436.67, left: -8, top: 108, position: 'absolute', justifyContent: 'flex-start', alignItems: 'center', display: 'inline-flex'}}>
+        <div className="PersonalInfoSettings" style={{paddingBottom: 73, paddingRight: 436.67, left: 80, top: 108, position: 'absolute', justifyContent: 'flex-start', alignItems: 'center', display: 'inline-flex'}}>
             <div className="Settings" style={{width: 437.33, alignSelf: 'stretch', paddingBottom: 91, paddingLeft: 8, flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', display: 'inline-flex'}}>
-                <div className="BirthContainer" style={{width: 595.33, height: 91, paddingTop: 24, paddingBottom: 25, borderBottom: '1px #EBEBEB solid', justifyContent: 'center', alignItems: 'center', display: 'flex'}}>
+                <div className="BirthContainer" style={{width: 595.33, height: 91, paddingTop: 24, paddingBottom: 25, borderBottom: '1px #d3d3d3 solid', justifyContent: 'center', alignItems: 'center', display: 'flex'}}>
                     <div className="BirthOption" style={{width: 595.33, height: 42, position: 'relative', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', display: 'flex'}}>
                         <div className="BirthRow" style={{width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start'}}>
-                            <div className="Birth" style={{color: '#222222', fontSize: 16, fontFamily: 'Roboto', fontWeight: '400', wordWrap: 'break-word',paddingBottom:'20px'}}>Birth</div>
+                            <div className="Birth" style={{color: '#222222', fontSize: 16, fontFamily: 'Roboto', fontWeight: '400', wordWrap: 'break-word'}}>Birth</div>
                         </div>
-                        <input className ="birthInput" type="text" placeholder ="Enter your birth day" value={birth} onChange ={(e) => {setBirth(e.target.value)}} style={{ width: '300px', border: 'none', borderBottom: 'none', outline: 'none', font:'18px' }}/>
+                        
+                        
                     </div>
                 </div>
+                <input className ="birthInput" type="text" placeholder ="Enter your birth day" value={birth} onChange ={(e) => {setBirth(e.target.value)}} style={{ position:'absolute', top:55, left:0, width: '300px', border: 'none', borderBottom: 'none', outline: 'none' }}/>
 
-                <div className="GenderContainer" style={{width: 595.33, height: 91, paddingTop: 24, paddingBottom: 25, borderBottom: '1px #EBEBEB solid', justifyContent: 'center', alignItems: 'center', display: 'flex'}}>
+
+                <div className="GenderContainer" style={{width: 595.33, height: 91, paddingTop: 24, paddingBottom: 25, borderBottom: '1px #d3d3d3 solid', justifyContent: 'center', alignItems: 'center', display: 'flex'}}>
                     <div className="GenderOption" style={{width: 595.33, height: 42, position: 'relative', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', display: 'flex'}}>
                         <div className="GenderRow" style={{width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start'}}>
                             <div className="Gender" style={{color: '#222222', fontSize: 16, fontFamily: 'Roboto', fontWeight: '400',  wordWrap: 'break-word'}}>Gender</div>
                         </div>
-                        <input className ="GenderInput" type="text" placeholder ="Male or Female?" value={gender} onChange ={(e) => {setGender(e.target.value)}}style={{ width: '300px', border: 'none', borderBottom: 'none', outline: 'none' }}/>
+                        
                     </div>
                 </div>
-                <div className="JobContainer" style={{width: 595.33, height: 109, paddingTop: 24, paddingBottom: 25, borderBottom: '1px #EBEBEB solid', justifyContent: 'center', alignItems: 'center', display: 'flex'}}>
+                <input className ="GenderInput" type="text" placeholder ="Male or Female?" value={gender} onChange ={(e) => {setGender(e.target.value)}}style={{ position:'absolute', top:145, left:0,width: '300px', border: 'none', borderBottom: 'none', outline: 'none' }}/>
+
+                <div className="JobContainer" style={{width: 595.33, height: 109, paddingTop: 24, paddingBottom: 25, borderBottom: '1px #d3d3d3 solid', justifyContent: 'center', alignItems: 'center', display: 'flex'}}>
                     <div className="JobOption" style={{width: 595.33, height: 42, position: 'relative', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', display: 'flex'}}>
                         <div className="JobRow" style={{width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start'}}>
                             <div className="Job" style={{color: '#222222', fontSize: 16, fontFamily: 'Roboto', fontWeight: '400', wordWrap: 'break-word'}}>Occupation</div>
                         </div>
-                        <input className ="JobInput" type="text" placeholder ="Enter your Occupation" value={job} onChange ={(e) => {setJob(e.target.value)}}style={{ width: '300px', border: 'none', borderBottom: 'none', outline: 'none' }}/>
+                        <input className ="JobInput" type="text" placeholder ="Enter your Occupation" value={job} onChange ={(e) => {setJob(e.target.value)}}style={{position:'absolute', top:38, left:-8, width: '300px', border: 'none', borderBottom: 'none', outline: 'none' }}/>
                     </div>
                 </div>
-                <div className="RegionContainer" style={{width: 595.33, height: 91, paddingTop: 24, paddingBottom: 25, borderBottom: '1px #EBEBEB solid', justifyContent: 'center', alignItems: 'center', display: 'flex'}}>
+                <div className="RegionContainer" style={{width: 595.33, height: 91, paddingTop: 24, paddingBottom: 25, borderBottom: '1px #d3d3d3 solid', justifyContent: 'center', alignItems: 'center', display: 'flex'}}>
                     <div className="RegionOption" style={{width: 595.33, height: 42, position: 'relative', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', display: 'flex'}}>
                         <div className="RegionRow" style={{width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start'}}>
                             <div className="RegionTitle" style={{color: '#222222', fontSize: 16, fontFamily: 'Roboto', fontWeight: '400',  wordWrap: 'break-word'}}>Region/Address</div>
                         </div>
-                        <input className ="RegionInput" type="text" placeholder ="Enter your province or Adress" value={region} onChange ={(e) => {setRegion(e.target.value)}}style={{ width: '300px', border: 'none', borderBottom: 'none', outline: 'none' }}/>
+                        
                     </div>
                 </div>
-                <div className="MoneyContainer" style={{width: 595.33, height: 91, paddingTop: 24, paddingBottom: 25, borderBottom: '1px #EBEBEB solid', justifyContent: 'center', alignItems: 'center', display: 'flex'}}>
+
+                <input className ="RegionInput" type="text" placeholder ="Enter your province or Adress" value={region} onChange ={(e) => {setRegion(e.target.value)}}style={{ position:'absolute', top:345, left:0,width: '300px', border: 'none', borderBottom: 'none', outline: 'none' }}/>
+
+                <div className="MoneyContainer" style={{width: 595.33, height: 91, paddingTop: 24, paddingBottom: 25, borderBottom: '1px #d3d3d3 solid', justifyContent: 'center', alignItems: 'center', display: 'flex'}}>
                     <div className="MoneyOption" style={{width: 595.33, height: 42, position: 'relative', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', display: 'flex'}}>
                         <div className="MoneyRow" style={{width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start'}}>
                             <div className="Money" style={{color: '#222222', fontSize: 16, fontFamily: 'Roboto', fontWeight: '400',  wordWrap: 'break-word'}}>Profit</div>
                         </div>
-                        <input className ="MoneyInput" type="text" placeholder ="Enter your profit" value={money} onChange ={(e) => {setMoney(e.target.value)}}style={{ width: '300px', border: 'none', borderBottom: 'none', outline: 'none' }}/>
+                        
                     </div>
                 </div>
+                <input className ="MoneyInput" type="text" placeholder ="Enter your profit" value={money} onChange ={(e) => {setMoney(e.target.value)}}style={{ position:'absolute', top:434, left:0,width: '300px', border: 'none', borderBottom: 'none', outline: 'none' }}/>
             </div>
         </div>
 
         {/* Save Button */}
         <Link to="/Detail">
-        <div className="SaveButton" style={{ width: 470, height: 45, left: '50%', bottom: 20, position: 'absolute', transform: 'translateX(-50%)' }}>
+        <div className="SaveButton" style={{ left: 274, width: 470, height: 45, bottom: 20, position: 'absolute', }}>
             <div className="Rectangle4" style={{ width: '50%', height: '100%', position: 'absolute', background: '#35CCED', borderRadius: 10 }}></div>
             <div className="Save" onClick={handlePersonalInfo} style={{ left: '95px', bottom: '50%', position: 'absolute', width: '100%', transform: 'translateY(50%)', color: 'white', fontSize: 24, fontFamily: 'Roboto', fontWeight: '900', wordWrap: 'break-word' }}>Save! </div>
         </div>
@@ -102,7 +115,7 @@ function DetailEdit() {
       </div>
                 
       
-      <div className="Sidebar" style={{width: 66, height: '100vh', paddingTop: 16, paddingBottom: 24, paddingLeft: 16, paddingRight: 16, left: 0, top: -1, position: 'absolute', background: 'white', boxShadow: '0px 0px 24px rgba(0, 0, 0, 0.08)', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center', gap: 41, display: 'inline-flex'}}>
+      <div className="Sidebar" style={{width: 66, minHeight: '800px', height: '100vh', paddingTop: 16, paddingBottom: 24, paddingLeft: 16, paddingRight: 16, left: 0, top: -1, position: 'absolute', background: 'white', boxShadow: '0px 0px 24px rgba(0, 0, 0, 0.08)', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center', gap: 41, display: 'inline-flex'}}>
         <div className="Govmark" style={{width: 69, height: 68, justifyContent: 'center', alignItems: 'center', display: 'inline-flex'}}>
           <img className="Govmark" style={{width: 50, height: 50}} src={govmark} alt ="Govmenu"/>
         </div>
