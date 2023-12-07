@@ -268,7 +268,7 @@ function App() {
           </div>
       </div>
       {/* side bar */}
-      <div className="Chat Menu" style={{margin:'0px 0px 0px 0px'}}>
+      <div className="Chat Menu" style={{marginLeft : '65px'}}>
         <div className = "upperSide">
           <div className='upperSideTop'><img src = {mainchat} alt ="Logo" className='logo'/><span className='brand'>Chat Pub</span></div>
           <div>
@@ -333,7 +333,7 @@ function App() {
       </div>
 
       {/* main */}
-      <div className="main">
+      <div className="main" style={{}}>
         <div className='chats'>
           {messages.map((message, i) => 
             <div key ={i} className={message.isBot?'chat bot':"chat"}>

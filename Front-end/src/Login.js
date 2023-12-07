@@ -13,7 +13,7 @@ const Login  = () => {
 
   async function handleLogin() {
     try {
-      const response = await fetch('http://127.0.0.1:8000/api/user/login', {
+      await fetch('http://127.0.0.1:8000/api/user/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',
@@ -23,20 +23,13 @@ const Login  = () => {
           "password" : password,
           "grant_type" : "password"
         }),
-      });
+      })
+      .then(response => response.json())
+      .then(data => {
+        const token = data.access_token
+              localStorage.setItem('token', token);
 
-      if (!response.ok) {
-        throw new Error('Login failed');
-      }
-
-      // Assuming your API returns some data on successful login
-      const responseData = await response.json();
-
-      const token = responseData.access_token;
-      localStorage.setItem('token', token);
-
-      // You can handle the successful login, e.g., set user data in state, redirect, etc.
-      console.log('Login successful:', responseData);
+      })
 
     } catch (error) {
       // Handle login failure
@@ -68,12 +61,12 @@ const Login  = () => {
         </div>
 
         {/* login btn */}
-        <Link to ="/HomePage">
+        {/* <Link to ="/HomePage"> */}
           <div className="LoginButton" style={{width: 470, height: 45, left: 499, top: 392, position: 'absolute'}}>
             <div className="Rectangle4" style={{width: 470, height: 45, left: 0, top: 0, position: 'absolute', background: '#35CCED', borderRadius: 10}}></div>
             <div className="Login" onClick = {handleLogin} style={{left: 205, top: 9, position: 'absolute', textAlign: 'center', color: 'white', fontSize: 24, fontFamily: 'Roboto', fontWeight: '900', wordWrap: 'break-word'}}>Login </div>
           </div>
-        </Link>
+        {/* </Link> */}
         <div className="GovMark" style={{width: 69, height: 68, left: 11, top: 14, position: 'absolute', justifyContent: 'center', alignItems: 'center', display: 'inline-flex'}}>
           <div className="GovMark" style={{width: 69, height: 68, justifyContent: 'center', alignItems: 'center', display: 'inline-flex'}}>
             <img className="GovMarkIcon" alt ="GovMark" style={{width: 69, height: 68}} src= {govmark} />
