@@ -10,7 +10,7 @@ import mainchat from './assets/mainchat.png';
  import addBtn from './assets/add-30.png';
  import sendBtn from './assets/send.svg';
  import userIcon from './assets/user.svg';
- import gptImgLogo from './assets/chatgptLogo.svg';
+ import gptImgLogo from './assets/chatpubface.jpg';
  import editIcon from './assets/edit.svg';
  import {useEffect, useRef,useState} from 'react';
  import { Link } from 'react-router-dom';
@@ -302,6 +302,8 @@ function App() {
                     />
                   </label>
                   <button onClick={handleSaveFolder}>Save Folder</button>
+                  <button onClick={() => setIsModalOpen(false)}>Cancle</button>
+
                 </div>
               </div>
             )}
@@ -326,6 +328,7 @@ function App() {
                           />
                         </label>
                         <button onClick={handleEditFolder}>Edit Folder Name</button>
+                        <button onClick={() => setIsModalOpen2(false)}>Cancle</button>
                       </div>
                     </div>
                   )}
@@ -336,11 +339,7 @@ function App() {
                 </div> 
               ))}
           </div>
-          
-          
-          
        </div>
-        <div className = "lowerSide"></div>
       </div>
 
       {/* main */}
