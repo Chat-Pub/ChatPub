@@ -25,17 +25,16 @@ const Login  = () => {
         }),
       })
       .then(response => {
-        if (response.status === 200) {
-          alert("로그인 성공");
-          window.location.href = "/HomePage";
-        } else {  
+        if (response.status !== 200) {
           alert("로그인 실패");
-        }
+        } 
+        return response.json();
       })
         .then(data => {
         const token = data.access_token
               localStorage.setItem('token', token);
-
+              alert("로그인 성공");
+        window.location.href = "/HomePage";
       })
 
     } catch (error) {
