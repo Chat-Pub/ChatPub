@@ -327,11 +327,5 @@ function App() {
   );
 }
 
-
-{/* <div className='upperSideBottom'>
-<button className='query'><img src ={msgIcon} alt ='Query'onClick={handleQuery} value = {"how to use an API?"}/>What is Programming?</button>
-<button className='query'><img src ={msgIcon} alt ='Query' onClick={handleQuery} value ={'what is Programming?'}/>What is Programming?</button>
-</div>  */}
-
 export default App;
 

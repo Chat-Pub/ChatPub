@@ -10,6 +10,7 @@ import CreateAccount from './Signup';
 import App from './App';
 import Search from './Search';
 import Detail from './Detail';
+import DetailEdit from './DetailEdit';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -24,7 +25,7 @@ root.render(
             <Route path="HomePage" element={<Home/>} />
             <Route path="Search" element={<Search/>}/>
             <Route path="Detail" element={<Detail/>}/>
-
+            <Route path="DetailEdit" element={<DetailEdit/>}/>
         </Routes>
     </BrowserRouter>
     // <Home/>

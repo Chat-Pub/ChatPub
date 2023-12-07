@@ -1,6 +1,5 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom';
-import { useState, useEffect } from 'react';
 
 
 import govmark from './assets/gov.png';
@@ -9,56 +8,42 @@ import searchmenu from './assets/search.svg';
 import homemenu from './assets/home.svg';
 import user from './assets/user.svg';
 
+
+function DetailEdit() {
+
+    const [birth, setBirth] = useState('');
+    const [gender, setGender] = useState('');
+    const [job, setJob] = useState('');
+    const [region, setRegion] = useState('');
+    const [money, setMoney] = useState(''); 
+
+    async function handlePersonalInfo () {
+      try {
+        const response = await fetch('http://127.0.0.1:8000/api/userinfo/update', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            authorization: `Bearer ${localStorage.getItem('token')}`,
+
+          },
+          body: JSON.stringify({
+            birth : birth,
+            gender : gender,
+            job : job,
+            region : region,
+            money : money
+          }),
+        });
   
-const UserInfo = () => {
-  const [birth, setBirth] = useState(null);
-  const [gender, setGender] = useState(null);
-  const [job, setJob] = useState(null);
-  const [region, setRegion] = useState(null);
-  const [money, setMoney] = useState(null);
-
-  useEffect(() => {
-    // 각 정보를 가져오는 함수 호출
-    fetchUserData();
-  }); // 빈 배열을 넣어 한 번만 실행되도록 설정
-
-  // 각 정보를 가져오는 함수 정의
-  const fetchData = async (url, stateSetter) => {
-    try {
-      const response = await fetch(url, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          authorization: `Bearer ${localStorage.getItem('token')}`,
-          // 다른 헤더가 필요하다면 여기에 추가
-        },
-      });
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-
-      const data = await response.json();
-      stateSetter(data);
-    } catch (error) {
-      console.error('Error fetching data:', error);
+        if (!response.ok) {
+          throw new Error('Saving failed');
+        }
+    }    catch (error) {
+      // Handle saving failure
+      console.error('Error during saving:', error.message);
     }
-  };
 
-  const fetchUserData = () => {
-    fetchData('http://127.0.0.1:8000/api/userinfo/detail', setUserData);
-  };
-
-  const setUserData = (data) => {
-    // 받아온 데이터에서 필요한 정보 추출 및 상태 업데이트
-    setBirth(data.birth);
-    setGender(data.gender);
-    setJob(data.job);
-    setRegion(data.region);
-    setMoney(data.money);
-  };
-
-
-
+  }
 
   return (
     <div className="HomePage" style={{width: '100vw', height: '100vh', position: 'relative', background: 'white'}}>
@@ -72,7 +57,7 @@ const UserInfo = () => {
                         <div className="BirthRow" style={{width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start'}}>
                             <div className="Birth" style={{color: '#222222', fontSize: 16, fontFamily: 'Roboto', fontWeight: '400', wordWrap: 'break-word'}}>Birth</div>
                         </div>
-                        <div className="BirthInfo" style={{color: '#717171', fontSize: 14, fontFamily: 'Roboto', fontWeight: '400', wordWrap: 'break-word'}}>{birth}</div>
+                        <input className ="birthInput" type="text" placeholder ="Enter your birth day" value={birth} onChange ={(e) => {setBirth(e.target.value)}} style={{ width: '300px', border: 'none', borderBottom: 'none', outline: 'none' }}/>
                     </div>
                 </div>
 
@@ -81,7 +66,7 @@ const UserInfo = () => {
                         <div className="GenderRow" style={{width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start'}}>
                             <div className="Gender" style={{color: '#222222', fontSize: 16, fontFamily: 'Roboto', fontWeight: '400',  wordWrap: 'break-word'}}>Gender</div>
                         </div>
-                        <div className="GenderInfo" style={{color: '#717171', fontSize: 13, fontFamily: 'Roboto', fontWeight: '400', wordWrap: 'break-word'}}>{gender}</div>
+                        <input className ="GenderInput" type="text" placeholder ="Male or Female?" value={gender} onChange ={(e) => {setGender(e.target.value)}}style={{ width: '300px', border: 'none', borderBottom: 'none', outline: 'none' }}/>
                     </div>
                 </div>
                 <div className="JobContainer" style={{width: 595.33, height: 109, paddingTop: 24, paddingBottom: 25, borderBottom: '1px #EBEBEB solid', justifyContent: 'center', alignItems: 'center', display: 'flex'}}>
@@ -89,7 +74,7 @@ const UserInfo = () => {
                         <div className="JobRow" style={{width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start'}}>
                             <div className="Job" style={{color: '#222222', fontSize: 16, fontFamily: 'Roboto', fontWeight: '400', wordWrap: 'break-word'}}>Occupation</div>
                         </div>
-                        <div className="JobInfo" style={{color: '#717171', fontSize: 14, fontFamily: 'Roboto', fontWeight: '400', wordWrap: 'break-word'}}>{job}</div>
+                        <input className ="JobInput" type="text" placeholder ="Enter your Occupation" value={job} onChange ={(e) => {setJob(e.target.value)}}style={{ width: '300px', border: 'none', borderBottom: 'none', outline: 'none' }}/>
                     </div>
                 </div>
                 <div className="RegionContainer" style={{width: 595.33, height: 91, paddingTop: 24, paddingBottom: 25, borderBottom: '1px #EBEBEB solid', justifyContent: 'center', alignItems: 'center', display: 'flex'}}>
@@ -97,7 +82,7 @@ const UserInfo = () => {
                         <div className="RegionRow" style={{width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start'}}>
                             <div className="RegionTitle" style={{color: '#222222', fontSize: 16, fontFamily: 'Roboto', fontWeight: '400',  wordWrap: 'break-word'}}>Region/Address</div>
                         </div>
-                        <div className="RegionInfo" style={{color: '#717171', fontSize: 14, fontFamily: 'Roboto', fontWeight: '400',  wordWrap: 'break-word'}}>{region}</div>
+                        <input className ="RegionInput" type="text" placeholder ="Enter your province or Adress" value={region} onChange ={(e) => {setRegion(e.target.value)}}style={{ width: '300px', border: 'none', borderBottom: 'none', outline: 'none' }}/>
                     </div>
                 </div>
                 <div className="MoneyContainer" style={{width: 595.33, height: 91, paddingTop: 24, paddingBottom: 25, borderBottom: '1px #EBEBEB solid', justifyContent: 'center', alignItems: 'center', display: 'flex'}}>
@@ -105,19 +90,19 @@ const UserInfo = () => {
                         <div className="MoneyRow" style={{width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start'}}>
                             <div className="Money" style={{color: '#222222', fontSize: 16, fontFamily: 'Roboto', fontWeight: '400',  wordWrap: 'break-word'}}>Profit</div>
                         </div>
-                        <div className="MoneyInfo" style={{color: '#717171', fontSize: 14, fontFamily: 'Roboto', fontWeight: '400',  wordWrap: 'break-word'}}>{money}</div>
+                        <input className ="MoneyInput" type="text" placeholder ="Enter your profit" value={money} onChange ={(e) => {setMoney(e.target.value)}}style={{ width: '300px', border: 'none', borderBottom: 'none', outline: 'none' }}/>
                     </div>
                 </div>
             </div>
         </div>
-        {/* Edit Button */}
-        <Link to="/DetailEdit">
-        <div className="EditButton" style={{ width: 470, height: 45, left: '50%', bottom: 20, position: 'absolute', transform: 'translateX(-50%)' }}>
+
+        {/* Save Button */}
+        <Link to="/Detail">
+        <div className="SaveButton" style={{ width: 470, height: 45, left: '50%', bottom: 20, position: 'absolute', transform: 'translateX(-50%)' }}>
             <div className="Rectangle4" style={{ width: '50%', height: '100%', position: 'absolute', background: '#35CCED', borderRadius: 10 }}></div>
-            <div className="Edit" style={{ left: '95px', bottom: '50%', position: 'absolute', width: '100%', transform: 'translateY(50%)', color: 'white', fontSize: 24, fontFamily: 'Roboto', fontWeight: '900', wordWrap: 'break-word' }}>Edit </div>
+            <div className="Save" onClick={handlePersonalInfo} style={{ left: '95px', bottom: '50%', position: 'absolute', width: '100%', transform: 'translateY(50%)', color: 'white', fontSize: 24, fontFamily: 'Roboto', fontWeight: '900', wordWrap: 'break-word' }}>Save! </div>
         </div>
         </Link>
-
       </div>
                 
       
@@ -153,7 +138,8 @@ const UserInfo = () => {
           </div>
       </div>
     </div>
+
   )
 }
 
-export default UserInfo
+export default DetailEdit
