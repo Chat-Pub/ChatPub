@@ -146,6 +146,8 @@ body{
   display: flex;
   align-items: flex-start;
   text-align: justify;
+  background-color: #FAFAF6 ;
+  color:black;
 
 }
 
@@ -193,7 +195,7 @@ body{
   padding: 1rem;
   background: transparent;
   border: none;
-  color: white;
+  color: black;
   font-size: 1.5rem;
 }
 

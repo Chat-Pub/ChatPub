@@ -11,7 +11,7 @@ import mainchat from './assets/mainchat.png';
  import addBtn from './assets/add-30.png';
  import sendBtn from './assets/send.svg';
  import userIcon from './assets/user.svg';
- import gptImgLogo from './assets/chatpubface.jpg';
+ import gptImgLogo from './assets/chatpubface.png';
  import editIcon from './assets/edit.svg';
  import {useEffect, useRef,useState} from 'react';
  import { Link } from 'react-router-dom';
@@ -206,11 +206,11 @@ function App() {
   }
   
   // scroll to bottom
-  const handleEnter = (e) => {
-    if(e.key === 'Enter'){
-      handleSend();
-    }
-  }
+  // const handleEnter = (e) => {
+  //   if(e.key === 'Enter'){
+  //     handleSend();
+  //   }
+  // }
   
   // chatgpt message
   const handleSend = async () => {
@@ -409,7 +409,7 @@ function App() {
           }
           {isChatRoom && (
           <div className='inp'>
-            <input type ="text" placeholder='Send a Message ...' value = {input} onKeyDown = {handleEnter} onChange={(e)=> {setInput(e.target.value)}} />
+            <input type ="text" placeholder='Send a Message ...' value = {input} onChange={(e)=> {setInput(e.target.value)}} />
             <button className='send' onClick={handleSend}><img src ={sendBtn} alt ="Send"/></button>
           </div>
             )}

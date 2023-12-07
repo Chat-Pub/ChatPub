@@ -19,7 +19,7 @@ function DetailEdit() {
 
     async function handlePersonalInfo () {
       try {
-        const response = await fetch(`${process.env.REACT_APP_SERVER}/userinfo/update`, {
+        await fetch(`${process.env.REACT_APP_SERVER}/userinfo/update`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -33,11 +33,7 @@ function DetailEdit() {
             region : region,
             money : money
           }),
-        });
-  
-        if (!response.ok) {
-          throw new Error('Saving failed');
-        }
+        }).then((response) => response.json());
     }    catch (error) {
       // Handle saving failure
       console.error('Error during saving:', error.message);
@@ -55,9 +51,9 @@ function DetailEdit() {
                 <div className="BirthContainer" style={{width: 595.33, height: 91, paddingTop: 24, paddingBottom: 25, borderBottom: '1px #EBEBEB solid', justifyContent: 'center', alignItems: 'center', display: 'flex'}}>
                     <div className="BirthOption" style={{width: 595.33, height: 42, position: 'relative', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', display: 'flex'}}>
                         <div className="BirthRow" style={{width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start'}}>
-                            <div className="Birth" style={{color: '#222222', fontSize: 16, fontFamily: 'Roboto', fontWeight: '400', wordWrap: 'break-word'}}>Birth</div>
+                            <div className="Birth" style={{color: '#222222', fontSize: 16, fontFamily: 'Roboto', fontWeight: '400', wordWrap: 'break-word',paddingBottom:'20px'}}>Birth</div>
                         </div>
-                        <input className ="birthInput" type="text" placeholder ="Enter your birth day" value={birth} onChange ={(e) => {setBirth(e.target.value)}} style={{ width: '300px', border: 'none', borderBottom: 'none', outline: 'none' }}/>
+                        <input className ="birthInput" type="text" placeholder ="Enter your birth day" value={birth} onChange ={(e) => {setBirth(e.target.value)}} style={{ width: '300px', border: 'none', borderBottom: 'none', outline: 'none', font:'18px' }}/>
                     </div>
                 </div>
 
