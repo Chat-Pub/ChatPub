@@ -47,7 +47,7 @@ const UserInfo = () => {
   };
 
   const fetchUserData = () => {
-    fetchData('http://127.0.0.1:8000/api/userinfo/detail', setUserData);
+    fetchData(`${process.env.REACT_APP_SERVER}/userinfo/detail`, setUserData);
   };
 
   const setUserData = (data) => {

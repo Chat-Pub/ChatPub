@@ -41,7 +41,7 @@ function App() {
 
   //folder data fetch
   useEffect(() => {
-    fetch('http://127.0.0.1:8000/api/folder/list', {
+    fetch(`${process.env.REACT_APP_SERVER}/folder/list`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -69,7 +69,7 @@ function App() {
     // Here you can send the newChatFolderName to your database or perform any other action
     console.log('Folder name saved:', newChatFolderName);
     try {
-      await fetch('http://127.0.0.1:8000/api/folder/create', {
+      await fetch(`${process.env.REACT_APP_SERVER}/folder/create`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -103,7 +103,7 @@ function App() {
     // Here you can send the newChatFolderName to your database or perform any other action
     console.log('Folder name Edited:', editFolderName, localStorage.getItem('folderId'));
     try {
-      await fetch('http://127.0.0.1:8000/api/folder/update', {
+      await fetch(`${process.env.REACT_APP_SERVER}/folder/update`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -133,7 +133,7 @@ function App() {
   const handleChatRoom = async () => {
     console.log('Folder id handle chat room:', localStorage.getItem('folderId'));
     try {
-      await fetch('http://127.0.0.1:8000/api/folder_content/list',{
+      await fetch(`${process.env.REACT_APP_SERVER}/folder_content/list`,{
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -206,7 +206,7 @@ function App() {
     ])
       console.log('Folder id handle send:', localStorage.getItem('folderId'));
       try {
-      await fetch('http://127.0.0.1:8000/api/folder_content/create', {
+      await fetch(`${process.env.REACT_APP_SERVER}/folder_content/create`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

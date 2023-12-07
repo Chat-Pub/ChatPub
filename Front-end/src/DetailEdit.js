@@ -19,7 +19,7 @@ function DetailEdit() {
 
     async function handlePersonalInfo () {
       try {
-        const response = await fetch('http://127.0.0.1:8000/api/userinfo/update', {
+        const response = await fetch(`${process.env.REACT_APP_SERVER}/userinfo/update`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

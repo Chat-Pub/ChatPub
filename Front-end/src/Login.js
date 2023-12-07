@@ -13,7 +13,8 @@ const Login  = () => {
 
   async function handleLogin() {
     try {
-      await fetch('http://127.0.0.1:8000/api/user/login', {
+      console.log(process.env.REACT_APP_SERVER);
+      await fetch(`${process.env.REACT_APP_SERVER}/user/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',
