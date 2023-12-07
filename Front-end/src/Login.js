@@ -57,7 +57,7 @@ const Login  = () => {
               </Link>
               {/* go home */}
               <Link to="/HomePage">
-                <div className="Home" style={{width: 70, height: 30, left: 420, top: 0, position: 'absolute', textAlign: 'center', color: '#35CCED', fontSize: 18, fontFamily: 'Roboto', fontWeight: '300', wordWrap: 'break-word'}}>Go Home</div>
+                <div className="Home" style={{width: 90, height: 30, left: 411, top: 0, position: 'absolute', textAlign: 'center', color: '#35CCED', fontSize: 18, fontFamily: 'Roboto', fontWeight: '300', wordWrap: 'break-word'}}>Go Home</div>
               </Link>
           </div>
           {/* id */}
@@ -74,8 +74,8 @@ const Login  = () => {
         </div>
 
         {/* login btn */}
-          <div className="LoginButton" style={{width: 470, height: 45, left: 500, top: 400, position: 'absolute'}}>
-            <div className="Rectangle4" onClick = {handleLogin} style={{width: 470, height: 45, left: 0, top: 0, position: 'absolute', background: '#35CCED', borderRadius: 10}}></div>
+          <div className="LoginButton" onClick = {handleLogin} style={{width: 470, height: 45, left: 500, top: 400, position: 'absolute'}}>
+            <div className="Rectangle4"  style={{width: 470, height: 45, left: 0, top: 0, position: 'absolute', background: '#35CCED', borderRadius: 10}}></div>
             <div className="Login"  style={{left: 205, top: 9, position: 'absolute', textAlign: 'center', color: 'white', fontSize: 24, fontFamily: 'Roboto', fontWeight: '900', wordWrap: 'break-word'}}>Login </div>
           </div>
         <div className="GovMark" style={{width: 69, height: 68, left: 11, top: 14, position: 'absolute', justifyContent: 'center', alignItems: 'center', display: 'inline-flex'}}>

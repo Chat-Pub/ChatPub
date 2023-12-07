@@ -57,7 +57,7 @@ const CreateAccount = () => {
                   <div className="Login" style={{left: 233, top: 0, position: 'absolute', textAlign: 'center', color: '#35CCED', fontSize: 20, fontFamily: 'Roboto', fontWeight: '300', wordWrap: 'break-word'}}>Login</div>
                 </Link>
                 <Link to="/HomePage">
-                <div className="Home" style={{width: 70, height: 30, left: 400, top: 0, position: 'absolute', textAlign: 'center', color: '#35CCED', fontSize: 18, fontFamily: 'Roboto', fontWeight: '300', wordWrap: 'break-word'}}>Go Home</div>
+                <div className="Home" style={{width: 90, height: 30, left: 388, top: 0, position: 'absolute', textAlign: 'center', color: '#35CCED', fontSize: 18, fontFamily: 'Roboto', fontWeight: '300', wordWrap: 'break-word'}}>Go Home</div>
               </Link>
             </div>   
             {/* 회원 가입을 위한 정보 통신  */}
@@ -87,9 +87,9 @@ const CreateAccount = () => {
             <div className="CreateAccountTitle" style={{left: 127, top: 62, position: 'absolute', textAlign: 'center', color: 'black', fontSize: 36, fontFamily: 'Roboto', fontWeight: '700', wordWrap: 'break-word'}}>Create Account</div>
         </div>
         {/* Create Account Btn */}
-        <div className="Createaccount" style={{width: 470, height: 45, left: 500, top: 400, position: 'absolute'}}>
+        <div className="Createaccount" onClick={requestRegister} style={{width: 470, height: 45, left: 500, top: 400, position: 'absolute'}}>
             <div className="Rectangle4" style={{width: 470, height: 45, left: 0, top: 0, position: 'absolute', background: '#35CCED', borderRadius: 10}}></div>
-            <div className="CreateAccount" onClick={requestRegister} style={{left: 151, top: 9, position: 'absolute', textAlign: 'center', color: 'white', fontSize: 24, fontFamily: 'Roboto', fontWeight: '900', wordWrap: 'break-word'}} >
+            <div className="CreateAccount"  style={{left: 151, top: 9, position: 'absolute', textAlign: 'center', color: 'white', fontSize: 24, fontFamily: 'Roboto', fontWeight: '900', wordWrap: 'break-word'}} >
               Create Account
             </div>
 
