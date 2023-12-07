@@ -19,7 +19,7 @@ function DetailEdit() {
 
     async function handlePersonalInfo () {
       try {
-        await fetch('http://127.0.0.1:8000/api/userinfo/update', {
+        await fetch(`${process.env.REACT_APP_SERVER}/userinfo/update`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -51,7 +51,7 @@ function DetailEdit() {
   return (
     <div className="HomePage" style={{minWidth: '1000px', minHeight: '800px', width: '100vw', height: '100vh', position: 'relative', background: 'white'}}>
       <div className="MainFrame" style={{width: 800, height: 675, position: 'absolute', left: 'calc(50% + 33px)', top: '50%', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center', gap: 64, display: 'inline-flex', transform: 'translate(-50%, -50%)',}}>
-        <div className="PersonalInfoTitle" style={{width: 197.14, height: 41, color: '#484848', fontSize: 32, fontFamily: 'Poppins', fontWeight: '800', wordWrap: 'break-word'}}>Personal info</div>
+        <div className="PersonalInfoTitle" style={{width: 230, height: 41, color: '#484848', fontSize: 32, fontFamily: 'Poppins', fontWeight: '800', wordWrap: 'break-word'}}>Personal Info</div>
         {/* Personal Info */}
         <div className="PersonalInfoSettings" style={{paddingBottom: 73, paddingRight: 436.67, left: 80, top: 108, position: 'absolute', justifyContent: 'flex-start', alignItems: 'center', display: 'inline-flex'}}>
             <div className="Settings" style={{width: 437.33, alignSelf: 'stretch', paddingBottom: 91, paddingLeft: 8, flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', display: 'inline-flex'}}>
@@ -109,12 +109,10 @@ function DetailEdit() {
         </div>
 
         {/* Save Button */}
-        <Link to="/Detail">
         <div className="SaveButton" style={{ left: 274, width: 470, height: 45, bottom: 20, position: 'absolute', }}>
             <div className="Rectangle4" style={{ width: '50%', height: '100%', position: 'absolute', background: '#35CCED', borderRadius: 10 }}></div>
-            <div className="Save" onClick={handlePersonalInfo} style={{ left: '95px', bottom: '50%', position: 'absolute', width: '100%', transform: 'translateY(50%)', color: 'white', fontSize: 24, fontFamily: 'Poppins', fontWeight: '900', wordWrap: 'break-word' }}>Save! </div>
+            <div className="Save" onClick={handlePersonalInfo} style={{ left: '87px', bottom: '50%', position: 'absolute', width: '100%', transform: 'translateY(50%)', color: 'white', fontSize: 24, fontFamily: 'Poppins', fontWeight: '900', wordWrap: 'break-word' }}>Save! </div>
         </div>
-        </Link>
       </div>
                 
       
@@ -136,11 +134,7 @@ function DetailEdit() {
             </div>
           </div>
           <div style={{width: 54, height: 56.66, flexDirection: 'column', justifyContent: 'center', alignItems: 'center', display: 'flex'}}>
-            <div style={{width: 54, height: 56.66, paddingLeft: 4.50, paddingRight: 4.50, paddingTop: 4.72, paddingBottom: 4.72, flexDirection: 'column', justifyContent: 'center', alignItems: 'center', display: 'inline-flex'}}>
-              <Link to = "/Search">
-                <img className="SearchMenu" style={{width: 40, height: 68}} src={searchmenu} alt ="SearchMenu"/>   
-              </Link>
-            </div>         
+      
           </div>
         </div>
           <div className ="userIcon" style={{ position:'absolute',bottom: 0, width: '100%', background: 'white', zIndex: 1000, display: 'flex', justifyContent: 'center', alignItems: 'center', padding: '8px' }}>

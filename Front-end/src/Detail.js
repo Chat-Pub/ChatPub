@@ -22,7 +22,7 @@ const UserInfo = () => {
   useEffect(() => {
     // 각 정보를 가져오는 함수 호출
     fetchUserData();
-  }); // 빈 배열을 넣어 한 번만 실행되도록 설정
+  },[]); // 빈 배열을 넣어 한 번만 실행되도록 설정
 
   // 각 정보를 가져오는 함수 정의
   const fetchData = async  (url, stateSetter) => {
@@ -47,7 +47,7 @@ const UserInfo = () => {
   };
 
   const fetchUserData = () => {
-    fetchData('http://127.0.0.1:8000/api/userinfo/detail', setUserData);
+    fetchData(`${process.env.REACT_APP_SERVER}/userinfo/detail`, setUserData);
   };
 
   const setUserData = (data) => {
@@ -82,7 +82,7 @@ const UserInfo = () => {
     <div className="HomePage" style={{minWidth: '1000px', minHeight: '800px', width: '100vw', height: '100vh', position: 'relative', background: 'white'}}>
       
       <div className="MainFrame" style={{width: 800, height: 675, position: 'absolute', left: 'calc(50% + 33px)', top: '50%', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center', gap: 64, display: 'inline-flex', transform: 'translate(-50%, -50%)',}}>
-        <div className="PersonalInfoTitle" style={{width: 197.14, height: 41, color: '#484848', fontSize: 32, fontFamily: 'Poppins', fontWeight: '800', wordWrap: 'break-word'}}>Personal Info</div>
+        <div className="PersonalInfoTitle" style={{width: 230, height: 41, color: '#484848', fontSize: 32, fontFamily: 'Poppins', fontWeight: '800', wordWrap: 'break-word'}}>Personal Info</div>
         {/* Personal Info */}
         <div className="PersonalInfoSettings" style={{paddingBottom: 73, paddingRight: 436.67, left: 80, top: 108, position: 'absolute', justifyContent: 'flex-start', alignItems: 'center', display: 'inline-flex'}}>
             <div className="Settings" style={{width: 437.33, alignSelf: 'stretch', paddingBottom: 91, paddingLeft: 8, flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', display: 'inline-flex'}}>
@@ -159,9 +159,7 @@ const UserInfo = () => {
           </div>
           <div style={{width: 54, height: 56.66, flexDirection: 'column', justifyContent: 'center', alignItems: 'center', display: 'flex'}}>
             <div style={{width: 54, height: 56.66, paddingLeft: 4.50, paddingRight: 4.50, paddingTop: 4.72, paddingBottom: 4.72, flexDirection: 'column', justifyContent: 'center', alignItems: 'center', display: 'inline-flex'}}>
-              <Link to = "/Search">
-                <img className="SearchMenu" style={{width: 40, height: 68}} src={searchmenu} alt ="SearchMenu"/>   
-              </Link>
+
             </div>         
           </div>
         </div>

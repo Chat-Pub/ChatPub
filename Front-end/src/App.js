@@ -343,7 +343,7 @@ function App() {
                     />
                   </label>
                   <button onClick={handleSaveFolder} style={{marginRight: '104px'}}>Save Folder</button>
-                  <button onClick={() => setIsModalOpen(false)} >Cancle</button>
+                  <button onClick={() => setIsModalOpen(false)} >Cancel</button>
 
                 </div>
               </div>
@@ -369,7 +369,7 @@ function App() {
                           />
                         </label>
                         <button onClick={handleEditFolder} style={{marginRight: '74px'}}>Edit Folder Name</button>
-                        <button onClick={() => setIsModalOpen2(false)}>Cancle</button>
+                        <button onClick={() => setIsModalOpen2(false)}>Cancel</button>
                       </div>
                     </div>
                   )}
@@ -386,23 +386,27 @@ function App() {
       {/* main */}
       <div className="main" style={{marginLeft:'20px'}}>
         <div className='chats'>
-          {messages.map((message, i) => 
-            <div key ={i} className={message.isBot?'chat bot':"chat"}>
-              <img className='chatImg' src = {message.isBot?gptImgLogo:userIcon} alt ="" /> <p className='txt'>{message.text}</p>
+          {!isChatRoom && (
+            <div className="ChatPubTitle" style={{height: 245, flexDirection: 'column', justifyContent: 'center', alignItems: 'center', gap: 12, display: 'flex'}}>
+              <img className="Chatpub" alt="mainChat" style={{width: 120, height: 115}} src={mainchat} />
+              <div className="ChatPub" style={{color: 'black', fontSize: 40, fontFamily: 'Poppins', fontWeight: 800, wordWrap: 'break-word'}}>CHAT-PUB</div>
+              <div className="VersionInfo" style={{color: '#919191', fontSize: 16, fontFamily: 'Poppins', fontWeight: '400', lineHeight: 2, wordWrap: 'break-word'}}>Ver. 1.0.1</div>
+            </div>)}
+
+          {isChatRoom && (
+            <div>
+              {messages.map((message, i) => 
+                <div key ={i} className={message.isBot?'chat bot':"chat"}>
+                  <img className='chatImg' src = {message.isBot?gptImgLogo:userIcon} alt ="" /> <p className='txt'>{message.text}</p>
+                </div>
+              )}
+              <div ref={msgEnd}/>
             </div>
           )}
-          <div ref={msgEnd}/>
         </div>
 
         <div className='chatFooter'>
-          {!isChatRoom && (
-            <div className='inp'>
-              <input type ="text" placeholder='Choose or Create Chat room First' value = {input} />
-              <button className='send' ><img src ={sendBtn} alt ="Send"/></button>
-           </div>
 
-          )
-          }
           {isChatRoom && (
           <div className='inp'>
             <input type ="text" placeholder='Send a Message ...' value = {input} onChange={(e)=> {setInput(e.target.value)}} />

@@ -54,7 +54,7 @@ const CreateAccount = () => {
                 <div className="AlreadyHaveAnAccount" style={{left: 0, top: 0, position: 'absolute', textAlign: 'center', color: '#C1C1C1', fontSize: 20, fontFamily: 'Poppins', fontWeight: '300', wordWrap: 'break-word',whiteSpace: 'nowrap'}}>Already have an account?</div>
                 {/* login link */}
                 <Link to = "/Login">
-                  <div className="Login" style={{left: 233, top: 0, position: 'absolute', textAlign: 'center', color: '#35CCED', fontSize: 20, fontFamily: 'Poppins', fontWeight: '300', wordWrap: 'break-word'}}>Login</div>
+                  <div className="Login" style={{left: 273, top: 0, position: 'absolute', textAlign: 'center', color: '#35CCED', fontSize: 20, fontFamily: 'Poppins', fontWeight: '300', wordWrap: 'break-word'}}>Login</div>
                 </Link>
                 <Link to="/HomePage">
                 <div className="Home" style={{width: 90, height: 30, left: 388, top: 0, position: 'absolute', textAlign: 'center', color: '#35CCED', fontSize: 18, fontFamily: 'Poppins', fontWeight: '300', wordWrap: 'break-word'}}>Go Home</div>
@@ -64,22 +64,22 @@ const CreateAccount = () => {
             <div className="Personalinfo" style={{width: 470, height: 276, left: 126, top: 169, position: 'absolute'}}>
                 <div className="FullName" style={{width: 470, height: 27, left: 0, top: 0, position: 'absolute'}}>
                   {/* Name Input */}
-                  <input type="Name" placeholder="Full Name" value = {Name} onChange={(e) => setName(e.target.value)} style={{ width: '470px', border: 'none', borderBottom: 'none', outline: 'none', color :'gray',fontSize: '18px', fontFamily: 'Righteous',fontWeight: '400'}} />
+                  <input type="Name" placeholder="Full Name" value = {Name} onChange={(e) => setName(e.target.value)} style={{ width: '470px', border: 'none', borderBottom: 'none', outline: 'none', color :'gray',fontSize: '15px', fontFamily: 'Poppins',fontWeight: '400'}} />
                   <div className="Line1" style={{width: 470, height: 0, left: 0, top: 27, position: 'absolute', border: '1px #C1C1C1 solid'}}></div>
                 </div>
                 <div className="EmailAddress" style={{width: 470, height: 27, left: 0, top: 54, position: 'absolute'}}>
                   {/* Email Input */}
-                  <input type="EmailInput" placeholder="Email Adress" value = {EmailInput} onChange={(e) => setEmailInput(e.target.value)} style={{ width: '470px', border: 'none', borderBottom: 'none', outline: 'none', color :'gray',fontSize: '18px', fontFamily: 'Righteous',fontWeight: '400'}} /> 
+                  <input type="EmailInput" placeholder="Email Adress" value = {EmailInput} onChange={(e) => setEmailInput(e.target.value)} style={{ width: '470px', border: 'none', borderBottom: 'none', outline: 'none', color :'gray',fontSize: '15px', fontFamily: 'Poppins',fontWeight: '400'}} /> 
                   <div className="Line2" style={{width: 470, height: 0, left: 0, top: 27, position: 'absolute', border: '1px #C1C1C1 solid'}}></div>
                 </div>
                 <div className="Password1" style={{width: 470, height: 25, left: 0, top: 108, position: 'absolute'}}>
                   {/* Password Input */}
-                  <input type="password" placeholder="Password" value = {Password1} onChange={(e) => setPassword1(e.target.value)} style={{ width: '470px', border: 'none', borderBottom: 'none', outline: 'none', color :'gray',fontSize: '18px', fontFamily: 'Righteous',fontWeight: '400'}} />
+                  <input type="password" placeholder="Password" value = {Password1} onChange={(e) => setPassword1(e.target.value)} style={{ width: '470px', border: 'none', borderBottom: 'none', outline: 'none', color :'gray',fontSize: '15px', fontFamily: 'Poppins',fontWeight: '400'}} />
                   <div className="Line3" style={{width: 470, height: 0, left: 0, top: 25, position: 'absolute', border: '1px #C1C1C1 solid'}}></div>
                 </div>
                 <div className="Password2" value = {Password2} onChange={(e) => setPassword2(e.target.value)} style={{width: 470, height: 44, left: 0, top: 167, position: 'absolute'}}>
                   {/* Age Input */}
-                  <input type="password" placeholder="Re-type your password" style={{ width: '470px', border: 'none', borderBottom: 'none', outline: 'none', color :'gray',fontSize: '18px', fontFamily: 'Righteous',fontWeight: '400', paddingTop:'3px'}} />
+                  <input type="password" placeholder="Re-type your password" style={{ width: '470px', border: 'none', borderBottom: 'none', outline: 'none', color :'gray',fontSize: '15px', fontFamily: 'Poppins',fontWeight: '400', paddingTop:'3px'}} />
                   <div className="Line3" style={{width: 470, height: 0, left: 0, top: 25, position: 'absolute', border: '1px #C1C1C1 solid'}}></div>
                 </div>
 
@@ -89,7 +89,7 @@ const CreateAccount = () => {
         {/* Create Account Btn */}
         <div className="Createaccount" onClick={requestRegister} style={{width: 470, height: 45, left: 500, top: 400, position: 'absolute'}}>
             <div className="Rectangle4" style={{width: 470, height: 45, left: 0, top: 0, position: 'absolute', background: '#35CCED', borderRadius: 10}}></div>
-            <div className="CreateAccount"  style={{left: 151, top: 9, position: 'absolute', textAlign: 'center', color: 'white', fontSize: 24, fontFamily: 'Poppins', fontWeight: '900', wordWrap: 'break-word'}} >
+            <div className="CreateAccount"  style={{left: 151, top: 5, position: 'absolute', textAlign: 'center', color: 'white', fontSize: 24, fontFamily: 'Poppins', fontWeight: '900', wordWrap: 'break-word'}} >
               Create Account
             </div>
 

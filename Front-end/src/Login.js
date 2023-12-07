@@ -53,7 +53,7 @@ const Login  = () => {
             <div className="NotAMember" style={{width: 159, height: 30, left: 0, top: 1, position: 'absolute', textAlign: 'center', color: '#C1C1C1', fontSize: 18, fontFamily: 'Poppins', fontWeight: '300', wordWrap: 'break-word'}}>Not a Member?</div>
               {/* signup */}
               <Link to="/signup">
-                <div className="SignUp" style={{width: 70, height: 30, left: 139, top: 0, position: 'absolute', textAlign: 'center', color: '#35CCED', fontSize: 18, fontFamily: 'Poppins', fontWeight: '300', wordWrap: 'break-word'}}>Sign Up</div>
+                <div className="SignUp" style={{width: 70, height: 30, left: 155, top: 0, position: 'absolute', textAlign: 'center', color: '#35CCED', fontSize: 18, fontFamily: 'Poppins', fontWeight: '300', wordWrap: 'break-word'}}>Sign Up</div>
               </Link>
               {/* go home */}
               <Link to="/HomePage">
@@ -62,12 +62,12 @@ const Login  = () => {
           </div>
           {/* id */}
           <div className="Id" style={{width: 470, height: 27, left: 126, top: 202, position: 'absolute'}}>
-            <input type="Id" placeholder="ID" value = {username}  onChange={(e)=> {setUsername(e.target.value)}} style={{ width: '300px', border: 'none', borderBottom: 'none', outline: 'none' }} />
+            <input type="Id" placeholder="ID" value = {username}  onChange={(e)=> {setUsername(e.target.value)}} style={{ fontFamily: 'Poppins', width: '300px', border: 'none', borderBottom: 'none', outline: 'none' }} />
             <div className="IdLine" style={{width: 470, height: 0, left: 0, top: 27, position: 'absolute', border: '1px #C1C1C1 solid'}}></div>
           </div>
           {/* password */}
           <div className="Password" style={{height: 25, left: 126, top: 311, position: 'absolute'}}>
-            <input type="password" placeholder="Password" value = {password} onChange={(e)=> {setPassword(e.target.value)}} style={{ width: '300px', border: 'none', borderBottom: 'none', outline: 'none' }} />
+            <input type="password" placeholder="Password" value = {password} onChange={(e)=> {setPassword(e.target.value)}} style={{fontFamily: 'Poppins', width: '300px', border: 'none', borderBottom: 'none', outline: 'none' }} />
             <div className="PWLine" style={{width: 470, height: 0, left: 0, top: 25, position: 'absolute', border: '1px #C1C1C1 solid'}}></div>
           </div>
           <div className="LogInTitle" style={{left: 127, top: 62, position: 'absolute', textAlign: 'center', color: 'black', fontSize: 36, fontFamily: 'Poppins', fontWeight: '700', wordWrap: 'break-word'}}>Log in </div>
@@ -76,7 +76,7 @@ const Login  = () => {
         {/* login btn */}
           <div className="LoginButton" onClick = {handleLogin} style={{width: 470, height: 45, left: 500, top: 400, position: 'absolute'}}>
             <div className="Rectangle4"  style={{width: 470, height: 45, left: 0, top: 0, position: 'absolute', background: '#35CCED', borderRadius: 10}}></div>
-            <div className="Login"  style={{left: 205, top: 9, position: 'absolute', textAlign: 'center', color: 'white', fontSize: 24, fontFamily: 'Poppins', fontWeight: '900', wordWrap: 'break-word'}}>Login </div>
+            <div className="Login"  style={{left: 205, top: 5, position: 'absolute', textAlign: 'center', color: 'white', fontSize: 24, fontFamily: 'Poppins', fontWeight: '900', wordWrap: 'break-word'}}>Login </div>
           </div>
         <div className="GovMark" style={{width: 69, height: 68, left: 11, top: 14, position: 'absolute', justifyContent: 'center', alignItems: 'center', display: 'inline-flex'}}>
           <div className="GovMark" style={{width: 69, height: 68, justifyContent: 'center', alignItems: 'center', display: 'inline-flex'}}>
