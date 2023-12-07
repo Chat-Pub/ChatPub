@@ -1,6 +1,7 @@
 import mainchat from './assets/mainchat.png';
 import govmark from './assets/gov.png';
 import React, { useState } from 'react';
+import { Link,useNavigate } from 'react-router-dom';
 
 
 
@@ -42,13 +43,27 @@ const CreateAccount = () => {
     }
 
   }
+
+  //Modal용 
+  const [isModalOpen, setModalOpen] = useState(false);
+  const navigate = useNavigate();
+
+  const moveToLoginPage = () => {
+    setModalOpen(false); // 모달 닫기
+    navigate.push('/Login'); // '/Login' 페이지로 이동
+  };
+
+
+
   return (
     <div className="LoginFrame" style={{width: 1152, height: 700, position: 'relative', background: '#35CCED', boxShadow: '8px 6px 25px rgba(83.94, 83.94, 83.94, 0.36)', borderRadius: 30, overflow: 'hidden', border: '6px white solid'}}>
       <div className="SignupBox" style={{width: 793, height: 700, left: 373, top: 0,position: 'relative',background: 'white', borderRadius: 40}}>
           <div className="Relogin" style={{left: 129, top: 538, position: 'absolute'}}>
               <div className="AlreadyHaveAnAccount" style={{left: 0, top: 0, position: 'absolute', textAlign: 'center', color: '#C1C1C1', fontSize: 20, fontFamily: 'Roboto', fontWeight: '300', wordWrap: 'break-word',whiteSpace: 'nowrap'}}>Already have an account?</div>
               {/* login link */}
-              <div className="Login" style={{left: 233, top: 0, position: 'absolute', textAlign: 'center', color: '#35CCED', fontSize: 20, fontFamily: 'Roboto', fontWeight: '300', wordWrap: 'break-word'}}>Login</div>
+              <Link to = "/Login">
+                <div className="Login" style={{left: 233, top: 0, position: 'absolute', textAlign: 'center', color: '#35CCED', fontSize: 20, fontFamily: 'Roboto', fontWeight: '300', wordWrap: 'break-word'}}>Login</div>
+              </Link>
           </div>  
           {/* 회원 가입을 위한 정보 통신  */}
           <div className="Personalinfo" style={{width: 470, height: 276, left: 126, top: 169, position: 'absolute'}}>
@@ -69,7 +84,7 @@ const CreateAccount = () => {
               </div>
               <div className="Password2" value = {Password2} onChange={(e) => setPassword2(e.target.value)} style={{width: 470, height: 44, left: 0, top: 167, position: 'absolute'}}>
                 {/* Age Input */}
-                <input type="Password2" placeholder="Re-type your password" style={{ width: '470px', border: 'none', borderBottom: 'none', outline: 'none', color :'gray',fontSize: '18px', fontFamily: 'Righteous',fontWeight: '400'}} />
+                <input type="Password2" placeholder="Re-type your password" style={{ width: '470px', border: 'none', borderBottom: 'none', outline: 'none', color :'gray',fontSize: '18px', fontFamily: 'Righteous',fontWeight: '400', paddingTop:'3px'}} />
                 <div className="Line3" style={{width: 470, height: 0, left: 0, top: 25, position: 'absolute', border: '1px #C1C1C1 solid'}}></div>
               </div>
 
@@ -81,7 +96,18 @@ const CreateAccount = () => {
           <div className="Rectangle4" style={{width: 470, height: 45, left: 0, top: 0, position: 'absolute', background: '#35CCED', borderRadius: 10}}></div>
           <div className="CreateAccount" onClick={requestRegister} style={{left: 151, top: 9, position: 'absolute', textAlign: 'center', color: 'white', fontSize: 24, fontFamily: 'Roboto', fontWeight: '900', wordWrap: 'break-word'}} >
             Create Account
+            {/* Modal Popup */}
+            {isModalOpen && (
+              <div className="ModalOverlay">
+                <div className="ModalContent">
+                  <p>계정 생성 성공!</p>
+                  <button onClick={moveToLoginPage}>로그인 페이지로 이동</button>
+                </div>
+              </div>
+            )}
           </div>
+
+
       </div>
 
         <div className="GovMark" style={{width: 69, height: 68, left: 11, top: 14, position: 'absolute', justifyContent: 'center', alignItems: 'center', display: 'inline-flex'}}>

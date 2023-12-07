@@ -8,6 +8,8 @@ import Home from './Home';
 import Login from './Login';
 import CreateAccount from './Signup';
 import App from './App';
+import Search from './Search';
+import Detail from './Detail';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -20,6 +22,9 @@ root.render(
             <Route path="signup" element={<CreateAccount/>} />
             <Route path="App" element={<App/>} />
             <Route path="HomePage" element={<Home/>} />
+            <Route path="Search" element={<Search/>}/>
+            <Route path="Detail" element={<Detail/>}/>
+
         </Routes>
     </BrowserRouter>
     // <Home/>

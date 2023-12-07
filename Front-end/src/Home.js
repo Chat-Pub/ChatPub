@@ -12,6 +12,8 @@ import bolt from './assets/bolt.svg';
 import sparkles from './assets/sparkles.svg';
 
 function Home() {
+
+
   return (
     <div className="HomePage" style={{width: '100vw', height: '100vh', position: 'relative', background: 'white'}}>
       <div className="MainFrame" style={{width: 800, height: 675, position: 'absolute', left: '50%', top: '50%', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center', gap: 64, display: 'inline-flex', transform: 'translate(-50%, -50%)',}}>
@@ -31,19 +33,19 @@ function Home() {
                 </div>
                 <div className="Exampleinfo" style={{alignSelf: 'stretch', height: 77, flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', gap: 12, display: 'flex'}}>
                   <div className="Examples" style={{alignSelf: 'stretch', color: 'black', fontSize: 18, fontFamily: 'Poppins', fontWeight: '600', wordWrap: 'break-word'}}>Examples</div>
-                  <div className="Text" style={{alignSelf: 'stretch', color: '#919191', fontSize: 14, fontFamily: 'Poppins', fontWeight: '400', textDecoration: 'underline', lineHeight: 19.39, wordWrap: 'break-word'}}> What are some policies that will benefit me?</div>
+                  <div className="Text" style={{alignSelf: 'stretch', color: '#919191', fontSize: 14, fontFamily: 'Poppins', fontWeight: '400', wordWrap: 'break-word'}}> What are some policies that will benefit me?</div>
                 </div>
               </div>
             </div>
-            <div className="Exapmle2" style={{alignSelf: 'stretch', height: 78, paddingLeft: 24, paddingRight: 24, paddingTop: 20, paddingBottom: 20, background: 'white', borderRadius: 12, overflow: 'hidden', border: '2px #E7E7E7 solid', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', gap: 10, display: 'flex'}}>
+            <div className="Exapmle2" style={{alignSelf: 'stretch', height: 78, paddingLeft: 24, paddingRight: 24, paddingTop: 17, paddingBottom: 20, background: 'white', borderRadius: 12, overflow: 'hidden', border: '2px #E7E7E7 solid', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', gap: 10, display: 'flex'}}>
               <div className="Exampleinfo" style={{alignSelf: 'stretch'}}>
-                <span style={{color: '#919191', fontSize: 14, fontFamily: 'Poppins', fontWeight: '400', textDecoration: 'underline', lineHeight: 19.39, wordWrap: 'break-word'}}>How can I apply for housing aid for Seoul residents? </span>
-                <span style={{color: '#919191', fontSize: 14, fontFamily: 'Inter', fontWeight: '400', textDecoration: 'underline', lineHeight: 19.39, wordWrap: 'break-word'}}>🔗</span></div>
+                <span style={{color: '#919191', fontSize: 14, fontFamily: 'Poppins', fontWeight: '400',wordWrap: 'break-word'}}>How can I apply for housing aid for Seoul residents? </span>
+                </div>
             </div>
-            <div className="Example3" style={{alignSelf: 'stretch', height: 97, paddingLeft: 24, paddingRight: 24, paddingTop: 20, paddingBottom: 20, background: 'white', borderRadius: 12, overflow: 'hidden', border: '2px #E7E7E7 solid', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', gap: 10, display: 'flex'}}>
+            <div className="Example3" style={{alignSelf: 'stretch', height: 97, paddingLeft: 24, paddingRight: 24, paddingTop: 15, paddingBottom: 20, background: 'white', borderRadius: 12, overflow: 'hidden', border: '2px #E7E7E7 solid', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', gap: 10, display: 'flex'}}>
               <div className="Exampleinfo" style={{alignSelf: 'stretch'}}>
-                <span style={{color: '#919191', fontSize: 14, fontFamily: 'Poppins', fontWeight: '400', textDecoration: 'underline', lineHeight: 19.39, wordWrap: 'break-word'}}>Can you tell me about any job education that is available for me? </span>
-                <span style={{color: '#919191', fontSize: 14, fontFamily: 'Inter', fontWeight: '400', textDecoration: 'underline', lineHeight: 19.39, wordWrap: 'break-word'}}>🔗</span></div>
+                <span style={{color: '#919191', fontSize: 14, fontFamily: 'Poppins', fontWeight: '400', wordWrap: 'break-word'}}>Can you tell me about any job education that is available for me? </span>
+                </div>
             </div>
           </div>
           <div className="Capabilities" style={{flex: '1 1 0', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', gap: 16, display: 'inline-flex'}}>
@@ -61,10 +63,10 @@ function Home() {
               </div>
             </div>
             <div className="Capapbility2" style={{alignSelf: 'stretch', height: 78, paddingLeft: 24, paddingRight: 24, paddingTop: 20, paddingBottom: 20, background: 'white', borderRadius: 12, overflow: 'hidden', border: '2px #E7E7E7 solid', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', gap: 10, display: 'flex'}}>
-              <div className="Capabilityinfo" style={{alignSelf: 'stretch', color: '#919191', fontSize: 14, fontFamily: 'Poppins', fontWeight: '400', lineHeight: 19.39, wordWrap: 'break-word'}}>Allows user to provide follow-up corrections</div>
+              <div className="Capabilityinfo" style={{alignSelf: 'stretch', color: '#919191', fontSize: 14, fontFamily: 'Poppins', fontWeight: '400', wordWrap: 'break-word'}}>Allows user to provide follow-up corrections</div>
             </div>
             <div className="Capapbility3" style={{alignSelf: 'stretch', height: 78, paddingLeft: 24, paddingRight: 24, paddingTop: 20, paddingBottom: 20, background: 'white', borderRadius: 12, overflow: 'hidden', border: '2px #E7E7E7 solid', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', gap: 10, display: 'flex'}}>
-              <div className="Capabilityinfo" style={{alignSelf: 'stretch', color: '#919191', fontSize: 14, fontFamily: 'Poppins', fontWeight: '400', lineHeight: 19.39, wordWrap: 'break-word'}}>Trained to decline inappropriate requests</div>
+              <div className="Capabilityinfo" style={{alignSelf: 'stretch', color: '#919191', fontSize: 14, fontFamily: 'Poppins', fontWeight: '400', wordWrap: 'break-word'}}>Trained to decline inappropriate requests</div>
             </div>
           </div>
           <div className="Limitations" style={{flex: '1 1 0', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', gap: 16, display: 'inline-flex'}}>
@@ -82,10 +84,10 @@ function Home() {
               </div>
             </div>
             <div className="Limitation2" style={{alignSelf: 'stretch', height: 78, paddingLeft: 24, paddingRight: 24, paddingTop: 20, paddingBottom: 20, background: 'white', borderRadius: 12, overflow: 'hidden', border: '2px #E7E7E7 solid', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', gap: 10, display: 'flex'}}>
-              <div className="Limitationinfo" style={{alignSelf: 'stretch', color: '#919191', fontSize: 14, fontFamily: 'Inter', fontWeight: '400', lineHeight: 19.39, wordWrap: 'break-word'}}>It does not guarantee. Please use with caution.</div>
+              <div className="Limitationinfo" style={{alignSelf: 'stretch', color: '#919191', fontSize: 14, fontFamily: 'Inter', fontWeight: '400', wordWrap: 'break-word'}}>It does not guarantee. Please use with caution.</div>
             </div>
             <div className="Limitation3" style={{alignSelf: 'stretch', height: 78, paddingLeft: 24, paddingRight: 24, paddingTop: 20, paddingBottom: 20, background: 'white', borderRadius: 12, overflow: 'hidden', border: '2px #E7E7E7 solid', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', gap: 10, display: 'flex'}}>
-              <div className="Limitationinfo" style={{alignSelf: 'stretch', color: '#919191', fontSize: 14, fontFamily: 'Poppins', fontWeight: '400', lineHeight: 19.39, wordWrap: 'break-word'}}>Limited knowledge of policy <br/></div>
+              <div className="Limitationinfo" style={{alignSelf: 'stretch', color: '#919191', fontSize: 14, fontFamily: 'Poppins', fontWeight: '400',wordWrap: 'break-word'}}>Limited knowledge of policy <br/></div>
             </div>
           </div>
         </div>
@@ -97,10 +99,10 @@ function Home() {
         <div className="MainMenu" style={{width: 54, height: 254, flexDirection: 'column', justifyContent: 'space-between', alignItems: 'center', display: 'flex'}}>
           <div style={{width: 54, height: 56.66, paddingTop: 4.76, paddingBottom: 4.74, paddingLeft: 4.50, paddingRight: 4.50, flexDirection: 'column', justifyContent: 'center', alignItems: 'center', display: 'flex'}}>
             <Link to = "/HomePage">
-              <img className="HomeMenu" style={{width: 40, height: 68}} src={homemenu} alt ="Homemenu"/>
+              <img className="HomeMenu" style={{width: 40, height: 68 }} src={homemenu} alt ="Homemenu"/>
             </Link>
           </div>
-          <div style={{width: 54, height: 59.09, flexDirection: 'column', justifyContent: 'center', alignItems: 'center', display: 'flex'}}>
+          <div style={{width: 54, height: 59.09, marginLeft:'11px', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', display: 'flex'}}>
             <div style={{width: 54, height: 59.09, position: 'relative', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', display: 'flex'}}>
                   <Link to = "/App">
                     <img className="ChatMenu" style={{width: 40, height: 68}} src={chatmenu} alt ="ChatMenu"/>
@@ -114,12 +116,12 @@ function Home() {
               </Link>
             </div>         
           </div>
-          <div style={{ bottom: 0, width: '100%', background: 'white', zIndex: 1000, display: 'flex', justifyContent: 'center', alignItems: 'center', padding: '8px' }}>
+        </div>
+          <div className ="userIcon" style={{ position:'absolute',bottom: 0, width: '100%', background: 'white', zIndex: 1000, display: 'flex', justifyContent: 'center', alignItems: 'center', padding: '8px' }}>
               <Link to ="/Login">
                 <img className="UserIcon" style={{width: 45, height: 68}} src={user} alt ="UserIcon"/>      
               </Link>
           </div>
-        </div>
       </div>
     </div>
   );
