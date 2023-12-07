@@ -19,7 +19,7 @@ function DetailEdit() {
 
     async function handlePersonalInfo () {
       try {
-        const response = await fetch('http://127.0.0.1:8000/api/userinfo/update', {
+        await fetch('http://127.0.0.1:8000/api/userinfo/update', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -33,11 +33,14 @@ function DetailEdit() {
             region : region,
             money : money
           }),
-        });
-  
-        if (!response.ok) {
-          throw new Error('Saving failed');
-        }
+        }).then(response => {
+          if (response.status === 204) {
+            alert("저장 성공");
+            window.location.href = "/Detail";
+          } else {
+            alert("저장 실패");
+          }
+        })
     }    catch (error) {
       // Handle saving failure
       console.error('Error during saving:', error.message);

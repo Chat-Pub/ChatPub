@@ -25,7 +25,7 @@ const UserInfo = () => {
   }); // 빈 배열을 넣어 한 번만 실행되도록 설정
 
   // 각 정보를 가져오는 함수 정의
-  const fetchData = async (url, stateSetter) => {
+  const fetchData = async  (url, stateSetter) => {
     try {
       const response = await fetch(url, {
         method: 'GET',
@@ -82,7 +82,7 @@ const UserInfo = () => {
     <div className="HomePage" style={{minWidth: '1000px', minHeight: '800px', width: '100vw', height: '100vh', position: 'relative', background: 'white'}}>
       
       <div className="MainFrame" style={{width: 800, height: 675, position: 'absolute', left: 'calc(50% + 33px)', top: '50%', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center', gap: 64, display: 'inline-flex', transform: 'translate(-50%, -50%)',}}>
-        <div className="PersonalInfoTitle" style={{width: 197.14, height: 41, color: '#484848', fontSize: 32, fontFamily: 'Roboto', fontWeight: '800', wordWrap: 'break-word'}}>Personal info</div>
+        <div className="PersonalInfoTitle" style={{width: 197.14, height: 41, color: '#484848', fontSize: 32, fontFamily: 'Roboto', fontWeight: '800', wordWrap: 'break-word'}}>Personal Info</div>
         {/* Personal Info */}
         <div className="PersonalInfoSettings" style={{paddingBottom: 73, paddingRight: 436.67, left: 80, top: 108, position: 'absolute', justifyContent: 'flex-start', alignItems: 'center', display: 'inline-flex'}}>
             <div className="Settings" style={{width: 437.33, alignSelf: 'stretch', paddingBottom: 91, paddingLeft: 8, flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', display: 'inline-flex'}}>
@@ -91,7 +91,7 @@ const UserInfo = () => {
                         <div className="BirthRow" style={{width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start'}}>
                             <div className="Birth" style={{color: '#222222', fontSize: 16, fontFamily: 'Roboto', fontWeight: '400', wordWrap: 'break-word'}}>Birth</div>
                         </div>
-                        <div className="BirthInfo" style={{color: '#717171', fontSize: 14, fontFamily: 'Roboto', fontWeight: '400', wordWrap: 'break-word'}}>{birth}</div>
+                        <div className="BirthInfo" style={{position:'absolute', top:40,left:0 ,color:'#717171', fontSize: 14, fontFamily: 'Roboto', fontWeight: '400', wordWrap: 'break-word'}}>{birth}</div>
                     </div>
                 </div>
 
@@ -100,7 +100,7 @@ const UserInfo = () => {
                         <div className="GenderRow" style={{width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start'}}>
                             <div className="Gender" style={{color: '#222222', fontSize: 16, fontFamily: 'Roboto', fontWeight: '400',  wordWrap: 'break-word'}}>Gender</div>
                         </div>
-                        <div className="GenderInfo" style={{color: '#717171', fontSize: 14, fontFamily: 'Roboto', fontWeight: '400', wordWrap: 'break-word'}}>{gender}</div>
+                        <div className="GenderInfo" style={{position:'absolute', top:40,left:0,color: '#717171', fontSize: 14, fontFamily: 'Roboto', fontWeight: '400', wordWrap: 'break-word'}}>{gender}</div>
                     </div>
                 </div>
                 <div className="JobContainer" style={{width: 595.33, height: 109, paddingTop: 24, paddingBottom: 25, borderBottom: '1px #d3d3d3 solid', justifyContent: 'center', alignItems: 'center', display: 'flex'}}>
@@ -108,7 +108,7 @@ const UserInfo = () => {
                         <div className="JobRow" style={{width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start'}}>
                             <div className="Job" style={{color: '#222222', fontSize: 16, fontFamily: 'Roboto', fontWeight: '400', wordWrap: 'break-word'}}>Occupation</div>
                         </div>
-                        <div className="JobInfo" style={{color: '#717171', fontSize: 14, fontFamily: 'Roboto', fontWeight: '400', wordWrap: 'break-word'}}>{job}</div>
+                        <div className="JobInfo" style={{position:'absolute', top:40,left:0,color: '#717171', fontSize: 14, fontFamily: 'Roboto', fontWeight: '400', wordWrap: 'break-word'}}>{job}</div>
                     </div>
                 </div>
                 <div className="RegionContainer" style={{width: 595.33, height: 91, paddingTop: 24, paddingBottom: 25, borderBottom: '1px #d3d3d3 solid', justifyContent: 'center', alignItems: 'center', display: 'flex'}}>
@@ -116,7 +116,7 @@ const UserInfo = () => {
                         <div className="RegionRow" style={{width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start'}}>
                             <div className="RegionTitle" style={{color: '#222222', fontSize: 16, fontFamily: 'Roboto', fontWeight: '400',  wordWrap: 'break-word'}}>Region/Address</div>
                         </div>
-                        <div className="RegionInfo" style={{color: '#717171', fontSize: 14, fontFamily: 'Roboto', fontWeight: '400',  wordWrap: 'break-word'}}>{region}</div>
+                        <div className="RegionInfo" style={{position:'absolute', top:40,left:0,color: '#717171', fontSize: 14, fontFamily: 'Roboto', fontWeight: '400',  wordWrap: 'break-word'}}>{region}</div>
                     </div>
                 </div>
                 <div className="MoneyContainer" style={{width: 595.33, height: 91, paddingTop: 24, paddingBottom: 25, borderBottom: '1px #d3d3d3 solid', justifyContent: 'center', alignItems: 'center', display: 'flex'}}>
@@ -124,7 +124,7 @@ const UserInfo = () => {
                         <div className="MoneyRow" style={{width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start'}}>
                             <div className="Money" style={{color: '#222222', fontSize: 16, fontFamily: 'Roboto', fontWeight: '400',  wordWrap: 'break-word'}}>Profit</div>
                         </div>
-                        <div className="MoneyInfo" style={{color: '#717171', fontSize: 14, fontFamily: 'Roboto', fontWeight: '400',  wordWrap: 'break-word'}}>{money}</div>
+                        <div className="MoneyInfo" style={{position:'absolute', top:40,left:0,color: '#717171', fontSize: 14, fontFamily: 'Roboto', fontWeight: '400',  wordWrap: 'break-word'}}>{money}</div>
                     </div>
                 </div>
             </div>
