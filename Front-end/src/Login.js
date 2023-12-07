@@ -24,8 +24,15 @@ const Login  = () => {
           "grant_type" : "password"
         }),
       })
-      .then(response => response.json())
-      .then(data => {
+      .then(response => {
+        if (response.status === 200) {
+          alert("로그인 성공");
+          window.location.href = "/HomePage";
+        } else {  
+          alert("로그인 실패");
+        }
+      })
+        .then(data => {
         const token = data.access_token
               localStorage.setItem('token', token);
 
@@ -61,12 +68,10 @@ const Login  = () => {
         </div>
 
         {/* login btn */}
-        {/* <Link to ="/HomePage"> */}
           <div className="LoginButton" style={{width: 470, height: 45, left: 499, top: 392, position: 'absolute'}}>
             <div className="Rectangle4" style={{width: 470, height: 45, left: 0, top: 0, position: 'absolute', background: '#35CCED', borderRadius: 10}}></div>
             <div className="Login" onClick = {handleLogin} style={{left: 205, top: 9, position: 'absolute', textAlign: 'center', color: 'white', fontSize: 24, fontFamily: 'Roboto', fontWeight: '900', wordWrap: 'break-word'}}>Login </div>
           </div>
-        {/* </Link> */}
         <div className="GovMark" style={{width: 69, height: 68, left: 11, top: 14, position: 'absolute', justifyContent: 'center', alignItems: 'center', display: 'inline-flex'}}>
           <div className="GovMark" style={{width: 69, height: 68, justifyContent: 'center', alignItems: 'center', display: 'inline-flex'}}>
             <img className="GovMarkIcon" alt ="GovMark" style={{width: 69, height: 68}} src= {govmark} />

@@ -15,7 +15,7 @@ const CreateAccount = () => {
   
   async function requestRegister() {
     try {
-      const response = await fetch('http://127.0.0.1:8000/api/user/create', {
+      await fetch('http://127.0.0.1:8000/api/user/create', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -27,31 +27,22 @@ const CreateAccount = () => {
           password1: Password1,
           password2 : Password2,
           email: EmailInput }),
-      });
-  
-      if (!response.ok) {
-        throw new Error('Failed : Already Existed');
-      }
-  
-      // Handle the successful response
-      const responseData = await response.json();
-      console.log('Account created successfully:', responseData);
-      
+      })
+      .then(response => {
+        if (response.status === 204) {
+          alert("회원가입 성공");
+          window.location.href = "/Login";
+        } else {  
+          alert("회원가입 실패");
+        }
+      })
+
       // Login page로 넘어가기
     } catch (error) {
       console.error('Error creating account:', error.message);
     }
 
   }
-
-  //Modal용 
-  const [isModalOpen, setModalOpen] = useState(false);
-  const navigate = useNavigate();
-
-  const moveToLoginPage = () => {
-    setModalOpen(false); // 모달 닫기
-    navigate.push('/Login'); // '/Login' 페이지로 이동
-  };
 
 
 
@@ -96,15 +87,6 @@ const CreateAccount = () => {
           <div className="Rectangle4" style={{width: 470, height: 45, left: 0, top: 0, position: 'absolute', background: '#35CCED', borderRadius: 10}}></div>
           <div className="CreateAccount" onClick={requestRegister} style={{left: 151, top: 9, position: 'absolute', textAlign: 'center', color: 'white', fontSize: 24, fontFamily: 'Roboto', fontWeight: '900', wordWrap: 'break-word'}} >
             Create Account
-            {/* Modal Popup */}
-            {isModalOpen && (
-              <div className="ModalOverlay">
-                <div className="ModalContent">
-                  <p>계정 생성 성공!</p>
-                  <button onClick={moveToLoginPage}>로그인 페이지로 이동</button>
-                </div>
-              </div>
-            )}
           </div>
 
 

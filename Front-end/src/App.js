@@ -333,7 +333,7 @@ function App() {
       </div>
 
       {/* main */}
-      <div className="main" style={{}}>
+      <div className="main" style={{marginLeft:'20px'}}>
         <div className='chats'>
           {messages.map((message, i) => 
             <div key ={i} className={message.isBot?'chat bot':"chat"}>
