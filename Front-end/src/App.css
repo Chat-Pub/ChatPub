@@ -19,6 +19,8 @@ body{
 .App{
   min-height: 100vh;
   display: flex;
+  background: #FFFFFF;
+
 
 }
 
@@ -134,6 +136,7 @@ body{
   /* 채팅버블 밑에서 부터 시작 */
   display: flex;
   flex-direction: column; 
+  
 }
 
 .chat {
@@ -143,6 +146,7 @@ body{
   display: flex;
   align-items: flex-start;
   text-align: justify;
+
 }
 
 .chatImg{
@@ -153,9 +157,10 @@ body{
 }
 
 .bot{
-  background: rgba(28,30,58,1);
+  background: #D9FAFF;
   width: 100wh;
   border-radius: 0.5rem;
+
 }
 .chatFooter{
   margin-top: auto;
@@ -170,7 +175,7 @@ body{
 
 .inp{
   padding: 0.5rem;
-  background: rgba(28,30,58,1);
+  background: #FAFAF6;
   display: flex;
   align-items: center;
   border-radius: 0.5rem;
@@ -194,7 +199,7 @@ body{
 
 .txt{
   line-height: 2rem;
-  color: rgba(222, 222, 222, 1);
+  color:  #00204A;
 }
 
 .folderlist{
@@ -205,10 +210,10 @@ body{
   width: 25rem;
   display: flex;
   margin: 0 auto;
-  margin-bottom: 3rem;
+  margin-bottom: 5px;
   border-radius: 0.5rem;
- 
 }
+
 .folderBtn{
   background: #4be4ff;
   border: none;
@@ -277,3 +282,4 @@ button {
   border-radius: 5px;
   cursor: pointer;
 }
+

@@ -5,6 +5,7 @@ import chatmenu from './assets/chat.svg';
 import searchmenu from './assets/search.svg';
 import homemenu from './assets/home.svg';
 import user from './assets/user.svg';
+import logout from './assets/logout.svg';
 import mainchat from './assets/mainchat.png';
 
  import addBtn from './assets/add-30.png';
@@ -24,7 +25,7 @@ function App() {
   const [input, setInput] = useState('');
   const [messages, setMessages] = useState([
     {
-    text: 'Hi, I am ChatPub. I am here to help you with your queries.',
+    text: '안녕하세요! 저는 ChatPub입니다. 궁금한 내용을 입력해주세요.',
     isBot : true,
   }
 ]);
@@ -150,7 +151,7 @@ function App() {
         if (data.total === 0) {
           setMessages([
             {
-              text: 'Hi, I am ChatPub. I am here to help you with your queries.',
+              text: '안녕하세요! 저는 ChatPub입니다. 궁금한 내용을 입력해주세요.',
               isBot : true,
             }
           ]);
@@ -159,15 +160,31 @@ function App() {
 
         const extractedMessages = data.folder_content_list.map(({ question, answer, references }) => ({ question, answer, references }));
         console.log('extractedMessages:', extractedMessages)
-          let messagesCluster = [];
+          let messagesCluster = [
+            {
+              text: '안녕하세요! 저는 ChatPub입니다. 궁금한 내용을 입력해주세요.',
+              isBot : true,
+            }
+          ];
 
         extractedMessages.forEach((message) => {
-           messagesCluster = [
-            ...messagesCluster, 
-            {text: message.question, isBot : false},
-            {text: message.answer, isBot : true},
-            {text: message.references, isBot : true}
-          ]
+          if (message.references === '') {
+            messagesCluster = [
+              ...messagesCluster, 
+              {text: message.question, isBot : false},
+              {text: message.answer, isBot : true},
+            ]
+          }
+          else{
+            messagesCluster = [
+              ...messagesCluster, 
+              {text: message.question, isBot : false},              
+              {text: message.answer, isBot : true},
+              {text: message.references, isBot : true}
+            ]          
+          }
+          console.log('message.answer:', message.answer.replace(/\n/g, '<br>'));
+          console.log('message.references:', message.references.replace(/\n/g, '<br>'));
         })
         setMessages(messagesCluster)
         
@@ -243,6 +260,23 @@ function App() {
     }
   }
   
+  const [isLogin, setIsLogin] = useState(false);
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token === null) {
+      setIsLogin(false);
+    }
+    else {
+      setIsLogin(true);
+    }
+  }, []);
+
+ const handleLogout = () => {
+    localStorage.removeItem('token');
+    setIsLogin(false);
+    window.location.href = "/HomePage";
+  }
  
 
   return (
@@ -273,13 +307,24 @@ function App() {
           </div>
         </div>
           <div className ="userIcon" style={{ position:'absolute',bottom: 0, width: '100%', background: 'white', zIndex: 1000, display: 'flex', justifyContent: 'center', alignItems: 'center', padding: '8px' }}>
+              {!isLogin && (
               <Link to ="/Login">
-                <img className="UserIcon" style={{width: 45, height: 68}} src={user} alt ="UserIcon"/>      
-              </Link>
+              <img className="UserIcon" style={{width: 45, height: 68}} src={user} alt ="UserIcon"/>      
+              </Link>)}
+
+              {isLogin && (
+              <div>
+                <Link to ="/Detail">
+                  <img className="UserIcon" style={{width: 45, height: 68}} src={user} alt ="UserIcon"/>      
+                </Link>
+                <img className="Logout" style={{width: 45, height: 68}} src={logout} alt ="ExitIcon" onClick={() => handleLogout(true)}/>      
+              </div>
+              )}
           </div>
+
       </div>
       {/* side bar */}
-      <div className="Chat Menu" style={{marginLeft : '65px'}}>
+      <div className="Chat Menu" style={{marginLeft : '65px',borderRight: '1px solid #1c1e3a'}}>
         <div className = "upperSide">
           <div className='upperSideTop'><img src = {mainchat} alt ="Logo" className='logo'/><span className='brand'>Chat Pub</span></div>
           <div>
@@ -356,7 +401,7 @@ function App() {
         <div className='chatFooter'>
           {!isChatRoom && (
             <div className='inp'>
-              <input type ="text" placeholder='Choose or Create Chat room First' value = {input} style={{ fontWeight:"600px", fontSize:'26px' }} />
+              <input type ="text" placeholder='Choose or Create Chat room First' value = {input} />
               <button className='send' ><img src ={sendBtn} alt ="Send"/></button>
            </div>
 

@@ -36,7 +36,7 @@ const UserInfo = () => {
         },
       });
       if (!response.ok) {
-        throw new Error('Network response was not ok');
+        throw new Error('Data fetch failed');
       }
 
       const data = await response.json();
