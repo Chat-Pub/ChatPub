@@ -52,7 +52,7 @@ const Login  = () => {
             <div className="NotAMember" style={{width: 159, height: 30, left: 0, top: 1, position: 'absolute', textAlign: 'center', color: '#C1C1C1', fontSize: 18, fontFamily: 'Roboto', fontWeight: '300', wordWrap: 'break-word'}}>Not a Member?</div>
               {/* signup */}
               <Link to="/signup">
-                <div className="SignUp" style={{width: 160, height: 30, left: 109, top: 0, position: 'absolute', textAlign: 'center', color: '#35CCED', fontSize: 18, fontFamily: 'Roboto', fontWeight: '300', wordWrap: 'break-word'}}>Sign Up</div>
+                <div className="SignUp" style={{width: 120, height: 30, left: 109, top: 0, position: 'absolute', textAlign: 'center', color: '#35CCED', fontSize: 18, fontFamily: 'Roboto', fontWeight: '300', wordWrap: 'break-word'}}>Sign Up</div>
               </Link>
           </div>
           {/* id */}
