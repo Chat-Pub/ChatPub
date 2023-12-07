@@ -56,6 +56,9 @@ const CreateAccount = () => {
                 <Link to = "/Login">
                   <div className="Login" style={{left: 233, top: 0, position: 'absolute', textAlign: 'center', color: '#35CCED', fontSize: 20, fontFamily: 'Roboto', fontWeight: '300', wordWrap: 'break-word'}}>Login</div>
                 </Link>
+                <Link to="/HomePage">
+                <div className="Home" style={{width: 70, height: 30, left: 400, top: 0, position: 'absolute', textAlign: 'center', color: '#35CCED', fontSize: 18, fontFamily: 'Roboto', fontWeight: '300', wordWrap: 'break-word'}}>Go Home</div>
+              </Link>
             </div>   
             {/* 회원 가입을 위한 정보 통신  */}
             <div className="Personalinfo" style={{width: 470, height: 276, left: 126, top: 169, position: 'absolute'}}>
@@ -71,12 +74,12 @@ const CreateAccount = () => {
                 </div>
                 <div className="Password1" style={{width: 470, height: 25, left: 0, top: 108, position: 'absolute'}}>
                   {/* Password Input */}
-                  <input type="Password1" placeholder="Password" value = {Password1} onChange={(e) => setPassword1(e.target.value)} style={{ width: '470px', border: 'none', borderBottom: 'none', outline: 'none', color :'gray',fontSize: '18px', fontFamily: 'Righteous',fontWeight: '400'}} />
+                  <input type="password" placeholder="Password" value = {Password1} onChange={(e) => setPassword1(e.target.value)} style={{ width: '470px', border: 'none', borderBottom: 'none', outline: 'none', color :'gray',fontSize: '18px', fontFamily: 'Righteous',fontWeight: '400'}} />
                   <div className="Line3" style={{width: 470, height: 0, left: 0, top: 25, position: 'absolute', border: '1px #C1C1C1 solid'}}></div>
                 </div>
                 <div className="Password2" value = {Password2} onChange={(e) => setPassword2(e.target.value)} style={{width: 470, height: 44, left: 0, top: 167, position: 'absolute'}}>
                   {/* Age Input */}
-                  <input type="Password2" placeholder="Re-type your password" style={{ width: '470px', border: 'none', borderBottom: 'none', outline: 'none', color :'gray',fontSize: '18px', fontFamily: 'Righteous',fontWeight: '400', paddingTop:'3px'}} />
+                  <input type="password" placeholder="Re-type your password" style={{ width: '470px', border: 'none', borderBottom: 'none', outline: 'none', color :'gray',fontSize: '18px', fontFamily: 'Righteous',fontWeight: '400', paddingTop:'3px'}} />
                   <div className="Line3" style={{width: 470, height: 0, left: 0, top: 25, position: 'absolute', border: '1px #C1C1C1 solid'}}></div>
                 </div>
 

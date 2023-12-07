@@ -36,7 +36,7 @@ function Home() {
   
 
   return (
-    <div className="HomePage" style={{width: '100vw', minHeight: '800px' ,height: '100vh', position: 'relative', background: 'white'}}>
+    <div className="HomePage" style={{width: '100vw', minHeight: '800px' ,minWidth:'1200px',height: '100vh', position: 'relative', background: 'white'}}>
       <div className="MainFrame" style={{width: 800, height: 675, position: 'absolute', left: 'calc(50% + 33px)', top: '50%', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center', gap: 64, display: 'inline-flex', transform: 'translate(-50%, -50%)',}}>
         <div className="ChatPubTitle" style={{height: 219, flexDirection: 'column', justifyContent: 'center', alignItems: 'center', gap: 12, display: 'flex'}}>
           <img className="Chatpub" alt="mainChat" style={{width: 120, height: 115}} src={mainchat} />
