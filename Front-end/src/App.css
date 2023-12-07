@@ -20,6 +20,7 @@ body{
   min-height: 100vh;
   display: flex;
   background: #FFFFFF;
+  min-width: 1200px;
 
 
 }
@@ -120,6 +121,7 @@ body{
 .main{
   flex: 9;
   min-height: calc(100vh - 14rem);
+
   display: flex;
   flex-direction: column;
   align-items: center;
