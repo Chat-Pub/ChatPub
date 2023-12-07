@@ -82,49 +82,49 @@ const UserInfo = () => {
     <div className="HomePage" style={{minWidth: '1000px', minHeight: '800px', width: '100vw', height: '100vh', position: 'relative', background: 'white'}}>
       
       <div className="MainFrame" style={{width: 800, height: 675, position: 'absolute', left: 'calc(50% + 33px)', top: '50%', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center', gap: 64, display: 'inline-flex', transform: 'translate(-50%, -50%)',}}>
-        <div className="PersonalInfoTitle" style={{width: 197.14, height: 41, color: '#484848', fontSize: 32, fontFamily: 'Roboto', fontWeight: '800', wordWrap: 'break-word'}}>Personal Info</div>
+        <div className="PersonalInfoTitle" style={{width: 197.14, height: 41, color: '#484848', fontSize: 32, fontFamily: 'Poppins', fontWeight: '800', wordWrap: 'break-word'}}>Personal Info</div>
         {/* Personal Info */}
         <div className="PersonalInfoSettings" style={{paddingBottom: 73, paddingRight: 436.67, left: 80, top: 108, position: 'absolute', justifyContent: 'flex-start', alignItems: 'center', display: 'inline-flex'}}>
             <div className="Settings" style={{width: 437.33, alignSelf: 'stretch', paddingBottom: 91, paddingLeft: 8, flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', display: 'inline-flex'}}>
                 <div className="BirthContainer" style={{width: 595.33, height: 91, paddingTop: 24, paddingBottom: 25, borderBottom: '1px #d3d3d3 solid', justifyContent: 'center', alignItems: 'center', display: 'flex'}}>
                     <div className="BirthOption" style={{width: 595.33, height: 42, position: 'relative', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', display: 'flex'}}>
                         <div className="BirthRow" style={{width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start'}}>
-                            <div className="Birth" style={{color: '#222222', fontSize: 16, fontFamily: 'Roboto', fontWeight: '400', wordWrap: 'break-word'}}>Birth</div>
+                            <div className="Birth" style={{color: '#222222', fontSize: 16, fontFamily: 'Poppins', fontWeight: '400', wordWrap: 'break-word'}}>Birth</div>
                         </div>
-                        <div className="BirthInfo" style={{position:'absolute', top:40,left:0 ,color:'#717171', fontSize: 14, fontFamily: 'Roboto', fontWeight: '400', wordWrap: 'break-word'}}>{birth}</div>
+                        <div className="BirthInfo" style={{position:'absolute', top:40,left:0 ,color:'#717171', fontSize: 14, fontFamily: 'Poppins', fontWeight: '400', wordWrap: 'break-word'}}>{birth}</div>
                     </div>
                 </div>
 
                 <div className="GenderContainer" style={{width: 595.33, height: 91, paddingTop: 24, paddingBottom: 25, borderBottom: '1px #d3d3d3 solid', justifyContent: 'center', alignItems: 'center', display: 'flex'}}>
                     <div className="GenderOption" style={{width: 595.33, height: 42, position: 'relative', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', display: 'flex'}}>
                         <div className="GenderRow" style={{width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start'}}>
-                            <div className="Gender" style={{color: '#222222', fontSize: 16, fontFamily: 'Roboto', fontWeight: '400',  wordWrap: 'break-word'}}>Gender</div>
+                            <div className="Gender" style={{color: '#222222', fontSize: 16, fontFamily: 'Poppins', fontWeight: '400',  wordWrap: 'break-word'}}>Gender</div>
                         </div>
-                        <div className="GenderInfo" style={{position:'absolute', top:40,left:0,color: '#717171', fontSize: 14, fontFamily: 'Roboto', fontWeight: '400', wordWrap: 'break-word'}}>{gender}</div>
+                        <div className="GenderInfo" style={{position:'absolute', top:40,left:0,color: '#717171', fontSize: 14, fontFamily: 'Poppins', fontWeight: '400', wordWrap: 'break-word'}}>{gender}</div>
                     </div>
                 </div>
                 <div className="JobContainer" style={{width: 595.33, height: 109, paddingTop: 24, paddingBottom: 25, borderBottom: '1px #d3d3d3 solid', justifyContent: 'center', alignItems: 'center', display: 'flex'}}>
                     <div className="JobOption" style={{width: 595.33, height: 42, position: 'relative', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', display: 'flex'}}>
                         <div className="JobRow" style={{width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start'}}>
-                            <div className="Job" style={{color: '#222222', fontSize: 16, fontFamily: 'Roboto', fontWeight: '400', wordWrap: 'break-word'}}>Occupation</div>
+                            <div className="Job" style={{color: '#222222', fontSize: 16, fontFamily: 'Poppins', fontWeight: '400', wordWrap: 'break-word'}}>Occupation</div>
                         </div>
-                        <div className="JobInfo" style={{position:'absolute', top:40,left:0,color: '#717171', fontSize: 14, fontFamily: 'Roboto', fontWeight: '400', wordWrap: 'break-word'}}>{job}</div>
+                        <div className="JobInfo" style={{position:'absolute', top:40,left:0,color: '#717171', fontSize: 14, fontFamily: 'Poppins', fontWeight: '400', wordWrap: 'break-word'}}>{job}</div>
                     </div>
                 </div>
                 <div className="RegionContainer" style={{width: 595.33, height: 91, paddingTop: 24, paddingBottom: 25, borderBottom: '1px #d3d3d3 solid', justifyContent: 'center', alignItems: 'center', display: 'flex'}}>
                     <div className="RegionOption" style={{width: 595.33, height: 42, position: 'relative', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', display: 'flex'}}>
                         <div className="RegionRow" style={{width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start'}}>
-                            <div className="RegionTitle" style={{color: '#222222', fontSize: 16, fontFamily: 'Roboto', fontWeight: '400',  wordWrap: 'break-word'}}>Region/Address</div>
+                            <div className="RegionTitle" style={{color: '#222222', fontSize: 16, fontFamily: 'Poppins', fontWeight: '400',  wordWrap: 'break-word'}}>Region/Address</div>
                         </div>
-                        <div className="RegionInfo" style={{position:'absolute', top:40,left:0,color: '#717171', fontSize: 14, fontFamily: 'Roboto', fontWeight: '400',  wordWrap: 'break-word'}}>{region}</div>
+                        <div className="RegionInfo" style={{position:'absolute', top:40,left:0,color: '#717171', fontSize: 14, fontFamily: 'Poppins', fontWeight: '400',  wordWrap: 'break-word'}}>{region}</div>
                     </div>
                 </div>
                 <div className="MoneyContainer" style={{width: 595.33, height: 91, paddingTop: 24, paddingBottom: 25, borderBottom: '1px #d3d3d3 solid', justifyContent: 'center', alignItems: 'center', display: 'flex'}}>
                     <div className="MoneyOption" style={{width: 595.33, height: 42, position: 'relative', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', display: 'flex'}}>
                         <div className="MoneyRow" style={{width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start'}}>
-                            <div className="Money" style={{color: '#222222', fontSize: 16, fontFamily: 'Roboto', fontWeight: '400',  wordWrap: 'break-word'}}>Profit</div>
+                            <div className="Money" style={{color: '#222222', fontSize: 16, fontFamily: 'Poppins', fontWeight: '400',  wordWrap: 'break-word'}}>Profit</div>
                         </div>
-                        <div className="MoneyInfo" style={{position:'absolute', top:40,left:0,color: '#717171', fontSize: 14, fontFamily: 'Roboto', fontWeight: '400',  wordWrap: 'break-word'}}>{money}</div>
+                        <div className="MoneyInfo" style={{position:'absolute', top:40,left:0,color: '#717171', fontSize: 14, fontFamily: 'Poppins', fontWeight: '400',  wordWrap: 'break-word'}}>{money}</div>
                     </div>
                 </div>
             </div>
@@ -133,7 +133,7 @@ const UserInfo = () => {
         <Link to="/DetailEdit">
         <div className="EditButton" style={{ left: 274, width: 470, height: 45,  bottom: 20, position: 'absolute' }}>
             <div className="Rectangle4" style={{ width: '50%', height: '100%', position: 'absolute', background: '#35CCED', borderRadius: 10 }}></div>
-            <div className="Edit" style={{ left: '95px', bottom: '50%', position: 'absolute', width: '100%', transform: 'translateY(50%)', color: 'white', fontSize: 24, fontFamily: 'Roboto', fontWeight: '900', wordWrap: 'break-word' }}>Edit </div>
+            <div className="Edit" style={{ left: '95px', bottom: '50%', position: 'absolute', width: '100%', transform: 'translateY(50%)', color: 'white', fontSize: 24, fontFamily: 'Poppins', fontWeight: '900', wordWrap: 'break-word' }}>Edit </div>
         </div>
         </Link>
 

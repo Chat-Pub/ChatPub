@@ -41,7 +41,7 @@ function Home() {
         <div className="ChatPubTitle" style={{height: 219, flexDirection: 'column', justifyContent: 'center', alignItems: 'center', gap: 12, display: 'flex'}}>
           <img className="Chatpub" alt="mainChat" style={{width: 120, height: 115}} src={mainchat} />
           <div className="ChatPub" style={{color: 'black', fontSize: 40, fontFamily: 'Poppins', fontWeight: 800, wordWrap: 'break-word'}}>CHAT-PUB</div>
-          <div className="VersionInfo" style={{color: '#919191', fontSize: 16, fontFamily: 'Inter', fontWeight: '400', lineHeight: 2, wordWrap: 'break-word'}}>Ver. 1.0.1</div>
+          <div className="VersionInfo" style={{color: '#919191', fontSize: 16, fontFamily: 'Poppins', fontWeight: '400', lineHeight: 2, wordWrap: 'break-word'}}>Ver. 1.0.1</div>
         </div>
         <div className="Homeinfo" style={{width: 800, justifyContent: 'flex-start', alignItems: 'flex-start', gap: 24, display: 'inline-flex'}}>
           <div className="Examples" style={{flex: '1 1 0', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', gap: 16, display: 'inline-flex'}}>
@@ -100,12 +100,12 @@ function Home() {
                 </div>
                 <div className="Limitationinfo" style={{alignSelf: 'stretch', height: 73, flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', gap: 12, display: 'flex'}}>
                   <div className="Limitations" style={{alignSelf: 'stretch', color: 'black', fontSize: 18, fontFamily: 'Poppins', fontWeight: '600', wordWrap: 'break-word'}}>Limitations</div>
-                  <div className="Text" style={{alignSelf: 'stretch', color: '#919191', fontSize: 14, fontFamily: 'Inter', fontWeight: '400', wordWrap: 'break-word'}}>May occasionally generate incorrect information</div>
+                  <div className="Text" style={{alignSelf: 'stretch', color: '#919191', fontSize: 14, fontFamily: 'Poppins', fontWeight: '400', wordWrap: 'break-word'}}>May occasionally generate incorrect information</div>
                 </div>
               </div>
             </div>
             <div className="Limitation2" style={{alignSelf: 'stretch', height: 78, paddingLeft: 24, paddingRight: 24, paddingTop: 20, paddingBottom: 20, background: 'white', borderRadius: 12, overflow: 'hidden', border: '2px #E7E7E7 solid', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', gap: 10, display: 'flex'}}>
-              <div className="Limitationinfo" style={{alignSelf: 'stretch', color: '#919191', fontSize: 14, fontFamily: 'Inter', fontWeight: '400', wordWrap: 'break-word'}}>It does not guarantee. Please use with caution.</div>
+              <div className="Limitationinfo" style={{alignSelf: 'stretch', color: '#919191', fontSize: 14, fontFamily: 'Poppins', fontWeight: '400', wordWrap: 'break-word'}}>It does not guarantee. Please use with caution.</div>
             </div>
             <div className="Limitation3" style={{alignSelf: 'stretch', height: 97, paddingLeft: 24, paddingRight: 24, paddingTop: 20, paddingBottom: 20, background: 'white', borderRadius: 12, overflow: 'hidden', border: '2px #E7E7E7 solid', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', gap: 10, display: 'flex'}}>
               <div className="Limitationinfo" style={{alignSelf: 'stretch', color: '#919191', fontSize: 14, fontFamily: 'Poppins', fontWeight: '400',wordWrap: 'break-word'}}>Limited knowledge of policy <br/></div>
