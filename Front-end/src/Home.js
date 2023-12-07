@@ -1,10 +1,12 @@
-import React from 'react'
-import { Router, Route, Routes, Link} from 'react-router-dom';
+import React, { useEffect } from 'react'
+import {Link} from 'react-router-dom';
+import { useState } from 'react';
 
 import mainchat from './assets/mainchat.png';
 import govmark from './assets/gov.png';
 import chatmenu from './assets/chat.svg';
 import searchmenu from './assets/search.svg';
+import logout from './assets/logout.svg';
 import homemenu from './assets/home.svg';
 import user from './assets/user.svg';
 import comet from './assets/comet.svg';
@@ -12,7 +14,26 @@ import bolt from './assets/bolt.svg';
 import sparkles from './assets/sparkles.svg';
 
 function Home() {
+  const [isLogin, setIsLogin] = useState(false);
 
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token === null) {
+      setIsLogin(false);
+    }
+    else {
+      setIsLogin(true);
+    }
+  }, []);
+
+ const handleLogout = () => {
+    localStorage.removeItem('token');
+    setIsLogin(false);
+    window.location.href = "/HomePage";
+  }
+ 
+
+  
 
   return (
     <div className="HomePage" style={{width: '100vw', height: '100vh', position: 'relative', background: 'white'}}>
@@ -118,9 +139,19 @@ function Home() {
           </div>
         </div>
           <div className ="userIcon" style={{ position:'absolute',bottom: 0, width: '100%', background: 'white', zIndex: 1000, display: 'flex', justifyContent: 'center', alignItems: 'center', padding: '8px' }}>
+              {!isLogin && (
               <Link to ="/Login">
-                <img className="UserIcon" style={{width: 45, height: 68}} src={user} alt ="UserIcon"/>      
-              </Link>
+              <img className="UserIcon" style={{width: 45, height: 68}} src={user} alt ="UserIcon"/>      
+              </Link>)}
+
+              {isLogin && (
+              <div>
+                <Link to ="/Detail">
+                  <img className="UserIcon" style={{width: 45, height: 68}} src={user} alt ="UserIcon"/>      
+                </Link>
+                <img className="Logout" style={{width: 45, height: 68}} src={logout} alt ="ExitIcon" onClick={() => handleLogout(true)}/>      
+              </div>
+              )}
           </div>
       </div>
     </div>

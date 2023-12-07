@@ -25,7 +25,7 @@ body{
 /* sidebar */
 .sidebar{
   flex: 3;
-  border-right: 1px solid rgba(255, 255, 255, 0.1);
+  border-right: 1px solid rgb(255, 255, 255);
 }
 
 
@@ -165,6 +165,8 @@ body{
   align-items: center;
   justify-content: center;
 }
+
+
 
 .inp{
   padding: 0.5rem;

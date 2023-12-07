@@ -15,7 +15,7 @@ import mainchat from './assets/mainchat.png';
  import {useEffect, useRef,useState} from 'react';
  import { Link } from 'react-router-dom';
 
- var selectedFolderId = 0;
+
 
 function App() {
   const msgEnd = useRef(null);
@@ -34,6 +34,7 @@ function App() {
   const [newChatFolderName, setNewChatFolderName] = useState('');
   const [isModalOpen2, setIsModalOpen2] = useState(false);
   const [editFolderName, setEditFolderName] = useState('');
+  const [isChatRoom, setIsChatRoom] = useState(false);
   
   //folder id fetch
   const [folders, setFolders] = useState([]);
@@ -90,7 +91,7 @@ function App() {
   //Folder Name Edit Modal
   const handleEditFolderClick = (folderName, folderId) => {
     setEditFolderName(folderName);
-    selectedFolderId = folderId;
+    localStorage.setItem('folderId', folderId);
     setIsModalOpen2(true);
   };
 
@@ -100,7 +101,7 @@ function App() {
 
     const handleEditFolder = async () => {
     // Here you can send the newChatFolderName to your database or perform any other action
-    console.log('Folder name Edited:', editFolderName, selectedFolderId);
+    console.log('Folder name Edited:', editFolderName, localStorage.getItem('folderId'));
     try {
       await fetch('http://127.0.0.1:8000/api/folder/update', {
         method: 'PUT',
@@ -110,7 +111,7 @@ function App() {
         },
         body: JSON.stringify({
           folder_name: editFolderName,
-          folder_id: selectedFolderId,
+          folder_id: localStorage.getItem('folderId'),
         }),
       });
       setConditionFolder(conditionFolder + 1);
@@ -130,7 +131,7 @@ function App() {
 
   // Call Chat GPT 
   const handleChatRoom = async () => {
-    console.log('Folder id handle chat room:', selectedFolderId);
+    console.log('Folder id handle chat room:', localStorage.getItem('folderId'));
     try {
       await fetch('http://127.0.0.1:8000/api/folder_content/list',{
         method: 'POST',
@@ -139,12 +140,13 @@ function App() {
           authorization: `Bearer ${localStorage.getItem('token')}`,
         },
         body: JSON.stringify({
-          folder_id: selectedFolderId,
+          folder_id: localStorage.getItem('folderId'),
         }),
       })
       .then(response => response.json())
       .then(data =>  {
         console.log('data:', data)
+        setIsChatRoom(true);
         if (data.total === 0) {
           setMessages([
             {
@@ -180,7 +182,7 @@ function App() {
 
   const handleRoomId = (folderId) => {
     console.log('Folder id room id :', folderId);
-    selectedFolderId = folderId;
+    localStorage.setItem('folderId', folderId);
     handleChatRoom();
     // console.log('Folder id:', selectedFolderId); 
     // handleChatRoom();
@@ -202,7 +204,7 @@ function App() {
       {text, isBot : false},
       {text: 'Loading...', isBot : true}
     ])
-      console.log('Folder id handle send:', selectedFolderId);
+      console.log('Folder id handle send:', localStorage.getItem('folderId'));
       try {
       await fetch('http://127.0.0.1:8000/api/folder_content/create', {
         method: 'POST',
@@ -211,12 +213,21 @@ function App() {
           authorization: `Bearer ${localStorage.getItem('token')}`,
         },
         body: JSON.stringify({
-          folder_id: selectedFolderId,
+          folder_id: localStorage.getItem('folderId'),
           question: text,
         }),
       })
       .then(response => response.json())
       .then(data =>  {
+        if (data.references === '') {
+          setMessages([
+            ...messages, 
+            {text, isBot : false},
+            {text: data.answer, isBot : true},
+          ])
+          return;
+        }
+
         setMessages([
           ...messages, 
           {text, isBot : false},
@@ -344,10 +355,20 @@ function App() {
         </div>
 
         <div className='chatFooter'>
+          {!isChatRoom && (
+            <div className='inp'>
+              <input type ="text" placeholder='Choose or Create Chat room First' value = {input} style={{ fontWeight:"600px", fontSize:'26px' }} />
+              <button className='send' ><img src ={sendBtn} alt ="Send"/></button>
+           </div>
+
+          )
+          }
+          {isChatRoom && (
           <div className='inp'>
             <input type ="text" placeholder='Send a Message ...' value = {input} onKeyDown = {handleEnter} onChange={(e)=> {setInput(e.target.value)}} />
             <button className='send' onClick={handleSend}><img src ={sendBtn} alt ="Send"/></button>
           </div>
+            )}
         </div>
       </div>
       
