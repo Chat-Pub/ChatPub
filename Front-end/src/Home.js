@@ -36,8 +36,8 @@ function Home() {
   
 
   return (
-    <div className="HomePage" style={{width: '100vw', height: '100vh', position: 'relative', background: 'white'}}>
-      <div className="MainFrame" style={{width: 800, height: 675, position: 'absolute', left: '50%', top: '50%', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center', gap: 64, display: 'inline-flex', transform: 'translate(-50%, -50%)',}}>
+    <div className="HomePage" style={{width: '100vw', minHeight: '800px' ,height: '100vh', position: 'relative', background: 'white'}}>
+      <div className="MainFrame" style={{width: 800, height: 675, position: 'absolute', left: 'calc(50% + 33px)', top: '50%', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center', gap: 64, display: 'inline-flex', transform: 'translate(-50%, -50%)',}}>
         <div className="ChatPubTitle" style={{height: 219, flexDirection: 'column', justifyContent: 'center', alignItems: 'center', gap: 12, display: 'flex'}}>
           <img className="Chatpub" alt="mainChat" style={{width: 120, height: 115}} src={mainchat} />
           <div className="ChatPub" style={{color: 'black', fontSize: 40, fontFamily: 'Poppins', fontWeight: 800, wordWrap: 'break-word'}}>CHAT-PUB</div>
@@ -45,7 +45,7 @@ function Home() {
         </div>
         <div className="Homeinfo" style={{width: 800, justifyContent: 'flex-start', alignItems: 'flex-start', gap: 24, display: 'inline-flex'}}>
           <div className="Examples" style={{flex: '1 1 0', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', gap: 16, display: 'inline-flex'}}>
-            <div className="Example1" style={{alignSelf: 'stretch', height: 185, paddingLeft: 24, paddingRight: 24, paddingTop: 20, paddingBottom: 20, background: 'white', borderRadius: 12, overflow: 'hidden', border: '2px #E7E7E7 solid', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', gap: 10, display: 'flex'}}>
+            <div className="Example1" style={{alignSelf: 'stretch', height: 180, paddingLeft: 24, paddingRight: 24, paddingTop: 20, paddingBottom: 20, background: 'white', borderRadius: 12, overflow: 'hidden', border: '2px #E7E7E7 solid', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', gap: 10, display: 'flex'}}>
               <div className="Examplemain" style={{alignSelf: 'stretch', height: 145, flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', gap: 20, display: 'flex'}}>
                 <div className="Exampleicon" style={{padding: 12, background: '#F8F8F8', borderRadius: 90, justifyContent: 'flex-start', alignItems: 'flex-start', gap: 10, display: 'inline-flex'}}>
                   <div className="Sparkles" style={{width: 24, height: 24, padding: 3, justifyContent: 'center', alignItems: 'center', display: 'flex'}}>
@@ -86,7 +86,7 @@ function Home() {
             <div className="Capapbility2" style={{alignSelf: 'stretch', height: 78, paddingLeft: 24, paddingRight: 24, paddingTop: 20, paddingBottom: 20, background: 'white', borderRadius: 12, overflow: 'hidden', border: '2px #E7E7E7 solid', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', gap: 10, display: 'flex'}}>
               <div className="Capabilityinfo" style={{alignSelf: 'stretch', color: '#919191', fontSize: 14, fontFamily: 'Poppins', fontWeight: '400', wordWrap: 'break-word'}}>Allows user to provide follow-up corrections</div>
             </div>
-            <div className="Capapbility3" style={{alignSelf: 'stretch', height: 78, paddingLeft: 24, paddingRight: 24, paddingTop: 20, paddingBottom: 20, background: 'white', borderRadius: 12, overflow: 'hidden', border: '2px #E7E7E7 solid', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', gap: 10, display: 'flex'}}>
+            <div className="Capapbility3" style={{alignSelf: 'stretch', height: 97, paddingLeft: 24, paddingRight: 24, paddingTop: 20, paddingBottom: 20, background: 'white', borderRadius: 12, overflow: 'hidden', border: '2px #E7E7E7 solid', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', gap: 10, display: 'flex'}}>
               <div className="Capabilityinfo" style={{alignSelf: 'stretch', color: '#919191', fontSize: 14, fontFamily: 'Poppins', fontWeight: '400', wordWrap: 'break-word'}}>Trained to decline inappropriate requests</div>
             </div>
           </div>
@@ -107,13 +107,13 @@ function Home() {
             <div className="Limitation2" style={{alignSelf: 'stretch', height: 78, paddingLeft: 24, paddingRight: 24, paddingTop: 20, paddingBottom: 20, background: 'white', borderRadius: 12, overflow: 'hidden', border: '2px #E7E7E7 solid', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', gap: 10, display: 'flex'}}>
               <div className="Limitationinfo" style={{alignSelf: 'stretch', color: '#919191', fontSize: 14, fontFamily: 'Inter', fontWeight: '400', wordWrap: 'break-word'}}>It does not guarantee. Please use with caution.</div>
             </div>
-            <div className="Limitation3" style={{alignSelf: 'stretch', height: 78, paddingLeft: 24, paddingRight: 24, paddingTop: 20, paddingBottom: 20, background: 'white', borderRadius: 12, overflow: 'hidden', border: '2px #E7E7E7 solid', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', gap: 10, display: 'flex'}}>
+            <div className="Limitation3" style={{alignSelf: 'stretch', height: 97, paddingLeft: 24, paddingRight: 24, paddingTop: 20, paddingBottom: 20, background: 'white', borderRadius: 12, overflow: 'hidden', border: '2px #E7E7E7 solid', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', gap: 10, display: 'flex'}}>
               <div className="Limitationinfo" style={{alignSelf: 'stretch', color: '#919191', fontSize: 14, fontFamily: 'Poppins', fontWeight: '400',wordWrap: 'break-word'}}>Limited knowledge of policy <br/></div>
             </div>
           </div>
         </div>
       </div>
-      <div className="Sidebar" style={{width: 66, height: '100vh', paddingTop: 16, paddingBottom: 24, paddingLeft: 16, paddingRight: 16, left: 0, top: -1, position: 'absolute', background: 'white', boxShadow: '0px 0px 24px rgba(0, 0, 0, 0.08)', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center', gap: 41, display: 'inline-flex'}}>
+      <div className="Sidebar" style={{width: 66, minHeight: 800 ,height: '100vh', paddingTop: 16, paddingBottom: 24, paddingLeft: 16, paddingRight: 16, left: 0, top: -1, position: 'absolute', background: 'white', boxShadow: '0px 0px 24px rgba(0, 0, 0, 0.08)', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center', gap: 41, display: 'inline-flex'}}>
         <div className="Govmark" style={{width: 69, height: 68, justifyContent: 'center', alignItems: 'center', display: 'inline-flex'}}>
           <img className="Govmark" style={{width: 50, height: 50}} src={govmark} alt ="Govmenu"/>
         </div>
